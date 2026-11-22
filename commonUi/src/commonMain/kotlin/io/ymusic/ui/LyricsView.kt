@@ -2,7 +2,6 @@ package io.ymusic.ui
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,11 +25,10 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.clipPath
@@ -58,7 +56,6 @@ import io.ymusic.player.Progress
 import kotlinx.coroutines.delay
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.math.abs
-import kotlin.math.min
 
 /** What the lyrics pane shows for the current track. */
 sealed interface LyricsUiState {
@@ -109,14 +106,34 @@ internal fun rememberLyricsState(graph: AppGraph, item: PlayableItem?): LyricsUi
 @Composable
 internal fun rememberLyricsClock(progress: Progress, playing: Boolean): State<Long> {
     val position = remember { mutableLongStateOf(progress.positionMs) }
+    val anchorPos = remember { mutableLongStateOf(progress.positionMs) }
+    val anchorNanos = remember { mutableLongStateOf(0L) }
+    val latestProgress by rememberUpdatedState(progress.positionMs)
+
     LaunchedEffect(progress.positionMs, playing) {
-        val base = progress.positionMs
-        position.longValue = base
-        if (playing) {
-            val t0 = withFrameNanos { it }
-            while (true) {
-                val t = withFrameNanos { it }
-                position.longValue = base + (t - t0) / 1_000_000L
+        val reported = progress.positionMs
+        if (!playing) {
+            anchorPos.longValue = reported
+            anchorNanos.longValue = 0L
+            position.longValue = reported
+        } else if (anchorNanos.longValue == 0L || abs(reported - position.longValue) > 250L) {
+            anchorPos.longValue = reported
+            anchorNanos.longValue = withFrameNanos { it }
+            position.longValue = reported
+        }
+    }
+
+    LaunchedEffect(playing) {
+        if (!playing) return@LaunchedEffect
+        if (anchorNanos.longValue == 0L) {
+            anchorPos.longValue = latestProgress
+            anchorNanos.longValue = withFrameNanos { it }
+        }
+        while (true) {
+            val now = withFrameNanos { it }
+            val startNanos = anchorNanos.longValue
+            if (startNanos > 0L) {
+                position.longValue = anchorPos.longValue + (now - startNanos) / 1_000_000L
             }
         }
     }
@@ -243,15 +260,11 @@ private fun LyricLineRow(
         d == 1 -> 0.45f
         else -> (0.4f - 0.025f * abs(d)).coerceAtLeast(0.3f)
     }
-    val targetBlur = if (!synced || d == 0 || d == 1) 0f else min(1.2f + abs(d) * 0.9f, 5f)
-    // Spring, not tween: the line lights and dims with a natural settle, and the active line's
-    // touch of scale eases in the same beat.
     val lineAlpha by animateFloatAsState(
         targetAlpha,
         spring(stiffness = 380f, dampingRatio = 0.9f, visibilityThreshold = 0.01f),
         label = "lyricAlpha",
     )
-    val blurDp by animateFloatAsState(targetBlur, tween(400), label = "lyricBlur")
     val lineScale by animateFloatAsState(
         if (active) 1f else 0.985f,
         spring(stiffness = 320f, dampingRatio = 0.85f, visibilityThreshold = 0.002f),
@@ -273,8 +286,7 @@ private fun LyricLineRow(
                 alpha = lineAlpha
                 scaleX = lineScale
                 scaleY = lineScale
-            }
-            .then(if (blurDp > 0.1f) Modifier.blur(blurDp.dp, BlurredEdgeTreatment.Unbounded) else Modifier),
+            },
     ) {
         if (showGap) {
             GapDots(progress = { timeline.gapProgress(positionMs()) ?: 0f }, Modifier.padding(bottom = 12.dp))
