@@ -1,5 +1,6 @@
 package io.ymusic.desktop
 
+import io.ymusic.ui.VerreIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,14 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.SkipNext
-import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -187,7 +180,7 @@ private fun MiniPlayerContent(graph: AppGraph, onOpenApp: () -> Unit, onClose: (
                     .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(Icons.Default.MusicNote, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                Icon(VerreIcons.MusicNote, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 val loader = graph.imageLoader
                 val art = item?.displayThumbnailUrl
                 if (loader != null && art != null) {
@@ -217,10 +210,10 @@ private fun MiniPlayerContent(graph: AppGraph, onOpenApp: () -> Unit, onClose: (
                 }
             }
             IconButton(onClick = onOpenApp, modifier = Modifier.size(30.dp).a11yActionLabel(stringResource(Res.string.cd_open_app))) {
-                Icon(Icons.AutoMirrored.Filled.OpenInNew, null, Modifier.size(16.dp))
+                Icon(VerreIcons.OpenInNew, null, Modifier.size(16.dp))
             }
             IconButton(onClick = onClose, modifier = Modifier.size(30.dp).a11yActionLabel(stringResource(Res.string.cd_close))) {
-                Icon(Icons.Default.Close, null, Modifier.size(16.dp))
+                Icon(VerreIcons.Close, null, Modifier.size(16.dp))
             }
         }
 
@@ -279,19 +272,19 @@ private fun MiniPlayerContent(graph: AppGraph, onOpenApp: () -> Unit, onClose: (
                 onClick = { player.skipPrev() },
                 modifier = Modifier.size(32.dp).a11yActionLabel(stringResource(Res.string.cd_previous)),
             ) {
-                Icon(Icons.Default.SkipPrevious, null, Modifier.size(20.dp))
+                Icon(VerreIcons.SkipPrevious, null, Modifier.size(20.dp))
             }
             IconButton(
                 onClick = { player.togglePlay() },
                 modifier = Modifier.size(36.dp).a11yActionLabel(stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play)),
             ) {
-                Icon(if (playing) Icons.Default.Pause else Icons.Default.PlayArrow, null, Modifier.size(26.dp))
+                Icon(if (playing) VerreIcons.Pause else VerreIcons.PlayArrow, null, Modifier.size(26.dp))
             }
             IconButton(
                 onClick = { player.skipNext() },
                 modifier = Modifier.size(32.dp).a11yActionLabel(stringResource(Res.string.cd_next)),
             ) {
-                Icon(Icons.Default.SkipNext, null, Modifier.size(20.dp))
+                Icon(VerreIcons.SkipNext, null, Modifier.size(20.dp))
             }
         }
     }

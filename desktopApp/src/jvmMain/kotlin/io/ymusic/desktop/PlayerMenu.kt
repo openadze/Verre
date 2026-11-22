@@ -1,10 +1,6 @@
 package io.ymusic.desktop
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Stop
+import io.ymusic.ui.VerreIcons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -94,10 +90,10 @@ internal fun JumpListTasks(exe: String, playing: Boolean, hasQueue: Boolean, log
     val stopLabel = stringResource(Res.string.tray_stop)
     val quitLabel = stringResource(Res.string.tray_quit)
     val glyphs = mapOf(
-        "toggle-true" to rememberVectorPainter(Icons.Default.Pause),
-        "toggle-false" to rememberVectorPainter(Icons.Default.PlayArrow),
-        "stop" to rememberVectorPainter(Icons.Default.Stop),
-        "quit" to rememberVectorPainter(Icons.AutoMirrored.Filled.ExitToApp),
+        "toggle-true" to rememberVectorPainter(VerreIcons.Pause),
+        "toggle-false" to rememberVectorPainter(VerreIcons.PlayArrow),
+        "stop" to rememberVectorPainter(VerreIcons.Stop),
+        "quit" to rememberVectorPainter(VerreIcons.ExitToApp),
     )
     var icons by remember { mutableStateOf<Map<String, File>?>(null) }
     LaunchedEffect(Unit) {

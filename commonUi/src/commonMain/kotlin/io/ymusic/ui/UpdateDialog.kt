@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -239,7 +237,7 @@ fun CheckUpdateDialog(graph: AppGraph, onDone: (found: Boolean) -> Unit) {
                     Text(stringResource(Res.string.update_checking), style = TextStyle(fontSize = 14.sp, color = DesignColors.Ink))
                 }
                 UpdateCheck.UpToDate -> {
-                    Icon(Icons.Rounded.CheckCircle, null, Modifier.size(22.dp), tint = DesignColors.BrandGreen)
+                    Icon(VerreIcons.CheckCircle, null, Modifier.size(22.dp), tint = DesignColors.BrandGreen)
                     Text(stringResource(Res.string.update_up_to_date), style = TextStyle(fontSize = 14.sp, color = DesignColors.Ink))
                 }
                 else -> Text(

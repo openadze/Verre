@@ -17,9 +17,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -184,7 +181,7 @@ private fun PlayAgainCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = DesignSpacing.Space8),
         ) {
-            LibraryThumb(Icons.Default.MusicNote, badge = null, artUrl = session.thumbnailUrl)
+            LibraryThumb(VerreIcons.MusicNote, badge = null, artUrl = session.thumbnailUrl)
             Column(Modifier.weight(1f)) {
                 Text(
                     session.title,
@@ -209,7 +206,7 @@ private fun PlayAgainCard(
             modifier = Modifier.padding(end = DesignSpacing.Space8),
         ) {
             QueueStrip(session, Modifier.weight(1f).a11ySilent())
-            PlayPill(Icons.Default.PlayArrow, stringResource(Res.string.play_again_resume), filled = false, onClick = onPlay)
+            PlayPill(VerreIcons.PlayArrow, stringResource(Res.string.play_again_resume), filled = false, onClick = onPlay)
         }
     }
 }
@@ -239,7 +236,7 @@ private fun QueueStrip(session: PlayAgainSession, modifier: Modifier) {
                         .clip(tileShape),
                     contentAlignment = Alignment.Center,
                 ) {
-                    ArtImage(url, tileShape) { ThumbPlaceholder(Icons.Default.MusicNote, 14.dp) }
+                    ArtImage(url, tileShape) { ThumbPlaceholder(VerreIcons.MusicNote, 14.dp) }
                 }
             }
             if (more > 0) {

@@ -39,45 +39,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
-import androidx.compose.material.icons.automirrored.outlined.QueueMusic
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.ClosedCaption
-import androidx.compose.material.icons.filled.CropFree
-import androidx.compose.material.icons.filled.DragHandle
-import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.FastForward
-import androidx.compose.material.icons.filled.FastRewind
-import androidx.compose.material.icons.filled.FitScreen
-import androidx.compose.material.icons.filled.Fullscreen
-import androidx.compose.material.icons.filled.FullscreenExit
-import androidx.compose.material.icons.filled.GpsFixed
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Repeat
-import androidx.compose.material.icons.filled.RepeatOne
-import androidx.compose.material.icons.filled.ScreenRotation
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.filled.SkipNext
-import androidx.compose.material.icons.filled.SkipPrevious
-import androidx.compose.material.icons.filled.StayCurrentLandscape
-import androidx.compose.material.icons.filled.StayCurrentPortrait
-import androidx.compose.material.icons.outlined.ClosedCaptionOff
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Equalizer
-import androidx.compose.material.icons.outlined.FileDownload
-import androidx.compose.material.icons.outlined.GraphicEq
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Lyrics
-import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -149,7 +110,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import io.ymusic.dynamicengine.yt.YtFeedItem
 import io.ymusic.mediastore.model.MediaStoreItem
 import io.ymusic.player.LoopMode
@@ -330,9 +290,8 @@ fun MiniPlayer(
         ) {
             MiniArtTile(coordinator, item, surface, onExpand, Modifier.height(tileH).aspectRatio(16f / 9f), coverOnly = true)
             Column(
-                // Liquid Glass over the screens behind the bar; without a backdrop (desktop, glass off) the plain fill.
                 Modifier.weight(1f)
-                    .glassSurface(RectangleShape, fallback = DesignColors.SurfaceDim, tint = DesignColors.SurfaceDim.copy(alpha = 0.55f), refract = false)
+                    .background(DesignColors.SurfaceDim)
                     .onSizeChanged { colH = it.height },
             ) {
                 MiniProgress(progress, Modifier.fillMaxWidth().height(4.dp))
@@ -363,7 +322,7 @@ fun MiniPlayer(
                         ),
                     ) {
                         Icon(
-                            if (status.showsPause()) Icons.Default.Pause else Icons.Default.PlayArrow,
+                            if (status.showsPause()) VerreIcons.Pause else VerreIcons.PlayArrow,
                             null,
                             tint = DesignColors.InkMuted,
                         )
@@ -372,7 +331,7 @@ fun MiniPlayer(
                         onClick = { coordinator.player.skipNext() },
                         modifier = Modifier.a11yActionLabel(stringResource(Res.string.cd_next)),
                     ) {
-                        Icon(Icons.Default.SkipNext, null, tint = DesignColors.InkMuted)
+                        Icon(VerreIcons.SkipNext, null, tint = DesignColors.InkMuted)
                     }
                 }
             }
@@ -530,9 +489,8 @@ fun NowPlayingScreen(
 }
 
 /**
- * Now Playing's look (Apple Music's): a gradient taken from the cover as the ground, white ink over it, and Liquid
- * Glass controls refracting that gradient. The gradient is the glass source and a sibling of the content, never its
- * parent. Off for the desktop video hole (the window behind the compose tree is the picture) and full screen.
+ * Now Playing's look: a flat color taken from the cover as the ground, with white ink over it. The color sits
+ * behind the content as a sibling of it, never its parent. Off for the desktop video hole (the window behind the compose tree is the picture) and full screen.
  */
 @Composable
 private fun CoverLook(graph: AppGraph, coverUrl: String?, enabled: Boolean, content: @Composable () -> Unit) {
@@ -541,13 +499,9 @@ private fun CoverLook(graph: AppGraph, coverUrl: String?, enabled: Boolean, cont
         return
     }
     val palette = rememberCoverPalette(graph, coverUrl)
-    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }.collectAsStateWithLifecycle()
-    val backdrop = rememberLayerBackdrop()
     Box(Modifier.fillMaxSize()) {
-        CoverGradient(palette, Modifier.fillMaxSize().then(if (glassOn) Modifier.glassSource(backdrop) else Modifier))
-        CompositionLocalProvider(LocalGlassBackdrop provides if (glassOn) backdrop else null) {
-            CoverTheme(content)
-        }
+        CoverGradient(palette, Modifier.fillMaxSize())
+        CoverTheme(content)
     }
 }
 
@@ -782,7 +736,7 @@ private fun PortraitNowPlaying(
                     ) {
                         CaptionToggle(player, graph.settings, offTint = Color(0xFFDCDCDC))
                         ActionIcon(
-                            Icons.Default.Fullscreen,
+                            VerreIcons.Fullscreen,
                             stringResource(Res.string.cd_fullscreen),
                             tint = Color(0xFFDCDCDC),
                             onClick = onFullscreen,
@@ -831,15 +785,9 @@ private fun PortraitNowPlaying(
                 val headerColor by animateColorAsState(
                     if (pinned) DesignColors.SurfaceElevated else DesignColors.Surface,
                 )
-                // Over the cover gradient the pinned header is a glass bar; elsewhere the lifted, shadowed one.
+                // Over the cover color the pinned header is a plain elevated bar; elsewhere the lifted, shadowed one.
                 val pinnedLook = if (LocalCoverLook.current) {
-                    Modifier.glassSurface(
-                        RectangleShape,
-                        fallback = DesignColors.SurfaceElevated,
-                        tint = currentGlassStyle().tint,
-                        blurRadius = 14.dp,
-                        refract = false,
-                    )
+                    Modifier.background(DesignColors.SurfaceElevated)
                 } else {
                     Modifier.shadow(headerShadow).background(headerColor)
                 }
@@ -1092,7 +1040,7 @@ private fun BoxScope.VideoOverlayControls(
             Box(Modifier.weight(1f))
             CaptionToggle(player, coordinator.graph.settings, offTint = OverlayInk, iconSize = iconSize, hitSize = hitSize)
             ActionIcon(
-                Icons.Default.Fullscreen,
+                VerreIcons.Fullscreen,
                 stringResource(Res.string.cd_fullscreen),
                 iconSize = iconSize,
                 hitSize = hitSize,
@@ -1156,7 +1104,7 @@ private fun BoxScope.FullscreenVideoControls(
             if (onSelectRotation != null) RotationMenuButton(rotation, onSelectRotation, iconSize, hitSize)
             if (!showsAudioOnly(player)) {
                 ActionIcon(
-                    if (fillScreen) Icons.Default.FitScreen else Icons.Default.CropFree,
+                    if (fillScreen) VerreIcons.FitScreen else VerreIcons.CropFree,
                     stringResource(if (fillScreen) Res.string.cd_fit_video else Res.string.cd_fill_video),
                     iconSize = iconSize,
                     hitSize = hitSize,
@@ -1165,7 +1113,7 @@ private fun BoxScope.FullscreenVideoControls(
                 )
             }
             ActionIcon(
-                Icons.Default.FullscreenExit,
+                VerreIcons.FullscreenExit,
                 stringResource(Res.string.cd_exit_fullscreen),
                 iconSize = iconSize,
                 hitSize = hitSize,
@@ -1277,9 +1225,9 @@ private fun RotationMenuButton(rotation: VideoRotation, onSelect: (VideoRotation
 
 private val VideoRotation.icon: ImageVector
     get() = when (this) {
-        VideoRotation.Free -> Icons.Default.ScreenRotation
-        VideoRotation.Landscape -> Icons.Default.StayCurrentLandscape
-        VideoRotation.Portrait -> Icons.Default.StayCurrentPortrait
+        VideoRotation.Free -> VerreIcons.ScreenRotation
+        VideoRotation.Landscape -> VerreIcons.StayCurrentLandscape
+        VideoRotation.Portrait -> VerreIcons.StayCurrentPortrait
     }
 
 private val VideoRotation.label: StringResource
@@ -1436,7 +1384,7 @@ private fun CaptionToggle(
     val captionState = onTrack?.displayName ?: stringResource(Res.string.captions_off)
     Box {
         ActionIcon(
-            if (config.captionVisible) Icons.Default.ClosedCaption else Icons.Outlined.ClosedCaptionOff,
+            if (config.captionVisible) VerreIcons.ClosedCaption else VerreIcons.ClosedCaptionOffOutline,
             "${stringResource(Res.string.cd_captions)}, $captionState",
             iconSize = iconSize,
             hitSize = hitSize,
@@ -1622,11 +1570,11 @@ private fun PlayerTopBar(
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ActionIcon(Icons.Default.KeyboardArrowDown, stringResource(Res.string.cd_close), onClick = onClose)
+        ActionIcon(VerreIcons.KeyboardArrowDown, stringResource(Res.string.cd_close), onClick = onClose)
         Box(Modifier.weight(1f))
         onToggleLyrics?.let {
             ActionIcon(
-                Icons.Outlined.Lyrics,
+                VerreIcons.LyricsOutline,
                 stringResource(Res.string.cd_lyrics),
                 tint = if (lyricsOpen) DesignColors.Accent else DesignColors.InkMuted,
                 onClick = it,
@@ -1654,7 +1602,7 @@ private fun DownloadAction(
     val downloadLauncher = LocalDownloadLauncher.current ?: return
     val downloadable = coordinator.downloadable(queue.currentItem) ?: return
     ActionIcon(
-        Icons.Outlined.FileDownload,
+        VerreIcons.FileDownloadOutline,
         stringResource(Res.string.cd_download),
         iconSize = iconSize,
         hitSize = hitSize,
@@ -1765,9 +1713,8 @@ internal fun QualityChip(
             label,
             style = TextStyle(fontSize = 11.sp * scale, fontWeight = FontWeight.Bold, color = ink),
             modifier = Modifier
-                .glassPanel(RoundedCornerShape(6.dp))
                 .clip(RoundedCornerShape(6.dp))
-                .then(if (LocalGlassBackdrop.current != null) Modifier else Modifier.border(1.dp, outline, RoundedCornerShape(6.dp)))
+                .border(1.dp, outline, RoundedCornerShape(6.dp))
                 .clickable { open = true }
                 .a11yActionLabel("$qualityDescription, $label")
                 .clearAndSetSemantics { role = Role.DropdownList }
@@ -1834,7 +1781,7 @@ private fun VideoDetailsAction(coordinator: PlaybackCoordinator, current: Playab
     var detailsOpen by remember { mutableStateOf(false) }
     HoldVideoOverlay(detailsOpen)
     ActionIcon(
-        Icons.Outlined.Info,
+        VerreIcons.InfoOutline,
         stringResource(Res.string.menu_details_comments),
         iconSize = iconSize,
         hitSize = hitSize,
@@ -1852,7 +1799,7 @@ private fun SpeedAction(player: io.ymusic.player.Player, tint: Color, iconSize: 
     val speed = player.config.collectAsStateWithLifecycle().value.speed
     val speedValue = if (speed != 1f) "${trimFloat(speed)}×" else null
     ActionIcon(
-        Icons.Outlined.Speed,
+        VerreIcons.SpeedOutline,
         listOfNotNull(stringResource(Res.string.menu_speed_pitch), speedValue).joinToString(", "),
         iconSize = iconSize,
         hitSize = hitSize,
@@ -1877,7 +1824,7 @@ private fun EqualizerAction(coordinator: PlaybackCoordinator, tint: Color, iconS
     val config by coordinator.player.config.collectAsStateWithLifecycle()
     val preset = if (config.inAppAudioFx) stringResource(eqPresetLabel(config.eqBands)) else null
     ActionIcon(
-        Icons.Outlined.Equalizer,
+        VerreIcons.EqualizerOutline,
         listOfNotNull(stringResource(Res.string.sound_eq), preset).joinToString(", "),
         iconSize = iconSize,
         hitSize = hitSize,
@@ -1893,7 +1840,7 @@ private fun ShareAction(current: PlayableItem?, tint: Color, iconSize: Dp, hitSi
     val shareYoutube = LocalShareYoutube.current ?: return
     val videoId = current?.videoId ?: return
     ActionIcon(
-        Icons.Outlined.Share,
+        VerreIcons.ShareOutline,
         stringResource(Res.string.cd_share),
         iconSize = iconSize,
         hitSize = hitSize,
@@ -1922,7 +1869,7 @@ private fun Modifier.menuChoice(selected: Boolean) = semantics {
 }
 
 private fun selectedCheck(selected: Boolean): (@Composable () -> Unit)? = if (selected) {
-    { Icon(Icons.Default.Check, contentDescription = null, tint = DesignColors.Accent) }
+    { Icon(VerreIcons.Check, contentDescription = null, tint = DesignColors.Accent) }
 } else {
     null
 }
@@ -1957,7 +1904,7 @@ private fun MoreMenuItem(
                     }
                     if (submenu) {
                         Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            VerreIcons.KeyboardArrowRight,
                             contentDescription = null,
                             Modifier.size(18.dp),
                             tint = DesignColors.InkSecondary,
@@ -1999,15 +1946,15 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
     HoldVideoOverlay(open || tracksOpen || playbackOpen || eqOpen || detailsOpen)
 
     Box {
-        ActionIcon(Icons.Default.MoreVert, stringResource(Res.string.cd_more), onClick = { open = true })
+        ActionIcon(VerreIcons.MoreVert, stringResource(Res.string.cd_more), onClick = { open = true })
         DropdownMenu(expanded = open, onDismissRequest = { open = false }, modifier = Modifier.width(MoreMenuWidth)) {
             if (video != null) {
-                MoreMenuItem(Icons.Outlined.Info, stringResource(Res.string.menu_details_comments)) {
+                MoreMenuItem(VerreIcons.InfoOutline, stringResource(Res.string.menu_details_comments)) {
                     detailsOpen = true
                     open = false
                 }
                 if (ytPlaylists != null) {
-                    MoreMenuItem(Icons.AutoMirrored.Outlined.PlaylistAdd, stringResource(Res.string.menu_add_to_playlist)) {
+                    MoreMenuItem(VerreIcons.PlaylistAddOutline, stringResource(Res.string.menu_add_to_playlist)) {
                         ytPlaylists.addToPlaylist(video.videoId)
                         open = false
                     }
@@ -2015,13 +1962,13 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
             }
             val shareId = shareVideoId
             if (shareYoutube != null && shareId != null) {
-                MoreMenuItem(Icons.Outlined.Share, stringResource(Res.string.cd_share)) {
+                MoreMenuItem(VerreIcons.ShareOutline, stringResource(Res.string.cd_share)) {
                     shareYoutube(YtFeedItem.KIND_VIDEO, shareId)
                     open = false
                 }
             }
             if (ytPlaylists != null) {
-                MoreMenuItem(Icons.AutoMirrored.Outlined.QueueMusic, stringResource(Res.string.queue_save_as_yt_playlist)) {
+                MoreMenuItem(VerreIcons.QueueMusicOutline, stringResource(Res.string.queue_save_as_yt_playlist)) {
                     open = false
                     scope.launch {
                         val videoIds = player.queue.value.items.mapNotNull { it.videoId }.distinct()
@@ -2030,14 +1977,14 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
                 }
             }
             if (current != null) {
-                MoreMenuItem(Icons.Outlined.Lyrics, stringResource(Res.string.menu_search_lyrics)) {
+                MoreMenuItem(VerreIcons.LyricsOutline, stringResource(Res.string.menu_search_lyrics)) {
                     uriHandler.openUri(lyricsSearchUrl(current))
                     open = false
                 }
             }
             if (ytPlaylists != null || current != null) MoreMenuDivider()
             MoreMenuItem(
-                Icons.Outlined.Speed,
+                VerreIcons.SpeedOutline,
                 stringResource(Res.string.menu_speed_pitch),
                 value = "${trimFloat(config.speed)}×",
             ) {
@@ -2045,7 +1992,7 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
                 open = false
             }
             MoreMenuItem(
-                Icons.Outlined.Equalizer,
+                VerreIcons.EqualizerOutline,
                 stringResource(Res.string.sound_eq),
                 value = if (config.inAppAudioFx) stringResource(eqPresetLabel(config.eqBands)) else null,
             ) {
@@ -2054,7 +2001,7 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
             }
             if (audioTracks.tracks.size > 1) {
                 MoreMenuItem(
-                    Icons.Outlined.GraphicEq,
+                    VerreIcons.GraphicEqOutline,
                     stringResource(Res.string.download_audio_track),
                     value = audioTracks.tracks.firstOrNull { it.id == audioTracks.selectedId }?.displayName,
                     submenu = true,
@@ -2064,7 +2011,7 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
                 }
             }
             MoreMenuDivider()
-            MoreMenuItem(Icons.Outlined.Refresh, stringResource(Res.string.menu_reload_player)) {
+            MoreMenuItem(VerreIcons.RefreshOutline, stringResource(Res.string.menu_reload_player)) {
                 player.reload()
                 open = false
             }
@@ -2249,7 +2196,7 @@ private fun TransportButtons(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ActionIcon(
-            Icons.Default.FastRewind,
+            VerreIcons.FastRewind,
             stringResource(Res.string.cd_rewind10),
             iconSize = iconSize,
             hitSize = hitSize,
@@ -2257,20 +2204,20 @@ private fun TransportButtons(
             onClick = { player.seekTo((player.progress.value.positionMs - 10_000).coerceAtLeast(0)) },
         )
         ActionIcon(
-            Icons.Default.SkipPrevious,
+            VerreIcons.SkipPrevious,
             stringResource(Res.string.cd_previous),
             iconSize = iconSize,
             hitSize = hitSize,
             tint = iconTint,
             onClick = { player.skipPrev() },
         )
-        // Over the cover gradient the play button is a glass disc with a white glyph; elsewhere the solid one.
+        // Over the cover color the play button is a translucent white disc with a white glyph; elsewhere the solid one.
         val coverLook = LocalCoverLook.current
         Box(
             Modifier.size(circle).clip(CircleShape)
                 .then(
                     if (coverLook) {
-                        Modifier.glassSurface(CircleShape, Color(0x40FFFFFF), tint = currentGlassStyle().tint, rim = true)
+                        Modifier.background(Color(0x40FFFFFF))
                     } else {
                         Modifier.background(playBackground)
                     },
@@ -2281,14 +2228,14 @@ private fun TransportButtons(
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                if (playing) Icons.Default.Pause else Icons.Default.PlayArrow,
+                if (playing) VerreIcons.Pause else VerreIcons.PlayArrow,
                 null,
                 Modifier.size((26.dp * scale).evenPx()),
                 tint = if (coverLook) iconTint else playForeground,
             )
         }
         ActionIcon(
-            Icons.Default.SkipNext,
+            VerreIcons.SkipNext,
             stringResource(Res.string.cd_next),
             iconSize = iconSize,
             hitSize = hitSize,
@@ -2296,7 +2243,7 @@ private fun TransportButtons(
             onClick = { player.skipNext() },
         )
         ActionIcon(
-            Icons.Default.FastForward,
+            VerreIcons.FastForward,
             stringResource(Res.string.cd_forward10),
             iconSize = iconSize,
             hitSize = hitSize,
@@ -2351,11 +2298,11 @@ internal fun QueueMoreRow(player: Player, more: QueueMore, count: Int, focus: Lo
                     textAlign = TextAlign.Center,
                 )
                 Box(Modifier.padding(top = DesignSpacing.Space4)) {
-                    PlayPill(Icons.Default.Refresh, stringResource(Res.string.retry), filled = false, modifier = focus.control, onClick = loadMore)
+                    PlayPill(VerreIcons.Refresh, stringResource(Res.string.retry), filled = false, modifier = focus.control, onClick = loadMore)
                 }
             }
             more.hasMore -> PlayPill(
-                Icons.Default.ExpandMore,
+                VerreIcons.ExpandMore,
                 stringResource(Res.string.queue_load_more),
                 filled = false,
                 modifier = focus.control,
@@ -2393,7 +2340,7 @@ internal fun QueueHeader(
         )
         if (onLocateCurrent != null) {
             ActionIcon(
-                Icons.Default.GpsFixed,
+                VerreIcons.GpsFixed,
                 stringResource(Res.string.cd_scroll_to_now_playing),
                 tint = DesignColors.InkSoft,
                 onClick = onLocateCurrent,
@@ -2401,13 +2348,13 @@ internal fun QueueHeader(
         }
         Box(Modifier.weight(1f))
         ActionIcon(
-            if (loopMode == LoopMode.One) Icons.Default.RepeatOne else Icons.Default.Repeat,
+            if (loopMode == LoopMode.One) VerreIcons.RepeatOne else VerreIcons.Repeat,
             stringResource(loopMode.label()),
             tint = if (loopMode != LoopMode.None) DesignColors.Accent else DesignColors.InkSoft,
             onClick = { player.setLoopMode(loopMode.cycled()) },
         )
         ToggleActionIcon(
-            Icons.Default.Shuffle,
+            VerreIcons.Shuffle,
             stringResource(Res.string.cd_shuffle),
             checked = shuffle,
             tint = if (shuffle) DesignColors.Accent else DesignColors.InkSoft,
@@ -2458,7 +2405,7 @@ internal fun QueueRow(
                     Modifier.fillMaxSize().background(DesignColors.SurfaceDim).padding(horizontal = 16.dp),
                     contentAlignment = Alignment.CenterStart,
                 ) {
-                    Icon(Icons.Outlined.Delete, null, Modifier.size(20.dp), tint = DesignColors.InkSecondary)
+                    Icon(VerreIcons.DeleteOutline, null, Modifier.size(20.dp), tint = DesignColors.InkSecondary)
                 }
             }
         },
@@ -2517,7 +2464,7 @@ private fun QueueRowContent(
         verticalAlignment = Alignment.Top,
     ) {
         Icon(
-            Icons.Default.DragHandle,
+            VerreIcons.DragHandle,
             null,
             Modifier
                 .align(Alignment.CenterVertically)
@@ -2539,7 +2486,7 @@ private fun QueueRowContent(
             contentAlignment = Alignment.Center,
         ) {
             ArtImage(item.displayThumbnailUrl, RoundedCornerShape(6.dp)) {
-                ThumbPlaceholder(Icons.Outlined.Image, 18.dp)
+                ThumbPlaceholder(VerreIcons.ImageOutline, 18.dp)
             }
             if (offline) AvailableOfflineMark(Modifier.align(Alignment.TopStart))
         }
@@ -2684,11 +2631,6 @@ internal fun LyricsNowPlaying(
                             positionMs = { clock.value },
                             onSeek = { player.seekTo(it) },
                             modifier = Modifier.widthIn(max = 640.dp),
-                        )
-                        VocalLevelPill(
-                            level = config.vocalLevel,
-                            onLevel = { player.setVocalLevel(it) },
-                            modifier = Modifier.align(Alignment.BottomEnd).padding(end = 20.dp, bottom = 12.dp),
                         )
                     }
                 }

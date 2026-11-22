@@ -57,7 +57,6 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
-                implementation(Libs.Backdrop.core) // Liquid Glass (see Glass.kt)
                 implementation(Libs.Kotlinx.coroutinesCore)
                 implementation(Libs.Kotlinx.atomicfu) // SynchronizedObject for GlobalShortcutActions
                 implementation(Libs.Kotlinx.dateTime)

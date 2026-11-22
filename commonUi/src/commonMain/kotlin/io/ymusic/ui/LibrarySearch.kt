@@ -14,9 +14,6 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Album
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -165,8 +162,8 @@ private fun LibrarySearchContent(
                                 SongRow(songs[index], coordinator) { coordinator.playLocal(songs, index) }
                             }
                         }
-                        groupSection(Res.string.library_tab_artists, Icons.Default.Person, artists, session)
-                        groupSection(Res.string.library_tab_albums, Icons.Default.Album, albums, session)
+                        groupSection(Res.string.library_tab_artists, VerreIcons.Person, artists, session)
+                        groupSection(Res.string.library_tab_albums, VerreIcons.Album, albums, session)
                         if (songs.isEmpty() && artists.isEmpty() && albums.isEmpty()) {
                             item(span = { GridItemSpan(maxLineSpan) }) {
                                 Text(

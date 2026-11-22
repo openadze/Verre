@@ -46,15 +46,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ChevronLeft
-import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -417,7 +408,7 @@ internal fun DesignAppBar(
 ) {
     AppBarRow {
         if (onMenu != null) {
-            ActionIcon(Icons.Default.Menu, stringResource(Res.string.cd_menu), onClick = onMenu)
+            ActionIcon(VerreIcons.Menu, stringResource(Res.string.cd_menu), onClick = onMenu)
         } else {
             Spacer(Modifier.width(DesignSpacing.Space8))
         }
@@ -428,7 +419,7 @@ internal fun DesignAppBar(
             Box(Modifier.weight(1f))
         }
         if (onSearch != null) {
-            ActionIcon(Icons.Default.Search, stringResource(Res.string.cd_search), onClick = onSearch)
+            ActionIcon(VerreIcons.Search, stringResource(Res.string.cd_search), onClick = onSearch)
         }
     }
 }
@@ -455,7 +446,7 @@ internal fun SearchInputBar(
     val leadingMic = voiceFirst && onVoice != null
     val inlineMic = onVoice.takeUnless { leadingMic }
     AppBarRow {
-        ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
+        ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
         if (leadingMic) {
             VoiceMicButton(
                 listening = voiceListening,
@@ -469,7 +460,7 @@ internal fun SearchInputBar(
                 .weight(1f)
                 .height(40.dp)
                 .clip(RoundedCornerShape(999.dp))
-                .glassPanel(RoundedCornerShape(999.dp), fallback = DesignColors.FieldPill, base = DesignColors.FieldPill)
+                .background(DesignColors.FieldPill, RoundedCornerShape(999.dp))
                 // The trailing icon's own 8dp inset is the trailing padding while it shows.
                 .padding(start = 16.dp, end = if (value.text.isEmpty() && inlineMic == null) 16.dp else 0.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -500,14 +491,14 @@ internal fun SearchInputBar(
             )
             if (value.text.isNotEmpty()) {
                 ActionIcon(
-                    Icons.Default.Close,
+                    VerreIcons.Close,
                     stringResource(Res.string.cd_clear),
                     tint = DesignColors.InkSecondary,
                     onClick = { onValue(TextFieldValue("")) },
                 )
             } else if (inlineMic != null) {
                 ActionIcon(
-                    Icons.Default.Mic,
+                    VerreIcons.Mic,
                     stringResource(Res.string.cd_voice_search),
                     tint = if (voiceListening) DesignColors.Accent else DesignColors.InkSecondary,
                     onClick = inlineMic,
@@ -537,12 +528,12 @@ internal fun SearchResultsBar(
     onSearch: () -> Unit,
 ) = ElevatedBarColumn {
     AppBarRow {
-        ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
+        ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
         AppBarTitle(title)
         if (showFilter) {
-            ActionIcon(Icons.Outlined.FilterAlt, stringResource(Res.string.cd_filter), onClick = onFilter)
+            ActionIcon(VerreIcons.FilterAltOutline, stringResource(Res.string.cd_filter), onClick = onFilter)
         }
-        ActionIcon(Icons.Default.Search, stringResource(Res.string.cd_search), onClick = onSearch)
+        ActionIcon(VerreIcons.Search, stringResource(Res.string.cd_search), onClick = onSearch)
     }
 }
 
@@ -556,9 +547,9 @@ internal fun DetailAppBar(
     bottomContent: (@Composable () -> Unit)? = null,
 ) = ElevatedBarColumn {
     AppBarRow {
-        ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
+        ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
         AppBarTitle(title)
-        ActionIcon(Icons.Default.Search, stringResource(Res.string.cd_search), onClick = onSearch)
+        ActionIcon(VerreIcons.Search, stringResource(Res.string.cd_search), onClick = onSearch)
     }
     bottomContent?.invoke()
 }
@@ -992,7 +983,7 @@ private fun TabOverflowHint(towardStart: Boolean, modifier: Modifier, onClick: (
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            if (towardStart) Icons.Default.ChevronLeft else Icons.Default.ChevronRight,
+            if (towardStart) VerreIcons.ChevronLeft else VerreIcons.ChevronRight,
             null,
             Modifier.size(20.dp),
             tint = DesignColors.InkSoft,

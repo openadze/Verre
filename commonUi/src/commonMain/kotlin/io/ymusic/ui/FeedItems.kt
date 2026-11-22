@@ -23,18 +23,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
-import androidx.compose.material.icons.filled.AllInclusive
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.Album
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.MusicNote
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -186,7 +174,7 @@ fun SectionHeader(
                 contentAlignment = Alignment.Center,
             ) {
                 ThumbImage(header.iconThumbs, CircleShape) {
-                    ThumbPlaceholder(Icons.Outlined.MusicNote, 14.dp, DesignColors.PlaceholderDim)
+                    ThumbPlaceholder(VerreIcons.MusicNoteOutline, 14.dp, DesignColors.PlaceholderDim)
                 }
             }
         }
@@ -206,7 +194,7 @@ fun SectionHeader(
             // A navigable CTA owns the header slot even on a collapsible section — the collapse
             // toggle also lives in the Show-more pill under the rows, the View-all link only here.
             onToggle != null && header?.ctaDeeplink == null && header?.ctaAction == null -> ActionIcon(
-                Icons.Default.KeyboardArrowDown,
+                VerreIcons.KeyboardArrowDown,
                 stringResource(if (collapsed == false) Res.string.cd_collapse else Res.string.cd_expand),
                 Modifier.rotate(if (collapsed == false) 180f else 0f),
                 iconSize = 20.dp,
@@ -231,14 +219,14 @@ fun SectionHeader(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         if (playAll) {
-                            Icon(Icons.Default.PlayArrow, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
+                            Icon(VerreIcons.PlayArrow, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
                         }
                         // A tappable CTA always says what it does — the engine's label when it sent
                         // one, the app's localized text otherwise (shelf endpoints carry no text).
                         val text = if (header.ctaText != null || cta != null) label else null
                         text?.let { Text(it, style = TextStyle(fontSize = 13.5.sp, color = DesignColors.InkSoft)) }
                         if (!playAll) {
-                            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
+                            Icon(VerreIcons.KeyboardArrowRight, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
                         }
                     }
                 }
@@ -344,7 +332,7 @@ fun FeedGridCard(
                 contentAlignment = Alignment.Center,
             ) {
                 ThumbImage(item.thumbs, RoundedCornerShape(5.dp)) {
-                    ThumbPlaceholder(Icons.Outlined.Image, 22.dp)
+                    ThumbPlaceholder(VerreIcons.ImageOutline, 22.dp)
                 }
                 WatchedBar(item, Modifier.align(Alignment.BottomCenter))
                 Badges(item, Modifier.align(Alignment.BottomEnd).padding(4.dp), textSize = 11, iconSize = 14.dp)
@@ -425,14 +413,7 @@ fun ShowMoreButton(label: String, expanded: Boolean, onClick: () -> Unit, modifi
         Row(
             Modifier
                 .clip(RoundedCornerShape(999.dp))
-                .glassPanel(RoundedCornerShape(999.dp))
-                .then(
-                    if (LocalGlassBackdrop.current != null) {
-                        Modifier
-                    } else {
-                        Modifier.border(1.dp, DesignColors.OutlineSoft, RoundedCornerShape(999.dp))
-                    },
-                )
+                .border(1.dp, DesignColors.OutlineSoft, RoundedCornerShape(999.dp))
                 .then(indication)
                 .chipPadding(),
             horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
@@ -440,7 +421,7 @@ fun ShowMoreButton(label: String, expanded: Boolean, onClick: () -> Unit, modifi
         ) {
             Text(label, style = TextStyle(fontSize = ChipTextSize, fontWeight = FontWeight.SemiBold, color = DesignColors.InkMuted))
             Icon(
-                Icons.Default.KeyboardArrowDown,
+                VerreIcons.KeyboardArrowDown,
                 null,
                 Modifier.size(15.dp).rotate(if (expanded) 180f else 0f),
                 tint = DesignColors.InkMuted,
@@ -514,8 +495,8 @@ private fun TagPill(label: String, accent: String?, modifier: Modifier, onClick:
             // hard-cut the border's outer half against an aliased edge (the jagged look). Clip last, only
             // so the click ripple stays inside the pill.
             modifier = Modifier
-                .glassPanel(shape, fallback = DesignColors.SurfaceElevated, base = DesignColors.SurfaceElevated)
-                .then(if (LocalGlassBackdrop.current != null) Modifier else Modifier.border(1.dp, border, shape))
+                .background(DesignColors.SurfaceElevated, shape)
+                .border(1.dp, border, shape)
                 .clip(shape)
                 .then(indication)
                 .chipPadding(),
@@ -560,7 +541,7 @@ internal fun MoreMenu(
     }
     Box(modifier.then(itemMenu)) {
         ActionIcon(
-            Icons.Default.MoreVert,
+            VerreIcons.MoreVert,
             moreLabel,
             modifier = if (inFocusableItem) {
                 Modifier.focusProperties { canFocus = platformIsTelevision }.tvExitSideways()
@@ -581,7 +562,7 @@ internal fun MoreMenu(
                 DropdownMenuItem(
                     text = { Text(label) },
                     trailingIcon = if (label in actions.checked) {
-                        { Icon(Icons.Default.Check, contentDescription = null, tint = DesignColors.Accent) }
+                        { Icon(VerreIcons.Check, contentDescription = null, tint = DesignColors.Accent) }
                     } else {
                         null
                     },
@@ -631,7 +612,7 @@ private fun CircleThumb(item: YtFeedItem, size: androidx.compose.ui.unit.Dp, mod
         contentAlignment = Alignment.Center,
     ) {
         ThumbImage(item.thumbs, CircleShape) {
-            ThumbPlaceholder(Icons.Outlined.Person, 28.dp)
+            ThumbPlaceholder(VerreIcons.PersonOutline, 28.dp)
         }
     }
 }
@@ -655,7 +636,7 @@ private fun RectThumb(
         contentAlignment = Alignment.Center,
     ) {
         ThumbImage(item.thumbs, RoundedCornerShape(6.dp)) {
-            ThumbPlaceholder(Icons.Outlined.Image, if (height < 80.dp) 21.dp else 30.dp)
+            ThumbPlaceholder(VerreIcons.ImageOutline, if (height < 80.dp) 21.dp else 30.dp)
         }
         WatchedBar(item, Modifier.align(Alignment.BottomCenter))
         Badges(item, Modifier.align(Alignment.BottomEnd).padding(4.dp), textSize = 11, iconSize = 14.dp)
@@ -708,9 +689,9 @@ internal fun Badges(item: YtFeedItem, modifier: Modifier, textSize: Int, iconSiz
         ) {
             Icon(
                 when {
-                    item.id.startsWith("RD") -> Icons.Default.AllInclusive
-                    item.album -> Icons.Outlined.Album
-                    else -> Icons.AutoMirrored.Filled.PlaylistPlay
+                    item.id.startsWith("RD") -> VerreIcons.AllInclusive
+                    item.album -> VerreIcons.AlbumOutline
+                    else -> VerreIcons.PlaylistPlay
                 },
                 null,
                 Modifier.size(iconSize),
@@ -731,12 +712,12 @@ internal fun Badges(item: YtFeedItem, modifier: Modifier, textSize: Int, iconSiz
         ) {
             // YouTube's music-video mark: the note glyph ahead of the duration.
             if (item.musicVideo) {
-                Icon(Icons.Outlined.MusicNote, null, Modifier.size(iconSize), tint = Color.White)
+                Icon(VerreIcons.MusicNoteOutline, null, Modifier.size(iconSize), tint = Color.White)
             }
             Text(item.duration!!, style = badgeText)
         }
         item.musicVideo -> Icon(
-            Icons.Outlined.MusicNote,
+            VerreIcons.MusicNoteOutline,
             null,
             modifier
                 .background(DesignColors.BadgeInk, RoundedCornerShape(3.dp))
@@ -746,7 +727,7 @@ internal fun Badges(item: YtFeedItem, modifier: Modifier, textSize: Int, iconSiz
             tint = Color.White,
         )
         item.album -> Icon(
-            Icons.Outlined.Album,
+            VerreIcons.AlbumOutline,
             null,
             modifier
                 .background(DesignColors.BadgeScrim, RoundedCornerShape(3.dp))

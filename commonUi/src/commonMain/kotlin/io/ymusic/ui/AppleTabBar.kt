@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.HorizontalDivider
@@ -23,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
@@ -45,36 +45,28 @@ import org.jetbrains.compose.resources.stringResource
 internal val AppleRed = Color(0xFFFA233B)
 
 /**
- * The five bottom tabs of Apple Music, drawn with its own glyphs ([AppleIcons]): Listen Now = YT Music
+ * The five bottom tabs, drawn with Material Symbols ([VerreIcons]; outlined, filled when active): Listen Now = YT Music
  * Home, Browse = Explore, Radio = Charts, Library = the Library section, Search = YT Music search.
  * Labels use the Apple wording; every other locale falls back to the base strings until translated.
  */
-internal enum class AppleTab(val icon: ImageVector, val label: StringResource) {
-    ListenNow(AppleIcons.ListenNow, Res.string.tab_listen_now),
-    Browse(AppleIcons.Browse, Res.string.tab_browse),
-    Radio(AppleIcons.Radio, Res.string.tab_radio),
-    Library(AppleIcons.Library, Res.string.section_library),
-    Search(AppleIcons.Search, Res.string.cd_search),
+internal enum class AppleTab(val icon: ImageVector, val selectedIcon: ImageVector, val label: StringResource) {
+    ListenNow(VerreIcons.PlayCircleOutline, VerreIcons.PlayCircle, Res.string.tab_listen_now),
+    Browse(VerreIcons.GridViewOutline, VerreIcons.GridView, Res.string.tab_browse),
+    Radio(VerreIcons.SensorsOutline, VerreIcons.Sensors, Res.string.tab_radio),
+    Library(VerreIcons.LibraryMusicOutline, VerreIcons.LibraryMusic, Res.string.section_library),
+    Search(VerreIcons.SearchOutline, VerreIcons.Search, Res.string.cd_search),
 }
 
 /**
- * The Apple Music tab bar: a frosted pane over whatever scrolls under it (the same screens backdrop
- * the mini player refracts) with a hairline on top, 49dp tall plus the navigation-bar inset. The
- * active tab tints the accent; Apple keeps one glyph per tab and only recolors it.
+ * The bottom tab bar: a solid pane with a hairline on top, 49dp tall plus the navigation-bar inset.
+ * The active tab tints the accent and swaps its outlined glyph for the filled one.
  */
 @Composable
 internal fun AppleTabBar(selected: AppleTab, onSelect: (AppleTab) -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
-            // A rectangle pane: blur + veil only, no lens refraction (corners only refract).
-            .glassSurface(
-                RectangleShape,
-                fallback = DesignColors.SurfaceDim.copy(alpha = 0.94f),
-                tint = DesignColors.SurfaceDim.copy(alpha = 0.72f),
-                blurRadius = 24.dp,
-                refract = false,
-            ),
+            .background(DesignColors.SurfaceDim),
     ) {
         HorizontalDivider(color = DesignColors.Divider)
         Row(Modifier.fillMaxWidth().height(49.dp)) {
@@ -96,7 +88,7 @@ private fun RowScope.TabItem(tab: AppleTab, selected: Boolean, onClick: () -> Un
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Icon(tab.icon, null, Modifier.size(25.dp), tint = tint)
+        Icon(if (selected) tab.selectedIcon else tab.icon, null, Modifier.size(25.dp), tint = tint)
         Text(
             stringResource(tab.label),
             style = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Medium, color = tint),

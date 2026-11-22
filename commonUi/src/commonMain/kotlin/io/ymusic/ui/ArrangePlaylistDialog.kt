@@ -18,12 +18,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.DragHandle
-import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.VerticalAlignTop
-import androidx.compose.material.icons.outlined.RemoveCircleOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -216,7 +210,7 @@ private fun StackingChip(size: Int, onReset: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(label, style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Medium, color = DesignColors.Accent), modifier = Modifier.a11ySilent())
-        Icon(Icons.Default.Close, null, Modifier.size(14.dp), tint = DesignColors.Accent)
+        Icon(VerreIcons.Close, null, Modifier.size(14.dp), tint = DesignColors.Accent)
     }
 }
 
@@ -276,11 +270,11 @@ private fun ArrangeRow(
                 },
             contentAlignment = Alignment.Center,
         ) {
-            Icon(Icons.Default.DragHandle, stringResource(Res.string.cd_drag_to_reorder), Modifier.size(20.dp), tint = DesignColors.Outline)
+            Icon(VerreIcons.DragHandle, stringResource(Res.string.cd_drag_to_reorder), Modifier.size(20.dp), tint = DesignColors.Outline)
         }
         Box {
             Box(Modifier.size(44.dp).clip(RoundedCornerShape(6.dp)), contentAlignment = Alignment.Center) {
-                ArtImage(localArtUrl(song), RoundedCornerShape(6.dp)) { ThumbPlaceholder(Icons.Default.MusicNote, 18.dp) }
+                ArtImage(localArtUrl(song), RoundedCornerShape(6.dp)) { ThumbPlaceholder(VerreIcons.MusicNote, 18.dp) }
             }
             if (stacked) {
                 Box(
@@ -299,14 +293,14 @@ private fun ArrangeRow(
             }
         }
         ActionIcon(
-            Icons.Default.VerticalAlignTop,
+            VerreIcons.VerticalAlignTop,
             stringResource(Res.string.cd_move_to_top),
             iconSize = 22.dp,
             tint = if (stacked) DesignColors.Outline else DesignColors.InkSoft,
             enabled = !stacked,
         ) { arrange.moveToTop(currentIndex) }
         ActionIcon(
-            Icons.Outlined.RemoveCircleOutline,
+            VerreIcons.RemoveCircleOutlineOutline,
             stringResource(Res.string.menu_remove_from_playlist),
             iconSize = 22.dp,
             tint = DesignColors.InkSoft,

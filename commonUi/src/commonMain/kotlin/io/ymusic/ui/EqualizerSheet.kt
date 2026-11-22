@@ -342,7 +342,7 @@ private fun FaderBank(
         modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(FaderBankCorner))
-            .background(Brush.verticalGradient(listOf(DesignColors.SettingsCard, DesignColors.Surface)))
+            .background(DesignColors.SettingsCard)
             .border(1.dp, DesignColors.OutlineSoft, RoundedCornerShape(FaderBankCorner))
             .padding(horizontal = DesignSpacing.Space4, vertical = DesignSpacing.Space16),
     ) {

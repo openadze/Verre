@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
@@ -249,10 +246,10 @@ internal fun SelectionBar(
     actions: @Composable RowScope.() -> Unit,
 ) {
     AppBarRow {
-        ActionIcon(Icons.Default.Close, stringResource(Res.string.cd_close), onClick = onClose)
+        ActionIcon(VerreIcons.Close, stringResource(Res.string.cd_close), onClick = onClose)
         AppBarTitle(pluralText(Res.plurals.downloads_selected_count, count, count))
         ToggleActionIcon(
-            Icons.Default.SelectAll,
+            VerreIcons.SelectAll,
             stringResource(Res.string.select_all),
             checked = allSelected,
             tint = if (allSelected) DesignColors.Accent else DesignColors.InkMuted,

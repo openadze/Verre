@@ -31,24 +31,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.filled.PlaylistAdd
-import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Album
-import androidx.compose.material.icons.filled.Category
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlaylistRemove
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.filled.Whatshot
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -461,7 +443,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                                             selection = songSelection,
                                             header = {
                                                 SortBar(songSortOptions.map { it.label }, songsSort) {
-                                                    LibraryChip(stringResource(Res.string.shuffle_all), selected = false, icon = Icons.Default.Shuffle) {
+                                                    LibraryChip(stringResource(Res.string.shuffle_all), selected = false, icon = VerreIcons.Shuffle) {
                                                         coordinator.playLocal(songs, songs.indices.random(), shuffle = true)
                                                     }
                                                 }
@@ -473,7 +455,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                                     } else {
                                         GroupedList(
                                             loaded.songs,
-                                            Icons.Default.Person,
+                                            VerreIcons.Person,
                                             stringResource(Res.string.unknown_artist),
                                             coordinator,
                                             sortId = "artists",
@@ -487,7 +469,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                                     } else {
                                         GroupedList(
                                             loaded.songs,
-                                            Icons.Default.Album,
+                                            VerreIcons.Album,
                                             stringResource(Res.string.unknown_album),
                                             coordinator,
                                             sortId = "albums",
@@ -501,7 +483,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                                     } else {
                                         GroupedList(
                                             loaded.songs,
-                                            Icons.Default.Category,
+                                            VerreIcons.Category,
                                             stringResource(Res.string.unknown_genre),
                                             coordinator,
                                             sortId = "genres",
@@ -748,7 +730,7 @@ private fun FoldersTab(
                         item(span = { GridItemSpan(maxLineSpan) }) { Box(Modifier.bleedGridPadding()) { header() } }
                         items(sortedFolders, key = { "b${it.id}" }) { bucket ->
                             LibraryGridCard(
-                                icon = Icons.Default.Folder,
+                                icon = VerreIcons.Folder,
                                 artUrl = null,
                                 title = bucket.displayName,
                                 subtitle = stringResource(Res.string.library_folder),
@@ -921,7 +903,7 @@ internal fun Breadcrumb(
         CrumbText(stringResource(Res.string.library_crumb_root), last = path.isEmpty()) { onNavigate(0) }
         path.forEachIndexed { i, name ->
             Icon(
-                Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                VerreIcons.KeyboardArrowRight,
                 null,
                 Modifier.size(16.dp),
                 tint = DesignColors.InkFaint,
@@ -965,14 +947,14 @@ private fun FolderRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Top,
     ) {
-        Box(Modifier.alpha(contentAlpha)) { LibraryThumb(Icons.Default.Folder, badge = null) }
+        Box(Modifier.alpha(contentAlpha)) { LibraryThumb(VerreIcons.Folder, badge = null) }
         Column(Modifier.weight(1f).alpha(contentAlpha)) {
             Text(bucket.displayName, style = ListTitleStyle, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(stringResource(Res.string.library_folder), style = ListSubStyle, modifier = Modifier.padding(top = 4.dp))
         }
         if (isDownloadLocation) {
             Icon(
-                Icons.Default.Download,
+                VerreIcons.Download,
                 contentDescription = null,
                 tint = DesignColors.Accent,
                 modifier = Modifier.padding(top = 10.dp).size(18.dp).spokenAs(stringResource(Res.string.menu_download_location)),
@@ -1116,8 +1098,8 @@ private data class UserEntry(val playlist: Playlist, val count: Int, val artUrl:
 /** The system playlists, pinned above the user playlists in this fixed order. (No "Last added" —
  *  the Songs tab's "Date added" sort already covers it.) */
 private val smartPlaylists = listOf(
-    SmartEntry(SMART_RECENT_PLAY, Res.string.playlist_recent_play, Res.string.playlist_recent_play_desc, Icons.Default.History),
-    SmartEntry(SMART_TOP_TRACKS, Res.string.playlist_top_tracks, Res.string.playlist_top_tracks_desc, Icons.Default.Whatshot),
+    SmartEntry(SMART_RECENT_PLAY, Res.string.playlist_recent_play, Res.string.playlist_recent_play_desc, VerreIcons.History),
+    SmartEntry(SMART_TOP_TRACKS, Res.string.playlist_top_tracks, Res.string.playlist_top_tracks_desc, VerreIcons.Whatshot),
 )
 
 @Composable
@@ -1480,7 +1462,7 @@ private fun playlistDisplay(entry: PlaylistEntry): Triple<String, String, ImageV
     is UserEntry -> Triple(
         entry.playlist.name,
         pluralText(Res.plurals.n_songs, entry.count, entry.count),
-        Icons.AutoMirrored.Filled.PlaylistPlay,
+        VerreIcons.PlaylistPlay,
     )
 }
 
@@ -1649,10 +1631,10 @@ internal fun AddToPlaylistDialog(
         } else {
             LazyColumn(state = listState, modifier = Modifier.fillMaxWidth()) {
                 item("new") {
-                    PlaylistPickRow(Icons.Default.Add, stringResource(Res.string.add_to_playlist_new), DesignColors.Accent) { creating = true }
+                    PlaylistPickRow(VerreIcons.Add, stringResource(Res.string.add_to_playlist_new), DesignColors.Accent) { creating = true }
                 }
                 items(loaded, key = { it.id }) { pl ->
-                    PlaylistPickRow(Icons.AutoMirrored.Filled.PlaylistPlay, pl.name, DesignColors.Ink) {
+                    PlaylistPickRow(VerreIcons.PlaylistPlay, pl.name, DesignColors.Ink) {
                         scope.launch {
                             store.addToPlaylist(pl.id, songs)
                             onAdded()
@@ -1766,7 +1748,7 @@ private fun FoldersToolbar(
 @Composable
 private fun RescanButton(rescan: ScanAction, controller: ScanController) {
     ActionIcon(
-        Icons.Default.Refresh,
+        VerreIcons.Refresh,
         stringResource(Res.string.library_rescan),
         tint = DesignColors.InkSoft,
         enabled = !controller.running,
@@ -1869,7 +1851,7 @@ internal fun SongRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Top,
     ) {
-        LibraryThumb(Icons.Default.MusicNote, formatDuration(song.durationMs), artUrl = localArtUrl(song), modifier = Modifier.a11ySilent())
+        LibraryThumb(VerreIcons.MusicNote, formatDuration(song.durationMs), artUrl = localArtUrl(song), modifier = Modifier.a11ySilent())
         Column(Modifier.weight(1f).a11ySilent()) {
             Text(song.title, style = ListTitleStyle, maxLines = 2, overflow = TextOverflow.Ellipsis)
             if (sub.isNotEmpty()) {
@@ -1918,9 +1900,9 @@ private fun SongSelectionBar(
     val selected = songs.filter { it.id in selection.selected }
     val ids = songs.map { it.id }
     SelectionBar(selected.size, selection.allSelected(ids), selection::end, { selection.toggleAll(ids) }) {
-        ActionIcon(Icons.AutoMirrored.Filled.PlaylistAdd, stringResource(Res.string.cd_add_to_playlist)) { onAddToPlaylist(selected) }
+        ActionIcon(VerreIcons.PlaylistAdd, stringResource(Res.string.cd_add_to_playlist)) { onAddToPlaylist(selected) }
         onDelete?.let { delete ->
-            ActionIcon(Icons.Outlined.Delete, stringResource(Res.string.menu_remove_from_disk)) { delete(selected) }
+            ActionIcon(VerreIcons.DeleteOutline, stringResource(Res.string.menu_remove_from_disk)) { delete(selected) }
         }
         SelectionPlayMenu(selection, selected, coordinator)
     }
@@ -1943,11 +1925,11 @@ private fun PlaylistSelectionBar(
     val selected = songs.filter { it.id in selection.selected }
     val ids = songs.map { it.id }
     SelectionBar(selected.size, selection.allSelected(ids), selection::end, { selection.toggleAll(ids) }) {
-        ActionIcon(Icons.Default.PlaylistRemove, stringResource(Res.string.menu_remove_from_playlist)) { onRemoveFromPlaylist(selected) }
+        ActionIcon(VerreIcons.PlaylistRemove, stringResource(Res.string.menu_remove_from_playlist)) { onRemoveFromPlaylist(selected) }
         onDelete?.let { delete ->
-            ActionIcon(Icons.Outlined.Delete, stringResource(Res.string.menu_remove_from_disk)) { delete(selected) }
+            ActionIcon(VerreIcons.DeleteOutline, stringResource(Res.string.menu_remove_from_disk)) { delete(selected) }
         }
-        ActionIcon(Icons.AutoMirrored.Filled.PlaylistAdd, stringResource(Res.string.cd_add_to_playlist)) { onAddToPlaylist(selected) }
+        ActionIcon(VerreIcons.PlaylistAdd, stringResource(Res.string.cd_add_to_playlist)) { onAddToPlaylist(selected) }
         SelectionPlayMenu(selection, selected, coordinator)
     }
 }
@@ -2228,7 +2210,7 @@ private fun LibraryGridCard(
             }
             if (marked) {
                 Icon(
-                    Icons.Default.Download,
+                    VerreIcons.Download,
                     contentDescription = null,
                     tint = DesignColors.Accent,
                     modifier = Modifier.align(Alignment.TopStart).padding(6.dp).size(18.dp)
@@ -2260,7 +2242,7 @@ internal fun DrillDownHeader(title: String, onBack: () -> Unit, trailing: (@Comp
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), hitSize = 32.dp, tint = DesignColors.InkSoft, onClick = onBack)
+        ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), hitSize = 32.dp, tint = DesignColors.InkSoft, onClick = onBack)
         Text(
             title,
             style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
@@ -2277,7 +2259,7 @@ internal fun DrillDownHeader(title: String, onBack: () -> Unit, trailing: (@Comp
 /** Plays [songs] shuffled from a random one — the icon-only twin of the Songs tab's Shuffle all chip. */
 @Composable
 private fun ShuffleAllButton(songs: List<MediaStoreItem>, coordinator: PlaybackCoordinator) {
-    ActionIcon(Icons.Default.Shuffle, stringResource(Res.string.shuffle_all), tint = DesignColors.InkSoft) {
+    ActionIcon(VerreIcons.Shuffle, stringResource(Res.string.shuffle_all), tint = DesignColors.InkSoft) {
         coordinator.playLocal(songs, songs.indices.random(), shuffle = true)
     }
 }

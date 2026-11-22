@@ -14,7 +14,6 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import kotlinx.coroutines.Dispatchers
@@ -140,12 +139,11 @@ private fun ImageBitmap.palette(): CoverPalette {
     return coverPaletteFromPixels(buffer)
 }
 
-/** The cover gradient, cross-fading when the track (and so the palette) changes. */
+/** The cover's flat ground (no gradient), cross-fading when the track (and so the palette) changes. */
 @Composable
 fun CoverGradient(palette: CoverPalette, modifier: Modifier = Modifier) {
-    val top by animateColorAsState(palette.top, tween(700))
-    val bottom by animateColorAsState(palette.bottom, tween(700))
-    Box(modifier.background(Brush.verticalGradient(listOf(top, bottom))))
+    val color by animateColorAsState(palette.bottom, tween(700))
+    Box(modifier.background(color))
 }
 
 /** True below [CoverTheme]: the surface is the cover gradient, so screens must not paint their own opaque ground. */
@@ -172,7 +170,7 @@ fun coverDesignPalette(base: DesignPalette): DesignPalette = DarkDesignColors.co
 )
 
 /**
- * Now Playing's look: ink is white, glass is tuned for the gradient, and screens skip their own ground.
+ * Now Playing's look: ink is white over the cover color, and screens skip their own ground.
  * The Material scheme stays the opaque dark one, so menus and dialogs opened from here keep a readable container.
  */
 @Composable
@@ -184,7 +182,6 @@ fun CoverTheme(content: @Composable () -> Unit) {
         LocalAppPalette provides appPalette,
         LocalDesignColors provides cover,
         LocalCoverLook provides true,
-        LocalGlassStyle provides GlassStyle.OnCover,
     ) {
         MaterialTheme(colorScheme = scheme) {
             CompositionLocalProvider(LocalContentColor provides Color.White, content = content)
@@ -192,7 +189,7 @@ fun CoverTheme(content: @Composable () -> Unit) {
     }
 }
 
-/** Puts the app's own palette back (a dialog is its own window: it must not inherit the cover ink or glass). */
+/** Puts the app's own palette back (a dialog is its own window: it must not inherit the cover ink). */
 @Composable
 fun AppThemeReset(content: @Composable () -> Unit) {
     val app = LocalAppPalette.current
@@ -204,8 +201,6 @@ fun AppThemeReset(content: @Composable () -> Unit) {
     CompositionLocalProvider(
         LocalDesignColors provides app,
         LocalCoverLook provides false,
-        LocalGlassStyle provides null,
-        LocalGlassBackdrop provides null,
     ) {
         MaterialTheme(colorScheme = scheme) {
             CompositionLocalProvider(LocalContentColor provides app.Ink, content = content)

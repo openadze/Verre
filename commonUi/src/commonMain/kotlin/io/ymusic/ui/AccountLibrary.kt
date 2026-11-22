@@ -16,13 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Subscriptions
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -104,12 +97,12 @@ private fun AccountLibraryHeader(
         val name = account.name
         val navRows = buildList {
             account.channelId?.let {
-                add(NavTarget(Icons.Outlined.AccountCircle, stringResource(Res.string.account_my_channel), "/channel/$it", name))
+                add(NavTarget(VerreIcons.AccountCircleOutline, stringResource(Res.string.account_my_channel), "/channel/$it", name))
             }
-            add(NavTarget(Icons.Outlined.History, stringResource(Res.string.account_watch_history), "/feed/history", null))
-            add(NavTarget(Icons.Outlined.Schedule, stringResource(Res.string.account_watch_later), "/playlist?list=WL", null))
-            add(NavTarget(Icons.Outlined.ThumbUp, stringResource(Res.string.account_liked_videos), "/playlist?list=LL", null))
-            add(NavTarget(Icons.Outlined.Subscriptions, stringResource(Res.string.account_subscriptions), "/feed/subscriptions", null))
+            add(NavTarget(VerreIcons.HistoryOutline, stringResource(Res.string.account_watch_history), "/feed/history", null))
+            add(NavTarget(VerreIcons.ScheduleOutline, stringResource(Res.string.account_watch_later), "/playlist?list=WL", null))
+            add(NavTarget(VerreIcons.ThumbUpOutline, stringResource(Res.string.account_liked_videos), "/playlist?list=LL", null))
+            add(NavTarget(VerreIcons.SubscriptionsOutline, stringResource(Res.string.account_subscriptions), "/feed/subscriptions", null))
         }
         BoxWithConstraints {
             if (railStableWidth(maxWidth) >= 600.dp) {
@@ -154,7 +147,7 @@ private fun BoxScope.AccountAvatarFallback(name: String?) {
                 style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = DesignColors.OnInk),
             )
         } else {
-            Icon(Icons.Filled.Person, null, tint = DesignColors.OnInk)
+            Icon(VerreIcons.Person, null, tint = DesignColors.OnInk)
         }
     }
 }

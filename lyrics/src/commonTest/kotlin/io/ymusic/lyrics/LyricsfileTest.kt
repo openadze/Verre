@@ -65,14 +65,4 @@ class LyricsfileTest {
         assertEquals(LyricsFormat.LYRICSFILE, LyricsParsers.detect(WORDS))
         assertFailsWith<LyricsParseException> { LyricsfileParser.parse("lines:\n  - text: x\n") }
     }
-
-    @Test
-    fun estimatedWordsSpreadTheLine() {
-        val doc = LyricsDoc(listOf(LyricLine(0, 4000, "one two three")), SyncType.LINE).withEstimatedWords()
-        val parts = doc.lines[0].parts
-        assertEquals(3, parts.size)
-        assertEquals("one two three", parts.joinToString("") { it.text })
-        assertTrue(parts[0].startMs == 0L && parts[1].startMs >= parts[0].endMs - 1)
-        assertEquals(SyncType.LINE, doc.syncType)
-    }
 }

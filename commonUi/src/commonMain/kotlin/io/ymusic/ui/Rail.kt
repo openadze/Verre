@@ -28,13 +28,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowOutward
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -305,7 +298,7 @@ private fun RailPanel(
     onEntryFailed: () -> Unit,
 ) {
     val width by animateDpAsState(if (expanded) DesignSpacing.RailExpandedWidth else DesignSpacing.RailCollapsedWidth)
-    Box(Modifier.width(width).fillMaxHeight().clipToBounds().glassPanel(RectangleShape, fallback = background, base = background)) {
+    Box(Modifier.width(width).fillMaxHeight().clipToBounds().background(background)) {
         // Laid out at the final width and clipped by the animated panel: the labels must not reflow on the way.
         Column(
             Modifier.wrapContentWidth(Alignment.Start, unbounded = true).fillMaxHeight()
@@ -379,7 +372,7 @@ private fun RailToggle(rail: RailContent, expanded: Boolean, onToggle: () -> Uni
             onClick = onToggle,
             modifier = Modifier.a11yActionLabel(stringResource(if (expanded) Res.string.cd_collapse else Res.string.cd_expand)),
         ) {
-            Icon(Icons.Default.Menu, null, tint = DesignColors.InkMuted)
+            Icon(VerreIcons.Menu, null, tint = DesignColors.InkMuted)
         }
         if (rail.updateWaiting && !expanded) {
             Box(
@@ -433,7 +426,7 @@ private fun RailMiniExpanded(
             Box(Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RailThumbnailShape)) {
                 MiniArtTile(coordinator, item, surface, onExpand, Modifier.fillMaxSize(), coverOnly = true)
                 Icon(
-                    Icons.Default.ArrowOutward,
+                    VerreIcons.ArrowOutward,
                     null,
                     Modifier.align(Alignment.TopEnd).padding(DesignSpacing.Space4).size(RailOpenHintSize)
                         .background(RailOpenHintFill, CircleShape).padding(DesignSpacing.Space4),
@@ -469,7 +462,7 @@ private fun RailMiniExpanded(
                 onClick = { coordinator.player.skipNext() },
                 modifier = Modifier.a11yActionLabel(stringResource(Res.string.cd_next)),
             ) {
-                Icon(Icons.Default.SkipNext, null, tint = DesignColors.InkMuted)
+                Icon(VerreIcons.SkipNext, null, tint = DesignColors.InkMuted)
             }
             Spacer(Modifier.weight(1f))
             IconButton(
@@ -479,7 +472,7 @@ private fun RailMiniExpanded(
                 },
                 modifier = Modifier.a11yActionLabel(stringResource(Res.string.cd_stop_dismiss)),
             ) {
-                Icon(Icons.Default.Close, null, tint = DesignColors.InkMuted)
+                Icon(VerreIcons.Close, null, tint = DesignColors.InkMuted)
             }
         }
     }
@@ -491,7 +484,7 @@ private fun RailPlayPause(coordinator: PlaybackCoordinator, showsPause: Boolean,
         onClick = { coordinator.player.togglePlay() },
         modifier = modifier.a11yActionLabel(stringResource(if (showsPause) Res.string.cd_pause else Res.string.cd_play)),
     ) {
-        Icon(if (showsPause) Icons.Default.Pause else Icons.Default.PlayArrow, null, tint = DesignColors.InkMuted)
+        Icon(if (showsPause) VerreIcons.Pause else VerreIcons.PlayArrow, null, tint = DesignColors.InkMuted)
     }
 }
 
@@ -575,7 +568,7 @@ private fun RailIconItem(section: AppSection, active: Boolean, focusRequester: F
             }
             .then(
                 if (active) {
-                    Modifier.glassPanel(RailItemShape, fallback = scheme.primaryContainer, base = scheme.primaryContainer)
+                    Modifier.background(scheme.primaryContainer, RailItemShape)
                 } else {
                     Modifier
                 },

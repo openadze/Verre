@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.0 "Nova"
+
+### CHANGED
+- Liquid Glass removed: every surface, button and bar is now a plain solid fill (the setting is gone too)
+- Flat colors instead of decorative gradients: the Now Playing background, the artwork placeholder, the tag tiles and the equalizer panel
+- New icon set: Material Symbols (Rounded) everywhere, with outlined and filled states on the bottom tabs
+
 ## 4.0.27
 
 ### NEW

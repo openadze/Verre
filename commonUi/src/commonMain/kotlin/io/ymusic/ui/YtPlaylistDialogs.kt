@@ -13,10 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -157,13 +153,13 @@ private fun AddToYtPlaylistDialog(
             }
             else -> LazyColumn(state = listState, modifier = Modifier.fillMaxWidth()) {
                 item("new") {
-                    YtPlaylistRow(Icons.Default.Add, stringResource(Res.string.add_to_playlist_new), DesignColors.Accent, busy = false) {
+                    YtPlaylistRow(VerreIcons.Add, stringResource(Res.string.add_to_playlist_new), DesignColors.Accent, busy = false) {
                         if (adding == null) onCreate()
                     }
                 }
                 items(loaded, key = { it.playlistId }) { target ->
                     YtPlaylistRow(
-                        if (target.containsVideo) Icons.Default.Check else Icons.AutoMirrored.Filled.PlaylistPlay,
+                        if (target.containsVideo) VerreIcons.Check else VerreIcons.PlaylistPlay,
                         target.title,
                         if (target.containsVideo) DesignColors.InkFaint else DesignColors.Ink,
                         busy = adding == target.playlistId,

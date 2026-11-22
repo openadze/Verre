@@ -93,17 +93,9 @@ private fun ActionIconBox(
     hitSize: Dp,
     content: @Composable () -> Unit,
 ) {
-    // Liquid Glass wherever a backdrop is provided: the full refracting surface over the cover gradient, the light
-    // panel (no shader, cheap in lists) over the app's ambient layer; no backdrop (glass off) draws nothing.
-    val glass = if (LocalCoverLook.current) {
-        Modifier.glassSurface(CircleShape, Color.Transparent, tint = currentGlassStyle().tint, rim = true)
-    } else {
-        Modifier.glassPanel(CircleShape)
-    }
     Box(
         modifier
             .size(hitSize)
-            .then(glass)
             .clip(CircleShape)
             .then(interaction),
         contentAlignment = Alignment.Center,

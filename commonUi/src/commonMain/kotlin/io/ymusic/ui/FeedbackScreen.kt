@@ -19,12 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -197,7 +191,7 @@ internal fun FeedbackScreen(graph: AppGraph, onDismiss: () -> Unit) {
                 })
                 val uriHandler = LocalUriHandler.current
                 ContactRow(
-                    icon = Icons.Outlined.Public,
+                    icon = VerreIcons.PublicOutline,
                     title = stringResource(Res.string.feedback_github_title),
                     hint = stringResource(Res.string.feedback_github_hint),
                     onClick = {
@@ -207,7 +201,7 @@ internal fun FeedbackScreen(graph: AppGraph, onDismiss: () -> Unit) {
                 )
                 val subject = stringResource(Res.string.feedback_email_subject)
                 ContactRow(
-                    icon = Icons.Outlined.Email,
+                    icon = VerreIcons.EmailOutline,
                     title = stringResource(Res.string.feedback_email_title, links.feedbackEmail),
                     hint = stringResource(Res.string.feedback_email_hint),
                     onClick = {
@@ -338,7 +332,7 @@ private fun InfoCard(info: FeedbackInfo, copied: Boolean, onCopy: () -> Unit) {
             )
             TextButton(onClick = onCopy) {
                 Icon(
-                    if (copied) Icons.Outlined.Check else Icons.Outlined.ContentCopy,
+                    if (copied) VerreIcons.CheckOutline else VerreIcons.ContentCopyOutline,
                     contentDescription = null,
                     tint = DesignColors.Accent,
                     modifier = Modifier.size(18.dp),
@@ -405,7 +399,7 @@ private fun ContactRow(icon: ImageVector, title: String, hint: String, onClick: 
             Text(title, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong))
             Text(hint, style = TextStyle(fontSize = 13.sp, lineHeight = 18.sp, color = DesignColors.InkSoft))
         }
-        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, tint = DesignColors.InkSoft, modifier = Modifier.size(18.dp))
+        Icon(VerreIcons.OpenInNewOutline, contentDescription = null, tint = DesignColors.InkSoft, modifier = Modifier.size(18.dp))
     }
 }
 

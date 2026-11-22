@@ -67,6 +67,7 @@ import io.ymusic.ui.resources.settings_licenses
 import io.ymusic.ui.resources.settings_licenses_intro
 import io.ymusic.ui.resources.settings_section_about
 import io.ymusic.ui.resources.settings_section_appearance
+import io.ymusic.ui.resources.settings_section_more
 import io.ymusic.ui.resources.settings_section_content
 import io.ymusic.ui.resources.settings_section_devices
 import io.ymusic.ui.resources.settings_section_downloads
@@ -84,8 +85,6 @@ import io.ymusic.ui.resources.settings_stats
 import io.ymusic.ui.resources.settings_stats_hint
 import io.ymusic.ui.resources.settings_terms
 import io.ymusic.ui.resources.settings_theme
-import io.ymusic.ui.resources.settings_glass
-import io.ymusic.ui.resources.settings_glass_hint
 import io.ymusic.ui.resources.settings_theme_amoled
 import io.ymusic.ui.resources.settings_theme_dark
 import io.ymusic.ui.resources.settings_theme_light
@@ -144,6 +143,11 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
     val scrollState = rememberScrollState()
     TrackScroll { scrollState.canScrollBackward }
     Column(Modifier.fillMaxSize().verticalScroll(scrollState).padding(bottom = DesignSpacing.SettingsSectionGap + LocalMiniPlayerInset.current)) {
+        SettingsSection(Res.string.settings_section_more) {
+            SectionLinkRow(AppSection.Downloads)
+            if (!graph.guest) SectionLinkRow(AppSection.PlayAgain)
+            SectionLinkRow(AppSection.Feedback)
+        }
         SettingsSection(Res.string.settings_section_appearance) {
             ThemeRow(
                 current = theme,
@@ -156,7 +160,6 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
                     scope.launch { graph.settings.put(AppSettings.themeAccent, hex) }
                 },
             )
-            ToggleRow(graph, GlassSettings.ENABLED, Res.string.settings_glass, Res.string.settings_glass_hint)
             LanguageRow(
                 current = uiLanguage.ifBlank { defaultUiLanguageTag() },
                 onSelect = { tag ->
@@ -328,6 +331,20 @@ private fun AudioFocusRow(graph: AppGraph) {
             }
         }
     }
+}
+
+/** A row that opens another top-level section (these used to live in the side menu). */
+@Composable
+private fun SectionLinkRow(section: AppSection) {
+    val navigate = LocalNavigateToSection.current
+    Text(
+        stringResource(section.label),
+        style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { navigate(section) }
+            .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
+    )
 }
 
 @Composable

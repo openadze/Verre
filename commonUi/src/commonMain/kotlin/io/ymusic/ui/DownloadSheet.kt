@@ -21,18 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.Headphones
-import androidx.compose.material.icons.outlined.HighQuality
-import androidx.compose.material.icons.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.MusicNote
-import androidx.compose.material.icons.outlined.RecordVoiceOver
-import androidx.compose.material.icons.outlined.Subtitles
-import androidx.compose.material.icons.outlined.Videocam
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -175,7 +163,7 @@ internal fun DownloadSheet(
                     Column {
                         if (state.format.kind == DownloadKind.VIDEO) {
                             DropdownOptionRow(
-                                Icons.Outlined.InsertDriveFile,
+                                VerreIcons.InsertDriveFileOutline,
                                 stringResource(Res.string.download_container),
                                 state.format.displayName(),
                                 containerChoices(state),
@@ -183,28 +171,28 @@ internal fun DownloadSheet(
                         }
                         if (state.showsAudioQuality) {
                             DropdownOptionRow(
-                                Icons.Outlined.HighQuality,
+                                VerreIcons.HighQualityOutline,
                                 stringResource(Res.string.download_quality),
                                 audioQualityLabel(state),
                                 audioQualityChoices(state),
                             )
                         }
                         DropdownOptionRow(
-                            Icons.Outlined.RecordVoiceOver,
+                            VerreIcons.RecordVoiceOverOutline,
                             stringResource(Res.string.download_audio_track),
                             audioTrackLabel(state),
                             audioTrackChoices(state),
                         )
                         if (options.captions.isNotEmpty() && state.captionsSupported) {
                             DropdownOptionRow(
-                                Icons.Outlined.Subtitles,
+                                VerreIcons.SubtitlesOutline,
                                 stringResource(Res.string.download_captions),
                                 captionSummary(state),
                                 captionChoices(state),
                             )
                         }
                         OptionRow(
-                            Icons.Outlined.Folder,
+                            VerreIcons.FolderOutline,
                             stringResource(Res.string.download_save_to),
                             locationName ?: stringResource(Res.string.download_location_not_set),
                             onClick = onPickLocation,
@@ -224,7 +212,7 @@ private fun SheetHeader(state: DownloadOptionsState, onRename: () -> Unit) {
     Row(horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space16), verticalAlignment = Alignment.Top) {
         Box(Modifier.size(64.dp).clip(RoundedCornerShape(8.dp)), contentAlignment = Alignment.Center) {
             ThumbImage(state.video.thumbs, RoundedCornerShape(8.dp)) {
-                ThumbPlaceholder(Icons.Outlined.MusicNote, 24.dp)
+                ThumbPlaceholder(VerreIcons.MusicNoteOutline, 24.dp)
             }
             Badges(state.badgeItem, Modifier.align(Alignment.BottomEnd).padding(DesignSpacing.Space4), textSize = 10, iconSize = 12.dp)
         }
@@ -238,7 +226,7 @@ private fun SheetHeader(state: DownloadOptionsState, onRename: () -> Unit) {
             )
         }
         IconButton(onClick = onRename, modifier = Modifier.a11yActionLabel(stringResource(Res.string.download_edit_name))) {
-            Icon(Icons.Outlined.Edit, null, tint = DesignColors.InkSoft)
+            Icon(VerreIcons.EditOutline, null, tint = DesignColors.InkSoft)
         }
     }
 }
@@ -303,10 +291,10 @@ private fun TypeSegments(state: DownloadOptionsState) {
             .padding(DesignSpacing.Space4),
         horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space4),
     ) {
-        Segment(Icons.Outlined.Headphones, stringResource(Res.string.download_audio_only), state.audioOnly, Modifier.weight(1f)) {
+        Segment(VerreIcons.HeadphonesOutline, stringResource(Res.string.download_audio_only), state.audioOnly, Modifier.weight(1f)) {
             state.audioOnly = true
         }
-        Segment(Icons.Outlined.Videocam, stringResource(Res.string.download_video), !state.audioOnly, Modifier.weight(1f)) {
+        Segment(VerreIcons.VideocamOutline, stringResource(Res.string.download_video), !state.audioOnly, Modifier.weight(1f)) {
             state.audioOnly = false
         }
     }
@@ -503,7 +491,7 @@ private fun OptionRow(icon: ImageVector, title: String, value: String, onClick: 
                 menu()
             }
         }
-        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, Modifier.size(16.dp), tint = DesignColors.InkFaint)
+        Icon(VerreIcons.KeyboardArrowRight, null, Modifier.size(16.dp), tint = DesignColors.InkFaint)
     }
 }
 
@@ -594,7 +582,7 @@ internal fun ChoiceMenuItems(choices: List<Choice>, close: () -> Unit) {
         DropdownMenuItem(
             text = { Text(choice.label, color = DesignColors.Ink) },
             trailingIcon = if (choice.selected) {
-                { Icon(Icons.Default.Check, null, Modifier.size(18.dp), tint = DesignColors.Accent) }
+                { Icon(VerreIcons.Check, null, Modifier.size(18.dp), tint = DesignColors.Accent) }
             } else {
                 null
             },

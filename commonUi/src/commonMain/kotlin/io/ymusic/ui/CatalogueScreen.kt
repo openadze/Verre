@@ -18,12 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -233,10 +227,10 @@ private fun CatalogueList() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
             ) {
-                ActionIcon(Icons.Default.MoreVert, "more") {}
-                ActionIcon(Icons.Default.PlayArrow, "play", iconSize = 26.dp, hitSize = 36.dp) {}
+                ActionIcon(VerreIcons.MoreVert, "more") {}
+                ActionIcon(VerreIcons.PlayArrow, "play", iconSize = 26.dp, hitSize = 36.dp) {}
                 ActionIcon(painterResource(Res.drawable.ic_sleep_timer), "sleep", tint = DesignColors.Accent) {}
-                ActionIcon(Icons.Default.SkipNext, "next", enabled = false, tint = DesignColors.InkFaint) {}
+                ActionIcon(VerreIcons.SkipNext, "next", enabled = false, tint = DesignColors.InkFaint) {}
             }
         }
 
@@ -287,10 +281,10 @@ private fun CatalogueList() {
                 placeholder = { Text("Search YouTube") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp),
-                leadingIcon = { Icon(Icons.Default.Search, null) },
+                leadingIcon = { Icon(VerreIcons.Search, null) },
                 trailingIcon = {
                     if (query.isNotEmpty()) {
-                        ActionIcon(Icons.Default.Close, "clear") { query = "" }
+                        ActionIcon(VerreIcons.Close, "clear") { query = "" }
                     }
                 },
             )

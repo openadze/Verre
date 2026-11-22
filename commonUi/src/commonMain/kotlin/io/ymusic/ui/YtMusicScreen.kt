@@ -12,9 +12,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -353,8 +350,8 @@ internal fun PlayAllBar(onPlayAll: () -> Unit, onShuffleAll: () -> Unit) {
         Modifier.fillMaxWidth().padding(horizontal = DesignSpacing.Space16, vertical = DesignSpacing.Space8),
         horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space8),
     ) {
-        PlayPill(Icons.Default.PlayArrow, stringResource(Res.string.play_all), filled = true, onClick = onPlayAll)
-        PlayPill(Icons.Default.Shuffle, stringResource(Res.string.shuffle_all), filled = false, onClick = onShuffleAll)
+        PlayPill(VerreIcons.PlayArrow, stringResource(Res.string.play_all), filled = true, onClick = onPlayAll)
+        PlayPill(VerreIcons.Shuffle, stringResource(Res.string.shuffle_all), filled = false, onClick = onShuffleAll)
     }
 }
 

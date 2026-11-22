@@ -1,5 +1,6 @@
 package io.ymusic.desktop
 
+import io.ymusic.ui.VerreIcons
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -28,9 +29,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -280,7 +278,7 @@ internal fun CookieCopyGuide(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             ActionIcon(
-                if (paused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                if (paused) VerreIcons.PlayArrow else VerreIcons.Pause,
                 if (paused) playCd else pauseCd,
                 iconSize = 20.dp,
                 hitSize = 36.dp,

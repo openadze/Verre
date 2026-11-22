@@ -23,11 +23,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.MusicNote
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -203,10 +198,10 @@ internal fun AppleLargeHeader(title: String, account: YtAccountInfo?, onAvatar: 
                 contentAlignment = Alignment.Center,
             ) {
                 if (account != null && account.thumbs.isNotEmpty()) {
-                    ThumbImage(account.thumbs, CircleShape) { ThumbPlaceholder(Icons.Outlined.Person, 18.dp) }
+                    ThumbImage(account.thumbs, CircleShape) { ThumbPlaceholder(VerreIcons.PersonOutline, 18.dp) }
                 } else {
                     Box(Modifier.fillMaxSize().background(DesignColors.Placeholder), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Outlined.Person, null, Modifier.size(20.dp), tint = DesignColors.InkSecondary)
+                        Icon(VerreIcons.PersonOutline, null, Modifier.size(20.dp), tint = DesignColors.InkSecondary)
                     }
                 }
             }
@@ -269,7 +264,7 @@ private fun TopPickCard(item: YtFeedItem, width: androidx.compose.ui.unit.Dp, on
             .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null, role = Role.Button, onClick = onClick)
             .a11yRowLabel(listOfNotNull(item.title, item.subtitleLine1).joinToString(", ")),
     ) {
-        ThumbImage(item.thumbs, shape) { ThumbPlaceholder(Icons.Outlined.MusicNote, 30.dp) }
+        ThumbImage(item.thumbs, shape) { ThumbPlaceholder(VerreIcons.MusicNoteOutline, 30.dp) }
         Box(
             Modifier.matchParentSize().background(
                 Brush.verticalGradient(listOf(Color(0x00000000), Color(0x66000000), Color(0xCC000000))),
@@ -302,7 +297,7 @@ private fun TopPickCard(item: YtFeedItem, width: androidx.compose.ui.unit.Dp, on
                 .background(Color(0x33FFFFFF)),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(Icons.Default.PlayArrow, stringResource(Res.string.cd_play), Modifier.size(20.dp), tint = Color.White)
+            Icon(VerreIcons.PlayArrow, stringResource(Res.string.cd_play), Modifier.size(20.dp), tint = Color.White)
         }
     }
 }
@@ -363,7 +358,7 @@ internal fun AppleSectionHeaderRow(title: String, onSeeAll: (() -> Unit)?, modif
                     style = TextStyle(fontSize = 15.sp, color = DesignColors.Accent),
                 )
                 Icon(
-                    Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    VerreIcons.KeyboardArrowRight,
                     null,
                     Modifier.padding(start = 1.dp).size(18.dp),
                     tint = DesignColors.Accent,
@@ -404,7 +399,7 @@ internal fun AppleTile(item: YtFeedItem, onClick: () -> Unit, modifier: Modifier
             contentAlignment = Alignment.Center,
         ) {
             ThumbImage(item.thumbs, if (artist) CircleShape else RoundedCornerShape(8.dp)) {
-                ThumbPlaceholder(Icons.Outlined.Person, 30.dp)
+                ThumbPlaceholder(VerreIcons.PersonOutline, 30.dp)
             }
         }
         Text(
@@ -458,12 +453,11 @@ private fun TagTile(item: YtFeedItem, column: Int, modifier: Modifier, onClick: 
         item.accent?.let { runCatching { Color(it.toLong(16)) }.getOrNull() }
             ?: TAG_TILE_COLORS[(item.title.hashCode() + column).mod(TAG_TILE_COLORS.size)]
     }
-    val dark = remember(base) { Color(base.red * 0.62f, base.green * 0.55f, base.blue * 0.72f) }
     Box(
         modifier
             .height(74.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(Brush.linearGradient(listOf(base, dark)))
+            .background(base)
             .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null, role = Role.Button, onClick = onClick)
             .a11yRowLabel(item.title),
         contentAlignment = Alignment.CenterStart,

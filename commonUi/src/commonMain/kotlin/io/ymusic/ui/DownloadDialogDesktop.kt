@@ -23,15 +23,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.HighQuality
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.InsertDriveFile
-import androidx.compose.material.icons.outlined.Subtitles
-import androidx.compose.material.icons.outlined.ViewAgenda
-import androidx.compose.material.icons.outlined.VolumeUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -147,7 +138,7 @@ private fun LeftPane(state: DownloadOptionsState, locationName: String?, onPickL
     ) {
         Box(Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(10.dp)), contentAlignment = Alignment.Center) {
             ThumbImage(state.video.thumbs, RoundedCornerShape(10.dp)) {
-                ThumbPlaceholder(Icons.Outlined.Image, 26.dp)
+                ThumbPlaceholder(VerreIcons.ImageOutline, 26.dp)
             }
             Badges(state.badgeItem, Modifier.align(Alignment.BottomEnd).padding(DesignSpacing.Space8), textSize = 11, iconSize = 14.dp)
         }
@@ -163,7 +154,7 @@ private fun LeftPane(state: DownloadOptionsState, locationName: String?, onPickL
                 shape = RoundedCornerShape(8.dp),
                 border = BorderStroke(1.dp, DesignColors.Outline),
             ) {
-                Icon(Icons.Outlined.Folder, null, Modifier.size(16.dp), tint = DesignColors.InkSoft)
+                Icon(VerreIcons.FolderOutline, null, Modifier.size(16.dp), tint = DesignColors.InkSoft)
                 Text(
                     locationName ?: stringResource(Res.string.download_location_not_set),
                     Modifier.weight(1f).padding(start = DesignSpacing.Space8),
@@ -208,21 +199,21 @@ private fun FileNameField(state: DownloadOptionsState) {
 @Composable
 private fun TrackRows(state: DownloadOptionsState) {
     val options = state.options ?: return
-    TrackRow(Icons.Outlined.InsertDriveFile, stringResource(Res.string.download_format)) {
+    TrackRow(VerreIcons.InsertDriveFileOutline, stringResource(Res.string.download_format)) {
         FormatDropdown(state)
     }
     if (state.showsAudioQuality) {
-        TrackRow(Icons.Outlined.HighQuality, stringResource(Res.string.download_quality)) {
+        TrackRow(VerreIcons.HighQualityOutline, stringResource(Res.string.download_quality)) {
             val choices = audioQualityChoices(state)
             DropdownField(audioQualityLabel(state)) { close -> ChoiceMenuItems(choices, close) }
         }
     }
-    TrackRow(Icons.Outlined.VolumeUp, stringResource(Res.string.download_audio_language)) {
+    TrackRow(VerreIcons.VolumeUpOutline, stringResource(Res.string.download_audio_language)) {
         val choices = audioTrackChoices(state)
         DropdownField(audioTrackLabel(state)) { close -> ChoiceMenuItems(choices, close) }
     }
     if (options.captions.isNotEmpty() && state.captionsSupported) {
-        TrackRow(Icons.Outlined.Subtitles, stringResource(Res.string.download_subtitles), alignTop = state.format.captionsAsLyrics) {
+        TrackRow(VerreIcons.SubtitlesOutline, stringResource(Res.string.download_subtitles), alignTop = state.format.captionsAsLyrics) {
             Column(verticalArrangement = Arrangement.spacedBy(DesignSpacing.Space4)) {
                 val choices = captionChoices(state)
                 DropdownField(captionSummary(state)) { close -> ChoiceMenuItems(choices, close) }
@@ -233,7 +224,7 @@ private fun TrackRows(state: DownloadOptionsState) {
         }
     }
     if (state.format.kind == DownloadKind.VIDEO) {
-        TrackRow(Icons.Outlined.ViewAgenda, stringResource(Res.string.download_container)) {
+        TrackRow(VerreIcons.ViewAgendaOutline, stringResource(Res.string.download_container)) {
             Column(verticalArrangement = Arrangement.spacedBy(DesignSpacing.Space4)) {
                 ContainerToggle(state)
                 if (state.format == DownloadFormat.VIDEO_MP4) {
@@ -323,7 +314,7 @@ internal fun DropdownField(value: String, menu: @Composable ColumnScope.(close: 
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(value, Modifier.weight(1f), style = TextStyle(fontSize = 14.sp, color = DesignColors.Ink), maxLines = 1)
-            Icon(Icons.Default.KeyboardArrowDown, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
+            Icon(VerreIcons.KeyboardArrowDown, null, Modifier.size(18.dp), tint = DesignColors.InkSoft)
         }
         DropdownMenu(expanded = open, onDismissRequest = { open = false }, containerColor = DesignColors.Surface) {
             menu { open = false }

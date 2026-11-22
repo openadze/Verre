@@ -21,12 +21,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.outlined.CloudOff
-import androidx.compose.material.icons.outlined.Inbox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -462,7 +456,7 @@ internal fun EmptyState(
     CenteredBox(modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Icon(
-                Icons.Outlined.Inbox,
+                VerreIcons.InboxOutline,
                 null,
                 Modifier.size(56.dp).padding(bottom = 4.dp),
                 tint = DesignColors.PlaceholderIcon,
@@ -492,7 +486,7 @@ internal fun EmptyState(
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = DesignColors.Ink),
                         contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                     ) {
-                        Icon(Icons.Default.Refresh, null, Modifier.size(ButtonDefaults.IconSize))
+                        Icon(VerreIcons.Refresh, null, Modifier.size(ButtonDefaults.IconSize))
                         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                         Text(stringResource(Res.string.reload))
                     }
@@ -533,7 +527,7 @@ internal fun ErrorState(code: String, modifier: Modifier = Modifier, onRetry: ()
     CenteredBox(modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Icon(
-                Icons.Outlined.CloudOff,
+                VerreIcons.CloudOffOutline,
                 null,
                 Modifier.size(56.dp).padding(bottom = 4.dp),
                 tint = DesignColors.PlaceholderIcon,
@@ -964,7 +958,7 @@ private fun FeedSortMenu(options: List<YtChip>, modifier: Modifier = Modifier, o
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
-                    Icons.AutoMirrored.Filled.Sort,
+                    VerreIcons.Sort,
                     null,
                     Modifier.size(16.dp).spokenAs(stringResource(Res.string.cd_sort)),
                     tint = DesignColors.InkSoft,
@@ -982,7 +976,7 @@ private fun FeedSortMenu(options: List<YtChip>, modifier: Modifier = Modifier, o
                     text = { Text(option.title) },
                     leadingIcon = {
                         if (option.selected) {
-                            Icon(Icons.Default.Check, null, Modifier.size(18.dp), tint = DesignColors.Accent)
+                            Icon(VerreIcons.Check, null, Modifier.size(18.dp), tint = DesignColors.Accent)
                         }
                     },
                     onClick = {
@@ -1008,21 +1002,9 @@ fun FeedChip(title: String, selected: Boolean, choice: Boolean = true, loading: 
         Row(
             Modifier
                 .clip(RoundedCornerShape(999.dp))
-                // Selected = the solid accent; unselected = glass (its rim replaces the outline) when glass is on.
-                .then(
-                    if (selected) {
-                        Modifier.background(DesignColors.Accent)
-                    } else {
-                        Modifier.glassPanel(RoundedCornerShape(999.dp))
-                    },
-                )
-                .then(
-                    if (!selected && LocalGlassBackdrop.current != null) {
-                        Modifier
-                    } else {
-                        Modifier.border(1.dp, if (selected) DesignColors.Accent else DesignColors.Outline, RoundedCornerShape(999.dp))
-                    },
-                )
+                // Selected = the solid accent; unselected = an outlined pill.
+                .then(if (selected) Modifier.background(DesignColors.Accent) else Modifier)
+                .border(1.dp, if (selected) DesignColors.Accent else DesignColors.Outline, RoundedCornerShape(999.dp))
                 .then(indication)
                 .chipPadding(),
             verticalAlignment = Alignment.CenterVertically,

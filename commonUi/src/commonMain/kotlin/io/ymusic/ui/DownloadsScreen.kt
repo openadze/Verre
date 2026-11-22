@@ -20,11 +20,6 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -419,7 +414,7 @@ fun DownloadsScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             ExtendedFloatingActionButton(
                 onClick = { if (running) service.pauseAll() else service.resumeAll() },
                 text = { Text(stringResource(if (running) Res.string.downloads_pause_all else Res.string.downloads_resume_all)) },
-                icon = { Icon(if (running) Icons.Filled.Pause else Icons.Filled.PlayArrow, null) },
+                icon = { Icon(if (running) VerreIcons.Pause else VerreIcons.PlayArrow, null) },
                 modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = LocalMiniPlayerInset.current).padding(DesignSpacing.Space16)
                     .focusRing(FloatingActionButtonDefaults.extendedFabShape),
             )
@@ -472,9 +467,9 @@ private fun DownloadSelectionBar(
     val removeLabel = stringResource(Res.string.menu_remove_folder)
     val deleteLabel = stringResource(Res.string.menu_remove_from_disk)
     SelectionBar(count, allSelected, onClose, onToggleSelectAll) {
-        onPause?.let { ActionIcon(Icons.Filled.Pause, stringResource(Res.string.downloads_action_pause), onClick = it) }
-        onResume?.let { ActionIcon(Icons.Filled.PlayArrow, stringResource(Res.string.downloads_action_resume), onClick = it) }
-        onCancel?.let { ActionIcon(Icons.Filled.Cancel, stringResource(Res.string.downloads_cancel_selected), onClick = it) }
+        onPause?.let { ActionIcon(VerreIcons.Pause, stringResource(Res.string.downloads_action_pause), onClick = it) }
+        onResume?.let { ActionIcon(VerreIcons.PlayArrow, stringResource(Res.string.downloads_action_resume), onClick = it) }
+        onCancel?.let { ActionIcon(VerreIcons.Cancel, stringResource(Res.string.downloads_cancel_selected), onClick = it) }
         MoreMenu(ItemActions(listOfNotNull(removeLabel to onRemove, onDelete?.let { deleteLabel to it })), inFocusableItem = false)
     }
 }
@@ -626,7 +621,7 @@ private fun DownloadCard(
                 if (!selecting) onLongClick(selectLabel) { onStartSelection(); true }
             }
             Row(rowSemantics, horizontalArrangement = Arrangement.spacedBy(CardGap)) {
-                LibraryThumb(icon = Icons.Outlined.FileDownload, badge = null, artUrl = task.thumbnailUrl, corner = MediaCardCorner)
+                LibraryThumb(icon = VerreIcons.FileDownloadOutline, badge = null, artUrl = task.thumbnailUrl, corner = MediaCardCorner)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(DesignSpacing.Space4)) {
                     Text(
                         task.title,

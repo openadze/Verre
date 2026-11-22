@@ -15,19 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.VolumeDown
-import androidx.compose.material.icons.automirrored.filled.VolumeOff
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Repeat
-import androidx.compose.material.icons.filled.RepeatOne
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.filled.SkipNext
-import androidx.compose.material.icons.filled.SkipPrevious
-import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -180,7 +167,7 @@ private fun BarTransport(coordinator: PlaybackCoordinator, modifier: Modifier) {
         MediaLtr {
             Row(horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space8), verticalAlignment = Alignment.CenterVertically) {
                 ToggleActionIcon(
-                    Icons.Default.Shuffle,
+                    VerreIcons.Shuffle,
                     stringResource(Res.string.cd_shuffle),
                     checked = queue.shuffle,
                     iconSize = BarSmallIcon,
@@ -188,12 +175,12 @@ private fun BarTransport(coordinator: PlaybackCoordinator, modifier: Modifier) {
                     tint = if (queue.shuffle) DesignColors.Accent else DesignColors.InkMuted,
                     onCheckedChange = { player.setShuffle(it) },
                 )
-                ActionIcon(Icons.Default.SkipPrevious, stringResource(Res.string.cd_previous), onClick = { player.skipPrev() })
+                ActionIcon(VerreIcons.SkipPrevious, stringResource(Res.string.cd_previous), onClick = { player.skipPrev() })
                 BarPlayPause(coordinator, status)
-                ActionIcon(Icons.Default.SkipNext, stringResource(Res.string.cd_next), onClick = { player.skipNext() })
+                ActionIcon(VerreIcons.SkipNext, stringResource(Res.string.cd_next), onClick = { player.skipNext() })
                 val loopMode = queue.loopMode
                 ActionIcon(
-                    if (loopMode == LoopMode.One) Icons.Default.RepeatOne else Icons.Default.Repeat,
+                    if (loopMode == LoopMode.One) VerreIcons.RepeatOne else VerreIcons.Repeat,
                     stringResource(loopMode.label()),
                     iconSize = BarSmallIcon,
                     hitSize = BarSmallHit,
@@ -229,7 +216,7 @@ private fun BarPlayPause(coordinator: PlaybackCoordinator, status: PlaybackStatu
             .a11yActionLabel(stringResource(if (pause) Res.string.cd_pause else Res.string.cd_play)),
         contentAlignment = Alignment.Center,
     ) {
-        Icon(if (pause) Icons.Default.Pause else Icons.Default.PlayArrow, null, Modifier.size(BarSmallIcon), tint = DesignColors.OnInk)
+        Icon(if (pause) VerreIcons.Pause else VerreIcons.PlayArrow, null, Modifier.size(BarSmallIcon), tint = DesignColors.OnInk)
     }
 }
 
@@ -242,9 +229,9 @@ private fun BarSideControls(coordinator: PlaybackCoordinator, sleep: Boolean) {
     var eqOpen by remember { mutableStateOf(false) }
     var speedOpen by remember { mutableStateOf(false) }
     Row(verticalAlignment = Alignment.CenterVertically) {
-        ActionIcon(Icons.Default.Tune, stringResource(Res.string.sound_eq), iconSize = BarSmallIcon, onClick = { eqOpen = true })
+        ActionIcon(VerreIcons.Tune, stringResource(Res.string.sound_eq), iconSize = BarSmallIcon, onClick = { eqOpen = true })
         ActionIcon(
-            Icons.Outlined.Speed,
+            VerreIcons.SpeedOutline,
             stringResource(Res.string.menu_speed_pitch),
             iconSize = BarSmallIcon,
             tint = if (config.speed != 1f || config.pitchFactor != 1f) DesignColors.Accent else DesignColors.InkMuted,
@@ -254,9 +241,9 @@ private fun BarSideControls(coordinator: PlaybackCoordinator, sleep: Boolean) {
         val volume = config.volume
         Icon(
             when {
-                volume <= 0f -> Icons.AutoMirrored.Filled.VolumeOff
-                volume < 0.5f -> Icons.AutoMirrored.Filled.VolumeDown
-                else -> Icons.AutoMirrored.Filled.VolumeUp
+                volume <= 0f -> VerreIcons.VolumeOff
+                volume < 0.5f -> VerreIcons.VolumeDown
+                else -> VerreIcons.VolumeUp
             },
             null,
             Modifier.padding(horizontal = DesignSpacing.Space4).size(BarSmallIcon),

@@ -13,8 +13,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -172,7 +170,7 @@ private fun CompactVideoRow(video: YtFeedItem) {
         horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space16),
     ) {
         Box(Modifier.size(width = 64.dp, height = 36.dp).clip(RoundedCornerShape(4.dp)), contentAlignment = Alignment.Center) {
-            ThumbImage(video.thumbs, RoundedCornerShape(4.dp)) { ThumbPlaceholder(Icons.Outlined.Image, 16.dp) }
+            ThumbImage(video.thumbs, RoundedCornerShape(4.dp)) { ThumbPlaceholder(VerreIcons.ImageOutline, 16.dp) }
         }
         Column(Modifier.weight(1f)) {
             Text(video.title, style = TextStyle(fontSize = 14.sp, color = DesignColors.Ink), maxLines = 1, overflow = TextOverflow.Ellipsis)

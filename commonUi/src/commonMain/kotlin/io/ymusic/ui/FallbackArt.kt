@@ -1,10 +1,7 @@
 package io.ymusic.ui
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -12,7 +9,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.VectorGroup
 import androidx.compose.ui.graphics.vector.VectorPath
 import androidx.compose.ui.graphics.vector.toPath
@@ -26,17 +22,17 @@ private val FALLBACK_ART_PALETTE = longArrayOf(
 )
 
 /**
- * The art of a local item that has none, or whose every art source failed: [key]'s colour fading darker
- * downward under a music note, drawn at [width]×[height]. The `art:` fetcher returns it; [key] is the art url.
+ * The art of a local item that has none, or whose every art source failed: [key]'s flat colour
+ * under a music note, drawn at [width]×[height]. The `art:` fetcher returns it; [key] is the art url.
  */
 fun fallbackArtBitmap(key: String, width: Int, height: Int): ImageBitmap {
     val color = Color(FALLBACK_ART_PALETTE[key.hashCode().mod(FALLBACK_ART_PALETTE.size)])
     val bitmap = ImageBitmap(width, height)
     CanvasDrawScope().draw(Density(1f), LayoutDirection.Ltr, Canvas(bitmap), Size(width.toFloat(), height.toFloat())) {
-        drawRect(Brush.verticalGradient(listOf(color, lerp(color, Color.Black, 0.35f))))
+        drawRect(color)
         val side = size.minDimension * 0.6f
         translate(left = (size.width - side) / 2f, top = (size.height - side) / 2f) {
-            scale(side / Icons.Default.MusicNote.viewportWidth, pivot = Offset.Zero) {
+            scale(side / VerreIcons.MusicNote.viewportWidth, pivot = Offset.Zero) {
                 drawPath(musicNotePath(), Color.White.copy(alpha = 0.85f))
             }
         }
@@ -55,6 +51,6 @@ private fun musicNotePath(): Path {
             }
         }
     }
-    add(Icons.Default.MusicNote.root)
+    add(VerreIcons.MusicNote.root)
     return path
 }

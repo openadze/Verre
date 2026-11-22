@@ -17,8 +17,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -277,7 +275,7 @@ private fun Swatches(colors: List<String>, selected: String, onPick: (String) ->
             ) {
                 if (isSelected) {
                     Icon(
-                        Icons.Default.Check,
+                        VerreIcons.Check,
                         null,
                         Modifier.size(DesignSpacing.Space16),
                         tint = if (color.luminance() > 0.5f) Color.Black else Color.White,

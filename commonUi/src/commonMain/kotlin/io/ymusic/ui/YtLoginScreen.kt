@@ -19,11 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Code
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -393,7 +388,7 @@ private fun BrowserHint(text: String, onDismiss: (() -> Unit)? = null) {
         )
         if (onDismiss != null) {
             ActionIcon(
-                Icons.Default.Close,
+                VerreIcons.Close,
                 stringResource(Res.string.cd_close),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 onClick = onDismiss,
@@ -410,7 +405,7 @@ private fun LoginChrome(
     onDone: (() -> Unit)? = null,
 ) = ElevatedBarColumn {
     AppBarRow {
-        ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
+        ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
         Column(Modifier.weight(1f)) {
             Text(
                 state.title?.takeIf { it.isNotBlank() } ?: fallbackTitle,
@@ -428,7 +423,7 @@ private fun LoginChrome(
             }
         }
         state.openDevTools?.let { open ->
-            ActionIcon(Icons.Default.Code, "DevTools", onClick = open)
+            ActionIcon(VerreIcons.Code, "DevTools", onClick = open)
         }
         if (onDone != null) {
             TextButton(onClick = onDone) {
@@ -479,7 +474,7 @@ internal fun LoginPreface(onSignIn: () -> Unit) {
                         Modifier.size(56.dp).background(Color(0xFFFF0000), RoundedCornerShape(14.dp)),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Icon(Icons.Filled.PlayArrow, null, tint = Color.White, modifier = Modifier.size(34.dp))
+                        Icon(VerreIcons.PlayArrow, null, tint = Color.White, modifier = Modifier.size(34.dp))
                     }
                     Column {
                         Text(

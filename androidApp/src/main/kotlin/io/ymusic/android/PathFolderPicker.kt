@@ -1,5 +1,6 @@
 package io.ymusic.android
 
+import io.ymusic.ui.VerreIcons
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,10 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.SdStorage
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -113,18 +110,18 @@ internal fun PathFolderPickerDialog(
             LazyColumn(state = listState) {
                 if (canGoUp) {
                     item(key = "up") {
-                        FolderRow(Icons.Default.ArrowUpward, "..", Modifier.focusRequester(firstRow)) { open(parent) }
+                        FolderRow(VerreIcons.ArrowUpward, "..", Modifier.focusRequester(firstRow)) { open(parent) }
                     }
                 }
                 if (current == null) {
                     items(roots, key = { it.directory.path }) { volume ->
                         val focus = if (volume == roots.first()) Modifier.focusRequester(firstRow) else Modifier
-                        FolderRow(Icons.Default.SdStorage, volume.label, focus) { open(volume.directory) }
+                        FolderRow(VerreIcons.SdStorage, volume.label, focus) { open(volume.directory) }
                     }
                 } else if (loaded != null) {
                     items(loaded, key = { it.path }) { dir ->
                         val focus = if (!canGoUp && dir == loaded.first()) Modifier.focusRequester(firstRow) else Modifier
-                        FolderRow(Icons.Default.Folder, dir.name, focus) { open(dir) }
+                        FolderRow(VerreIcons.Folder, dir.name, focus) { open(dir) }
                     }
                     if (loaded.isEmpty()) {
                         item(key = "empty") {

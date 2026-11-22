@@ -20,12 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.NorthWest
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -257,7 +251,7 @@ fun SearchScreen(
     fun LazyListScope.historyRows(entries: List<String>, label: (String) -> AnnotatedString) {
         items(entries) { entry ->
             QueryRow(
-                icon = Icons.Outlined.Schedule,
+                icon = VerreIcons.ScheduleOutline,
                 text = label(entry),
                 onClick = { submit(entry) },
                 onInsert = { setField(entry) },
@@ -304,7 +298,7 @@ fun SearchScreen(
                         historyRows(historyMatches) { entry -> suggestionText(entry, typed) }
                         items(newSuggestions) { sug ->
                             QueryRow(
-                                icon = Icons.Default.Search,
+                                icon = VerreIcons.Search,
                                 text = suggestionText(sug, s.field.text),
                                 onClick = { submit(sug) },
                                 onInsert = { setField(sug) },
@@ -369,14 +363,14 @@ private fun QueryRow(
         Row {
             if (onRemove != null) {
                 ActionIcon(
-                    Icons.Default.Close,
+                    VerreIcons.Close,
                     stringResource(Res.string.cd_remove_from_history),
                     tint = DesignColors.InkSecondary,
                     onClick = onRemove,
                 )
             }
             ActionIcon(
-                Icons.Default.NorthWest,
+                VerreIcons.NorthWest,
                 stringResource(Res.string.cd_insert_query),
                 tint = DesignColors.PlaceholderIcon,
                 onClick = onInsert,
@@ -393,7 +387,7 @@ private fun ClearHistoryRow(onClear: () -> Unit) {
         horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(Icons.Outlined.Delete, null, Modifier.size(15.dp), tint = DesignColors.InkSoft)
+        Icon(VerreIcons.DeleteOutline, null, Modifier.size(15.dp), tint = DesignColors.InkSoft)
         Text(
             stringResource(Res.string.search_clear_history),
             style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkSoft),

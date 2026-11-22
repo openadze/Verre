@@ -52,7 +52,6 @@ import io.ymusic.lyrics.LyricsQuery
 import io.ymusic.lyrics.LyricsTimeline
 import io.ymusic.lyrics.SyncType
 import io.ymusic.lyrics.lyricsOptions
-import io.ymusic.lyrics.withEstimatedWords
 import io.ymusic.player.PlayableItem
 import io.ymusic.player.Progress
 import kotlinx.coroutines.delay
@@ -141,8 +140,9 @@ fun LyricsView(
     onSeek: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // Line-synced lyrics (most of LRCLIB) still fill word by word, with the line's time spread over its words.
-    val shown = remember(doc) { doc.withEstimatedWords() }
+    // Word by word only where the source has real word timing (LRCLIB's word-level lyrics, TTML, enhanced LRC);
+    // plain line-synced lyrics are lit line by line, never with guessed word times.
+    val shown = doc
     val timeline = remember(shown) { LyricsTimeline(shown) }
     val synced = shown.syncType != SyncType.NONE
     val activeIndex by remember(timeline) { derivedStateOf { timeline.activeIndex(positionMs()) } }

@@ -1,5 +1,6 @@
 package io.ymusic.desktop
 
+import io.ymusic.ui.VerreIcons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,9 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.window.WindowDraggableArea
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PushPin
-import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -651,7 +649,7 @@ fun main(args: Array<String>) {
                             videoUnderlay.orderJustBehind(window)
                         }
                         ActionIcon(
-                            icon = if (alwaysOnTop) Icons.Default.PushPin else Icons.Outlined.PushPin,
+                            icon = if (alwaysOnTop) VerreIcons.PushPin else VerreIcons.PushPinOutline,
                             contentDescription = stringResource(Res.string.cd_always_on_top),
                             modifier = Modifier.align(Alignment.CenterEnd).padding(end = 6.dp),
                             iconSize = 14.dp,

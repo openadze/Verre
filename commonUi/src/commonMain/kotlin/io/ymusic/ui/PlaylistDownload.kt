@@ -18,11 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -144,7 +139,7 @@ fun PlaylistDownloadScreen(graph: AppGraph, session: PlaylistDownloadSession, on
     Column(Modifier.fillMaxSize().background(DesignColors.Surface)) {
         ElevatedBarColumn {
             AppBarRow {
-                ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
+                ActionIcon(VerreIcons.ArrowBack, stringResource(Res.string.cd_back), onClick = onBack)
                 AppBarTitle(stringResource(Res.string.playlist_download_title))
             }
         }
@@ -247,7 +242,7 @@ private fun LoadedHeader(
             Box(Modifier.weight(1f))
             Box {
                 IconButton(onClick = { menuOpen = true }, modifier = Modifier.a11yActionLabel(stringResource(Res.string.cd_more))) {
-                    Icon(Icons.Default.MoreVert, null, tint = DesignColors.InkSoft)
+                    Icon(VerreIcons.MoreVert, null, tint = DesignColors.InkSoft)
                 }
                 DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }, containerColor = DesignColors.Surface) {
                     val pickable = videos.filter { !it.live }
@@ -308,7 +303,7 @@ private fun OptionsCard(
                 border = androidx.compose.foundation.BorderStroke(1.dp, DesignColors.Outline),
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = DesignSpacing.Space8),
             ) {
-                Icon(Icons.Outlined.Folder, null, Modifier.size(16.dp), tint = DesignColors.InkSoft)
+                Icon(VerreIcons.FolderOutline, null, Modifier.size(16.dp), tint = DesignColors.InkSoft)
                 Text(
                     locationName ?: stringResource(Res.string.download_location_not_set),
                     Modifier.weight(1f).padding(start = DesignSpacing.Space8),
@@ -411,7 +406,7 @@ private fun VideoCheckRow(
             Modifier.size(width = 96.dp, height = 54.dp).clip(RoundedCornerShape(6.dp)).a11ySilent(),
             contentAlignment = Alignment.Center,
         ) {
-            ThumbImage(video.thumbs, RoundedCornerShape(6.dp)) { ThumbPlaceholder(Icons.Outlined.Image, 20.dp) }
+            ThumbImage(video.thumbs, RoundedCornerShape(6.dp)) { ThumbPlaceholder(VerreIcons.ImageOutline, 20.dp) }
             Badges(video, Modifier.align(Alignment.BottomEnd).padding(DesignSpacing.Space2), textSize = 10, iconSize = 12.dp)
             if (downloaded) AvailableOfflineMark(Modifier.align(Alignment.TopStart))
         }

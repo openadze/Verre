@@ -14,15 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.PlaylistAdd
-import androidx.compose.material.icons.automirrored.filled.PlaylistAddCheck
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.outlined.FileDownload
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.LibraryAdd
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -294,9 +285,9 @@ internal fun PlaylistHeader(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             save?.invoke()
-            ActionIcon(Icons.Outlined.Share, stringResource(Res.string.cd_share), enabled = onShare != null, onClick = { onShare?.invoke() })
-            ActionIcon(Icons.Outlined.FileDownload, stringResource(Res.string.cd_download), enabled = onDownload != null, onClick = { onDownload?.invoke() })
-            if (onCreateLocal != null) ActionIcon(Icons.Outlined.LibraryAdd, stringResource(Res.string.local_playlist_create), onClick = onCreateLocal)
+            ActionIcon(VerreIcons.ShareOutline, stringResource(Res.string.cd_share), enabled = onShare != null, onClick = { onShare?.invoke() })
+            ActionIcon(VerreIcons.FileDownloadOutline, stringResource(Res.string.cd_download), enabled = onDownload != null, onClick = { onDownload?.invoke() })
+            if (onCreateLocal != null) ActionIcon(VerreIcons.LibraryAddOutline, stringResource(Res.string.local_playlist_create), onClick = onCreateLocal)
             Box(Modifier.weight(1f))
             Box(
                 Modifier.size(46.dp).clip(CircleShape).background(DesignColors.InkStrong)
@@ -304,7 +295,7 @@ internal fun PlaylistHeader(
                     .a11yActionLabel(stringResource(Res.string.cd_shuffle)),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(Icons.Default.Shuffle, null, Modifier.size(20.dp), tint = DesignColors.OnInk)
+                Icon(VerreIcons.Shuffle, null, Modifier.size(20.dp), tint = DesignColors.OnInk)
             }
         }
         // 8dp under the divider + the first row's own 8dp = the list's 16dp item rhythm; without
@@ -541,7 +532,7 @@ private fun ChannelHeader(
                 contentAlignment = Alignment.Center,
             ) {
                 ThumbImage(banner, RoundedCornerShape(12.dp)) {
-                    ThumbPlaceholder(Icons.Outlined.Image, 26.dp)
+                    ThumbPlaceholder(VerreIcons.ImageOutline, 26.dp)
                 }
             }
         }
@@ -555,7 +546,7 @@ private fun ChannelHeader(
                 contentAlignment = Alignment.Center,
             ) {
                 ThumbImage(header?.thumbs ?: fallback.thumbs, CircleShape) {
-                    ThumbPlaceholder(Icons.Outlined.Person, 26.dp, DesignColors.PlaceholderDim)
+                    ThumbPlaceholder(VerreIcons.PersonOutline, 26.dp, DesignColors.PlaceholderDim)
                 }
             }
             Column(Modifier.weight(1f)) {
@@ -629,7 +620,7 @@ private fun SavePlaylistToggle(saved: Boolean?, saving: Boolean, onToggle: () ->
     val snackbar = LocalSnackbar.current
     val signIn = stringResource(Res.string.playlist_sign_in_to_save)
     ActionIcon(
-        if (saved == true) Icons.AutoMirrored.Filled.PlaylistAddCheck else Icons.AutoMirrored.Filled.PlaylistAdd,
+        if (saved == true) VerreIcons.PlaylistAddCheck else VerreIcons.PlaylistAdd,
         stringResource(if (saved == true) Res.string.cd_remove_playlist_from_library else Res.string.cd_save_playlist),
         tint = if (saved == true) DesignColors.Accent else DesignColors.InkMuted,
         onClick = { if (saved == null) snackbar(signIn) else onToggle() },

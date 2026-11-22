@@ -23,20 +23,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.ThumbDown
-import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.PushPin
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.ThumbDown
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
@@ -522,7 +508,7 @@ private fun RatingPill(state: VideoDetailsState, details: YtVideoDetails) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space8),
         ) {
-            Icon(if (liked) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp, null, Modifier.size(18.dp), tint = ink)
+            Icon(if (liked) VerreIcons.ThumbUp else VerreIcons.ThumbUpOutline, null, Modifier.size(18.dp), tint = ink)
             likeCount?.let {
                 Text(
                     it,
@@ -538,7 +524,7 @@ private fun RatingPill(state: VideoDetailsState, details: YtVideoDetails) {
                 .a11yActionLabel(stringResource(Res.string.video_details_dislike))
                 .padding(horizontal = DesignSpacing.Space16, vertical = DesignSpacing.Space8),
         ) {
-            Icon(if (disliked) Icons.Filled.ThumbDown else Icons.Outlined.ThumbDown, null, Modifier.size(18.dp), tint = ink)
+            Icon(if (disliked) VerreIcons.ThumbDown else VerreIcons.ThumbDownOutline, null, Modifier.size(18.dp), tint = ink)
         }
     }
 }
@@ -553,7 +539,7 @@ private fun SharePill(onClick: () -> Unit) {
             .a11yActionLabel(stringResource(Res.string.cd_share))
             .padding(horizontal = DesignSpacing.Space16, vertical = DesignSpacing.Space8),
     ) {
-        Icon(Icons.Outlined.Share, null, Modifier.size(18.dp), tint = DesignColors.Ink)
+        Icon(VerreIcons.ShareOutline, null, Modifier.size(18.dp), tint = DesignColors.Ink)
     }
 }
 
@@ -716,7 +702,7 @@ private fun CommentField(
         } else {
             onCancel?.let {
                 IconButton(onClick = it, modifier = Modifier.a11yActionLabel(stringResource(Res.string.dialog_cancel))) {
-                    Icon(Icons.Default.Close, null, tint = DesignColors.InkSecondary)
+                    Icon(VerreIcons.Close, null, tint = DesignColors.InkSecondary)
                 }
             }
             IconButton(
@@ -724,7 +710,7 @@ private fun CommentField(
                 enabled = draft.isNotBlank() && draft.trim() != initial,
                 modifier = Modifier.a11yActionLabel(stringResource(Res.string.video_details_post)),
             ) {
-                Icon(Icons.AutoMirrored.Filled.Send, null, tint = DesignColors.Accent)
+                Icon(VerreIcons.Send, null, tint = DesignColors.Accent)
             }
         }
     }
@@ -754,7 +740,7 @@ private fun CommentRow(
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(DesignSpacing.Space4)) {
             comment.pinned?.let {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space4)) {
-                    Icon(Icons.Outlined.PushPin, null, Modifier.size(12.dp), tint = DesignColors.InkSecondary)
+                    Icon(VerreIcons.PushPinOutline, null, Modifier.size(12.dp), tint = DesignColors.InkSecondary)
                     Text(it, style = androidx.compose.ui.text.TextStyle(fontSize = 11.sp, color = DesignColors.InkSecondary))
                 }
             }
@@ -796,19 +782,19 @@ private fun CommentRow(
 private fun OwnCommentMenu(state: VideoDetailsState, comment: YtComment) {
     var open by remember { mutableStateOf(false) }
     Box {
-        ActionIcon(Icons.Default.MoreVert, stringResource(Res.string.cd_more), tint = DesignColors.InkSecondary) { open = true }
+        ActionIcon(VerreIcons.MoreVert, stringResource(Res.string.cd_more), tint = DesignColors.InkSecondary) { open = true }
         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
             if (comment.editToken != null) {
                 DropdownMenuItem(
                     text = { Text(stringResource(Res.string.video_details_edit)) },
-                    leadingIcon = { Icon(Icons.Outlined.Edit, null) },
+                    leadingIcon = { Icon(VerreIcons.EditOutline, null) },
                     onClick = { open = false; state.startEdit(comment) },
                 )
             }
             if (comment.deleteToken != null) {
                 DropdownMenuItem(
                     text = { Text(stringResource(Res.string.video_details_delete)) },
-                    leadingIcon = { Icon(Icons.Outlined.Delete, null) },
+                    leadingIcon = { Icon(VerreIcons.DeleteOutline, null) },
                     onClick = { open = false; state.pendingDelete = comment },
                 )
             }
@@ -866,7 +852,7 @@ private fun CommentActions(state: VideoDetailsState, comment: YtComment, canRepl
                 horizontalArrangement = Arrangement.spacedBy(DesignSpacing.Space4),
             ) {
                 Icon(
-                    if (liked) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
+                    if (liked) VerreIcons.ThumbUp else VerreIcons.ThumbUpOutline,
                     null,
                     Modifier.size(14.dp),
                     tint = if (liked) DesignColors.Ink else muted,
@@ -885,14 +871,14 @@ private fun CommentActions(state: VideoDetailsState, comment: YtComment, canRepl
                     .padding(DesignSpacing.Space4),
             ) {
                 Icon(
-                    if (disliked) Icons.Filled.ThumbDown else Icons.Outlined.ThumbDown,
+                    if (disliked) VerreIcons.ThumbDown else VerreIcons.ThumbDownOutline,
                     null,
                     Modifier.size(14.dp),
                     tint = if (disliked) DesignColors.Ink else muted,
                 )
             }
         }
-        if (comment.hearted) Icon(Icons.Filled.Favorite, null, Modifier.padding(horizontal = DesignSpacing.Space4).size(14.dp), tint = DesignColors.Accent)
+        if (comment.hearted) Icon(VerreIcons.Favorite, null, Modifier.padding(horizontal = DesignSpacing.Space4).size(14.dp), tint = DesignColors.Accent)
         if (replyable) {
             Text(
                 stringResource(Res.string.video_details_reply),
@@ -947,7 +933,7 @@ private fun ListFooter(list: CommentList, indent: Boolean, moreLabel: String?, o
 @Composable
 private fun Avatar(thumbs: List<io.ymusic.dynamicengine.yt.YtThumb>, size: androidx.compose.ui.unit.Dp) {
     Box(Modifier.size(size).clip(CircleShape), contentAlignment = Alignment.Center) {
-        ThumbImage(thumbs, CircleShape) { ThumbPlaceholder(Icons.Outlined.Person, size / 2) }
+        ThumbImage(thumbs, CircleShape) { ThumbPlaceholder(VerreIcons.PersonOutline, size / 2) }
     }
 }
 

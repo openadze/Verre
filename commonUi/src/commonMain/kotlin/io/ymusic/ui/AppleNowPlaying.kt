@@ -27,19 +27,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.QueueMusic
-import androidx.compose.material.icons.filled.FastForward
-import androidx.compose.material.icons.filled.FastRewind
-import androidx.compose.material.icons.filled.MoreHoriz
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Repeat
-import androidx.compose.material.icons.filled.RepeatOne
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.outlined.Lyrics
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -207,7 +194,7 @@ private fun ArtistPill(current: PlayableItem?, status: io.ymusic.player.Playback
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Icon(Icons.Outlined.Person, null, Modifier.size(14.dp), tint = AmWhite60)
+        Icon(VerreIcons.PersonOutline, null, Modifier.size(14.dp), tint = AmWhite60)
         Text(text, style = TextStyle(fontSize = 15.sp, color = AmWhite60), maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
@@ -216,7 +203,7 @@ private fun ArtistPill(current: PlayableItem?, status: io.ymusic.player.Playback
 @Composable
 private fun TrackButtons(coordinator: PlaybackCoordinator) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        CircleChip { Icon(Icons.Outlined.StarBorder, null, Modifier.size(20.dp), tint = AmWhite) }
+        CircleChip { Icon(VerreIcons.StarBorderOutline, null, Modifier.size(20.dp), tint = AmWhite) }
         CircleChip { PlayerMoreMenu(coordinator) }
     }
 }
@@ -259,7 +246,6 @@ private fun LyricsFace(graph: AppGraph, coordinator: PlaybackCoordinator, curren
             lyrics is LyricsUiState.None -> Text(stringResource(Res.string.lyrics_not_found), style = TextStyle(fontSize = 16.sp, color = AmWhite60), textAlign = TextAlign.Center)
             lyrics is LyricsUiState.Ready -> {
                 LyricsView(doc = lyrics.doc, positionMs = { clock.value }, onSeek = { player.seekTo(it) })
-                VocalLevelPill(config.vocalLevel, { player.setVocalLevel(it) }, Modifier.align(Alignment.BottomEnd).padding(bottom = 8.dp))
             }
         }
     }
@@ -281,16 +267,16 @@ private fun QueueFace(coordinator: PlaybackCoordinator, queue: io.ymusic.player.
                 Text(stringResource(Res.string.up_next), style = TextStyle(fontSize = 19.sp, fontWeight = FontWeight.Bold, color = AmWhite))
                 Text("${queue.currentIndex + 1} / ${queue.displayTotal}", style = TextStyle(fontSize = 13.sp, color = AmWhite60))
             }
-            ToggleChip(Icons.Default.Shuffle, stringResource(Res.string.cd_shuffle), queue.shuffle) { player.setShuffle(!queue.shuffle) }
+            ToggleChip(VerreIcons.Shuffle, stringResource(Res.string.cd_shuffle), queue.shuffle) { player.setShuffle(!queue.shuffle) }
             Spacer(Modifier.width(10.dp))
             ToggleChip(
-                if (queue.loopMode == LoopMode.One) Icons.Default.RepeatOne else Icons.Default.Repeat,
+                if (queue.loopMode == LoopMode.One) VerreIcons.RepeatOne else VerreIcons.Repeat,
                 stringResource(queue.loopMode.label()),
                 queue.loopMode != LoopMode.None,
             ) { player.setLoopMode(queue.loopMode.cycled()) }
             locate?.let {
                 Spacer(Modifier.width(10.dp))
-                ToggleChip(Icons.AutoMirrored.Outlined.QueueMusic, null, false, it)
+                ToggleChip(VerreIcons.QueueMusicOutline, null, false, it)
             }
         }
         LazyColumn(state = listState, modifier = Modifier.weight(1f)) {
@@ -348,13 +334,13 @@ private fun AppleTransport(coordinator: PlaybackCoordinator, playing: Boolean) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            BigGlyph(Icons.Default.FastRewind, stringResource(Res.string.cd_previous), 44.dp) { player.skipPrev() }
+            BigGlyph(VerreIcons.FastRewind, stringResource(Res.string.cd_previous), 44.dp) { player.skipPrev() }
             BigGlyph(
-                if (playing) Icons.Default.Pause else Icons.Default.PlayArrow,
+                if (playing) VerreIcons.Pause else VerreIcons.PlayArrow,
                 stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play),
                 60.dp,
             ) { player.togglePlay() }
-            BigGlyph(Icons.Default.FastForward, stringResource(Res.string.cd_next), 44.dp) { player.skipNext() }
+            BigGlyph(VerreIcons.FastForward, stringResource(Res.string.cd_next), 44.dp) { player.skipNext() }
         }
     }
 }
@@ -388,14 +374,14 @@ private fun AppleBottomRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        BottomTab(Icons.Outlined.Lyrics, stringResource(Res.string.cd_lyrics), mode == AppleNowPlayingMode.Lyrics, lyricsAvailable) {
+        BottomTab(VerreIcons.LyricsOutline, stringResource(Res.string.cd_lyrics), mode == AppleNowPlayingMode.Lyrics, lyricsAvailable) {
             onMode(AppleNowPlayingMode.Lyrics)
         }
         Box(
             Modifier.clip(RoundedCornerShape(50)).background(if (sleepActive) AmWhite30 else AmChip).padding(horizontal = 10.dp),
             contentAlignment = Alignment.Center,
         ) { sleepButton() }
-        BottomTab(Icons.AutoMirrored.Outlined.QueueMusic, stringResource(Res.string.up_next), mode == AppleNowPlayingMode.Queue, true) {
+        BottomTab(VerreIcons.QueueMusicOutline, stringResource(Res.string.up_next), mode == AppleNowPlayingMode.Queue, true) {
             onMode(AppleNowPlayingMode.Queue)
         }
     }
@@ -439,7 +425,7 @@ internal fun AppleMiniPlayer(
     ) {
         Row(
             Modifier.fillMaxWidth().clip(shape)
-                .glassSurface(shape, fallback = DesignColors.SurfaceElevated, tint = DesignColors.SurfaceDim.copy(alpha = 0.6f), refract = false)
+                .background(DesignColors.SurfaceElevated, shape)
                 .clickable(onClick = onExpand)
                 .padding(start = 8.dp, end = 4.dp, top = 7.dp, bottom = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -453,10 +439,10 @@ internal fun AppleMiniPlayer(
                 modifier = Modifier.padding(start = 12.dp).weight(1f),
             )
             val playing = status.showsPause()
-            BigGlyph2(if (playing) Icons.Default.Pause else Icons.Default.PlayArrow, stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play)) {
+            BigGlyph2(if (playing) VerreIcons.Pause else VerreIcons.PlayArrow, stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play)) {
                 coordinator.player.togglePlay()
             }
-            BigGlyph2(Icons.Default.FastForward, stringResource(Res.string.cd_next)) { coordinator.player.skipNext() }
+            BigGlyph2(VerreIcons.FastForward, stringResource(Res.string.cd_next)) { coordinator.player.skipNext() }
         }
     }
 }

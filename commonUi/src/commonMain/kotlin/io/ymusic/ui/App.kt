@@ -27,22 +27,6 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Chat
-import androidx.compose.material.icons.automirrored.outlined.TrendingUp
-import androidx.compose.material.icons.filled.PlayCircleOutline
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.StarBorder
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.FileDownload
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.LibraryMusic
-import androidx.compose.material.icons.outlined.MusicNote
-import androidx.compose.material.icons.outlined.OndemandVideo
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
@@ -109,7 +93,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import io.ymusic.download.DownloadFormat
 import io.ymusic.dynamicengine.yt.YtFeedItem
 import io.ymusic.dynamicengine.yt.YtFeedPage
@@ -173,16 +156,16 @@ import kotlin.math.roundToInt
 /** [id] is persisted (the section a restart resumes): stable, never reused, independent of entry order. */
 /** [key] is what a restart resumes by: fixed, shared with the Rust app, never renamed. */
 enum class AppSection(val key: String, val label: StringResource, val icon: ImageVector, val group: Int) {
-    Discover("discover", Res.string.section_discover, Icons.Outlined.OndemandVideo, 0),
-    YtMusic("ytmusic", Res.string.section_yt_music, Icons.Default.PlayCircleOutline, 0),
-    Library("library", Res.string.section_library, Icons.Outlined.LibraryMusic, 0),
-    PlayAgain("play_again", Res.string.section_play_again, Icons.Outlined.History, 1),
-    Downloads("downloads", Res.string.section_downloads, Icons.Outlined.FileDownload, 1),
-    Settings("settings", Res.string.section_settings, Icons.Outlined.Settings, 1),
-    Catalogue("catalogue", Res.string.section_catalogue, Icons.Outlined.Palette, 1),
-    Donate("donate", Res.string.section_donate, Icons.Outlined.FavoriteBorder, 2),
+    Discover("discover", Res.string.section_discover, VerreIcons.OndemandVideoOutline, 0),
+    YtMusic("ytmusic", Res.string.section_yt_music, VerreIcons.PlayCircleOutline, 0),
+    Library("library", Res.string.section_library, VerreIcons.LibraryMusicOutline, 0),
+    PlayAgain("play_again", Res.string.section_play_again, VerreIcons.HistoryOutline, 1),
+    Downloads("downloads", Res.string.section_downloads, VerreIcons.FileDownloadOutline, 1),
+    Settings("settings", Res.string.section_settings, VerreIcons.SettingsOutline, 1),
+    Catalogue("catalogue", Res.string.section_catalogue, VerreIcons.PaletteOutline, 1),
+    Donate("donate", Res.string.section_donate, VerreIcons.FavoriteBorderOutline, 2),
     Telegram("telegram", Res.string.section_telegram, TelegramIcon, 2),
-    Feedback("feedback", Res.string.section_feedback, Icons.AutoMirrored.Outlined.Chat, 2),
+    Feedback("feedback", Res.string.section_feedback, VerreIcons.ChatOutline, 2),
 }
 
 /** Switch the top-level section from within a screen (e.g. Downloads → "Reveal in Library"); no-op
@@ -337,23 +320,13 @@ private fun PictureHidden(graph: AppGraph, hidden: Boolean) {
     SideEffect { graph.pip.pictureHidden.value = hidden }
 }
 
-/** The app's root box with the ambient glass layer behind its content, provided as [LocalGlassBackdrop] to all of it. */
+/** The app's root box: every screen, the rail and the mini-player live inside it. */
 @Composable
-private fun GlassAmbientHost(
-    graph: AppGraph,
-    enabled: Boolean,
+private fun AppRootBox(
     modifier: Modifier,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }.collectAsStateWithLifecycle()
-    val ambient = rememberLayerBackdrop()
-    val on = glassOn && enabled
-    CompositionLocalProvider(LocalGlassBackdrop provides if (on) ambient else null) {
-        Box(modifier) {
-            if (on) AmbientLayer(ambient, Modifier.fillMaxSize())
-            content()
-        }
-    }
+    Box(modifier, content = content)
 }
 
 @Composable
@@ -924,11 +897,8 @@ private fun AppRoot(
         // bar, the rail and the status-bar strip read it. (Content never touches them directly.)
         val scrollHost = remember { ScrollHost() }
         val appBarSlot = remember { AppBarSlot() }
-        // The ambient glass layer sits behind everything; the whole app refracts it (see Glass.kt). Not with the desktop
-        // hole: there the window behind the compose tree is the video, and an opaque layer would cover it.
-        GlassAmbientHost(
-            graph,
-            enabled = !desktopLayoutHole,
+        // Not painted over the desktop hole: there the window behind the compose tree is the video.
+        AppRootBox(
             modifier = Modifier.fillMaxSize()
                 .then(if (desktopLayoutHole) Modifier else Modifier.background(DesignColors.Surface))
                 // Every screen that shows the drawer's Menu button (nothing pushed) takes the edge swipe.
@@ -1017,29 +987,9 @@ private fun AppRoot(
                             )
                         }
                     } else {
-                        { shell ->
-                            AppNavigationDrawer(
-                                drawerState = drawer,
-                                drawerContent = {
-                                    AppDrawer(
-                                        section = section,
-                                        appVersion = graph.appVersion,
-                                        guest = graph.guest,
-                                        showCatalogue = catalogue != null,
-                                        onSelect = selectSection,
-                                        premium = premium,
-                                        showDonate = graph.openDonation != null,
-                                        websiteUrl = AppLinks(config).website,
-                                        updates = graph.updates,
-                                        onCheckUpdate = onCheckUpdate,
-                                        open = drawer.isOpen,
-                                        startInset = WindowInsets.safeDrawing.asPaddingValues()
-                                            .calculateStartPadding(LocalLayoutDirection.current),
-                                    )
-                                },
-                                content = shell,
-                            )
-                        }
+                        // No side menu on phones: the bottom tabs navigate, and Downloads, Play again and Feedback
+                        // are listed at the top of Settings.
+                        { shell -> shell() }
                     }
                     // Desktop docks the player as a bar under the rail and the content, on the rail's plane.
                     val shellFrame: @Composable (@Composable () -> Unit) -> Unit = if (playerBar) {
@@ -1088,7 +1038,7 @@ private fun AppRoot(
                             LocalAppBarSlot provides appBarSlot,
                             LocalSnackbar provides showSnackbar,
                             LocalScanController provides scanController,
-                            LocalOpenNavDrawer provides if (railWindow) null else { { scope.launch { drawer.open() } } },
+                            LocalOpenNavDrawer provides null,
                             LocalDownloadLauncher provides downloadLauncher,
                             LocalYtPlaylistActions provides ytPlaylistActions,
                             LocalAvailableOffline provides availableOffline,
@@ -1134,7 +1084,7 @@ private fun AppRoot(
                                                     title = stringResource(
                                                         if (section == AppSection.Discover) discoverTab.label else section.label,
                                                     ),
-                                                    onMenu = if (railWindow) null else { { scope.launch { drawer.open() } } },
+                                                    onMenu = null,
                                                     onSearch = sectionSearch,
                                                     // Inline tabs sit right after the title, so the slot
                                                     // reserves the widest tab label — the tabs must not
@@ -1252,8 +1202,6 @@ private fun AppRoot(
                                                     discoverTabs,
                                                     onSelect = { discoverTab = it },
                                                     onDragProgress = { discoverDrag = it },
-                                                    leadingEdgeReserve = NavDrawerEdgeReserve,
-                                                    onLeadingEdgeSwipe = if (railWindow) null else { { scope.launch { drawer.open() } } },
                                                 ) { current ->
                                                     DiscoverFeed(
                                                         graph,
@@ -1359,13 +1307,8 @@ private fun AppRoot(
                                     // A screen reader takes a row painted over by the bar as visible, focusing it without
                                     // scrolling and skipping its ⋮; with one on, the content ends above the bar instead.
                                     val contentEndsAboveMini = rememberTouchExplorationEnabled()
-                                    // Liquid Glass: the screens are captured as the backdrop the mini-player refracts. The capture
-                                    // box is a sibling of the mini-player, never its parent (a surface must not refract itself).
-                                    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }
-                                        .collectAsStateWithLifecycle()
-                                    val glassBackdrop = rememberLayerBackdrop()
                                     Box(Modifier.fillMaxSize()) {
-                                        Box(Modifier.fillMaxSize().then(if (glassOn) Modifier.glassSource(glassBackdrop) else Modifier)) {
+                                        Box(Modifier.fillMaxSize()) {
                                             Column(
                                                 Modifier.fillMaxSize().padding(padding)
                                                     .padding(bottom = if (contentEndsAboveMini) miniInset else 0.dp),
@@ -1377,15 +1320,11 @@ private fun AppRoot(
                                             }
                                         }
                                         if (!railWindow) {
-                                            CompositionLocalProvider(
-                                                LocalGlassBackdrop provides if (glassOn) glassBackdrop else null,
-                                            ) {
-                                                mini(
-                                                    Modifier.align(Alignment.BottomCenter)
-                                                        .fillMaxWidth()
-                                                        .navigationBarsPadding(),
-                                                )
-                                            }
+                                            mini(
+                                                Modifier.align(Alignment.BottomCenter)
+                                                    .fillMaxWidth()
+                                                    .navigationBarsPadding(),
+                                            )
                                         }
                                     }
                                 }
@@ -1481,11 +1420,11 @@ private fun SwipeableSnackbar(data: SnackbarData) {
  *  persisted (the tab a restart resumes): stable, never reused, independent of entry order. */
 /** [key] is what a restart resumes by: fixed, shared with the Rust app, never renamed. */
 enum class DiscoverTab(val key: String, val label: StringResource, val icon: ImageVector, val hasFeed: Boolean) {
-    Home("home", Res.string.tab_home, Icons.Outlined.Home, hasFeed = true),
-    Music("music", Res.string.tab_music, Icons.Outlined.MusicNote, hasFeed = true),
-    Recommended("recommended", Res.string.tab_recommended, Icons.Default.StarBorder, hasFeed = true),
-    TopTracks("top_tracks", Res.string.tab_top_tracks, Icons.AutoMirrored.Outlined.TrendingUp, hasFeed = true),
-    Account("account", Res.string.tab_account_library, Icons.Outlined.Person, hasFeed = false),
+    Home("home", Res.string.tab_home, VerreIcons.HomeOutline, hasFeed = true),
+    Music("music", Res.string.tab_music, VerreIcons.MusicNoteOutline, hasFeed = true),
+    Recommended("recommended", Res.string.tab_recommended, VerreIcons.StarBorder, hasFeed = true),
+    TopTracks("top_tracks", Res.string.tab_top_tracks, VerreIcons.TrendingUpOutline, hasFeed = true),
+    Account("account", Res.string.tab_account_library, VerreIcons.PersonOutline, hasFeed = false),
 }
 
 /** A guest has no account and keeps no YouTube play history: no Account, no Top tracks. */
