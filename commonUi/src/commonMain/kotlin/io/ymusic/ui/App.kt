@@ -1100,6 +1100,10 @@ private fun AppRoot(
                             LocalSignInResolver provides signInResolver,
                         ) {
                             DefaultDownloadLocationPrompt(graph)
+                            // Apple Music's bottom tab bar replaces the drawer's main sections on phones.
+                            // When it owns navigation, the music screens carry their own large headers
+                            // (AppleHomeFeed) instead of the shell bar.
+                            val appleBar = !railWindow && platformUsesTouch && !desktopLayoutHole
                             Scaffold(
                                 modifier = Modifier.nestedScroll(collapseConnection),
                                 containerColor = Color.Transparent,
@@ -1108,9 +1112,10 @@ private fun AppRoot(
                                 topBar = {
                                     // Search and the detail pages carry their own app bars.
                                     val replacementBar = appBarSlot.replacement
+                                    val appleOwnsTop = appleBar && section == AppSection.YtMusic && layers.isEmpty() && replacementBar == null
                                     if (layers.isEmpty() && replacementBar != null) {
                                         ElevatedBarColumn { replacementBar() }
-                                    } else if (layers.isEmpty()) {
+                                    } else if (layers.isEmpty() && !appleOwnsTop) {
                                         // Library's tab row lives in its own body (it needs the loaded state),
                                         // so the shell bar drops its shadow there and lets that row cast it —
                                         // keeping bar + tabs one continuous elevated surface.
@@ -1276,7 +1281,9 @@ private fun AppRoot(
                                                     localeEpoch + loginEpoch,
                                                     scope,
                                                     signedIn = signedIn,
+                                                    account = account,
                                                     onLogin = openLogin,
+                                                    onOpenSettings = { onSection(AppSection.Settings) },
                                                     onOpen = openItem,
                                                     onDeeplink = openDeeplink,
                                                     hideTabRow = platformUsesTouch && !railWindow,
@@ -1297,8 +1304,7 @@ private fun AppRoot(
                                         }
                                     }
                                 }
-                                // Apple Music's bottom tab bar replaces the drawer's main sections on phones.
-                                val appleBar = !railWindow && platformUsesTouch && !desktopLayoutHole
+                                // Apple Music's bottom tab bar (appleBar, hoisted above the Scaffold).
                                 val ytTabKey by graph.settings.flow(AppSettings.lastYtMusicTab).collectAsStateWithLifecycle()
                                 val searchOpen = section == AppSection.YtMusic && layers.any { it is AppLayer.Search }
                                 val appleSelected = when {

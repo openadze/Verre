@@ -59,6 +59,9 @@ import io.ymusic.ui.resources.ytmusic_tab_explore
 import io.ymusic.ui.resources.ytmusic_tab_home
 import io.ymusic.ui.resources.ytmusic_tab_library
 import io.ymusic.ui.resources.ytmusic_tab_new_releases
+import io.ymusic.ui.resources.tab_browse
+import io.ymusic.ui.resources.tab_listen_now
+import io.ymusic.ui.resources.tab_radio
 import kmpcommon.log.Logger
 import kotlinx.coroutines.CoroutineScope
 import org.jetbrains.compose.resources.StringResource
@@ -99,7 +102,9 @@ fun YtMusicScreen(
     localeEpoch: Int,
     scope: CoroutineScope,
     signedIn: Boolean = false,
+    account: io.ymusic.dynamicengine.yt.YtAccountInfo? = null,
     onLogin: () -> Unit = {},
+    onOpenSettings: () -> Unit = {},
     onOpen: ((YtFeedItem) -> Unit)? = null,
     onDeeplink: ((link: String, title: String?) -> Unit)? = null,
     hideTabRow: Boolean = false,
@@ -165,20 +170,41 @@ fun YtMusicScreen(
                         }.also { it.pager.refresh() }
                     }
                 }
-                FeedList(
-                    session.pager,
-                    coordinator,
-                    emptyMessage = stringResource(
-                        when (current) {
-                            YtMusicTab.Explore -> Res.string.ytmusic_explore_empty
-                            YtMusicTab.Library -> Res.string.ytmusic_library_empty
-                            else -> Res.string.ytmusic_home_empty
-                        },
-                    ),
-                    onOpen = onOpen,
-                    listState = session.listState,
-                    onDeeplink = onDeeplink,
-                )
+                // Phones with the Apple tab bar render the feed tabs in the Apple Music home
+                // layout (large title, Top Picks, shelves); wide windows keep the feed list.
+                if (hideTabRow && current != YtMusicTab.Library) {
+                    AppleHomeFeed(
+                        session.pager,
+                        coordinator,
+                        title = appleFeedTitle(current),
+                        account = account,
+                        onAvatar = onOpenSettings,
+                        onOpen = onOpen,
+                        onDeeplink = onDeeplink,
+                        emptyMessage = stringResource(
+                            when (current) {
+                                YtMusicTab.Explore -> Res.string.ytmusic_explore_empty
+                                else -> Res.string.ytmusic_home_empty
+                            },
+                        ),
+                        listState = session.listState,
+                    )
+                } else {
+                    FeedList(
+                        session.pager,
+                        coordinator,
+                        emptyMessage = stringResource(
+                            when (current) {
+                                YtMusicTab.Explore -> Res.string.ytmusic_explore_empty
+                                YtMusicTab.Library -> Res.string.ytmusic_library_empty
+                                else -> Res.string.ytmusic_home_empty
+                            },
+                        ),
+                        onOpen = onOpen,
+                        listState = session.listState,
+                        onDeeplink = onDeeplink,
+                    )
+                }
             }
         }
     }
@@ -191,6 +217,15 @@ private fun YtMusicTabRow(tabs: List<YtMusicTab>, selected: YtMusicTab, dragProg
     UnderlineTabRow(selected, tabs, dragProgress, onSelect) { t, active ->
         TabLabel(stringResource(t.label), active)
     }
+}
+
+/** The Apple Music tab names for the large title of the Apple home layout. */
+@Composable
+private fun appleFeedTitle(tab: YtMusicTab): String = when (tab) {
+    YtMusicTab.Home -> stringResource(Res.string.tab_listen_now)
+    YtMusicTab.Explore -> stringResource(Res.string.tab_browse)
+    YtMusicTab.Charts -> stringResource(Res.string.tab_radio)
+    else -> stringResource(tab.label)
 }
 
 /**

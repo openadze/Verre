@@ -39,7 +39,7 @@
 | 4    | Liquid Glass                                 | partial (Glass.kt)             |
 | 5    | Apple Music player, mini player, tab bar     | first pass, not compiled       |
 | 6    | YouTube removed, YT Music only               | done, not compiled             |
-| 7    | Listen Now / Browse / Library redesign       | next                           |
+| 7    | Listen Now / Browse / Library redesign       | first pass (`ListenNow.kt`), not compiled |
 
 Details: [`PROGRESS.md`](PROGRESS.md) and [`PLAN.md`](PLAN.md).
 

@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.RepeatOne
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.outlined.Lyrics
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -179,14 +180,35 @@ private fun CoverFace(coordinator: PlaybackCoordinator, current: PlayableItem?, 
             Column(Modifier.weight(1f)) {
                 Text(
                     current?.displayTitle.orEmpty(),
-                    style = TextStyle(fontSize = 21.sp, fontWeight = FontWeight.SemiBold, color = AmWhite),
+                    style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.SemiBold, color = AmWhite),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                ArtistLine(current, status, TextStyle(fontSize = 21.sp, color = AmWhite60), Modifier)
+                ArtistPill(current, status)
             }
             TrackButtons(coordinator)
         }
+    }
+}
+
+/**
+ * Apple's artist credit under the title: the artist name in a translucent capsule with a person
+ * glyph (the round badge beside the artwork in the reference screenshots).
+ */
+@Composable
+private fun ArtistPill(current: PlayableItem?, status: io.ymusic.player.PlaybackStatus) {
+    val text = artistText(current, status) ?: return
+    Row(
+        Modifier
+            .padding(top = 8.dp)
+            .clip(RoundedCornerShape(999.dp))
+            .background(AmChip)
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Icon(Icons.Outlined.Person, null, Modifier.size(14.dp), tint = AmWhite60)
+        Text(text, style = TextStyle(fontSize = 15.sp, color = AmWhite60), maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
 

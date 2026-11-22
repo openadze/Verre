@@ -32,7 +32,6 @@ import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.graphicsLayer
@@ -124,14 +123,16 @@ internal fun rememberLyricsClock(progress: Progress, playing: Boolean): State<Lo
     return position
 }
 
-private const val ActiveFontSp = 28
-private const val BackgroundFontSp = 20
+private const val ActiveFontSp = 34
+private const val BackgroundFontSp = 21
 private const val UserScrollHoldMs = 3_000L
 
 /**
- * Synced lyrics, Apple Music style: the active line is big, bold and fills word by word; the next one is softer, the
- * rest fade and blur with distance (blur needs Android 12+; older versions only fade). Scrolls to keep the active line
- * near the top third, unless the user is scrolling; tapping a line seeks to it. Unsynced text is shown plain.
+ * Synced lyrics, Apple Music style: the active line is big (34sp), bold and fills word by word; the
+ * others hold Apple's ~35% dimness with a slight blur that deepens with distance (blur needs Android
+ * 12+; older versions only fade). All lines stay one size — Apple dims and blurs, never shrinks.
+ * Scrolls to keep the active line near the top third, unless the user is scrolling; tapping a line
+ * seeks to it. Unsynced text is shown plain.
  */
 @Composable
 fun LyricsView(
@@ -223,17 +224,17 @@ private fun LyricLineRow(
         else -> index - activeIndex
     }
     val active = synced && d == 0
+    // Apple's reference: the active line is white, the rest sit around 35% with a slight blur that
+    // deepens with distance; the line right after the active one is a step brighter (~45%).
     val targetAlpha = when {
         !synced -> 0.92f
         d == 0 -> 1f
-        d == 1 -> 0.6f
-        else -> (0.42f - 0.06f * abs(d)).coerceAtLeast(0.16f)
+        d == 1 -> 0.45f
+        else -> (0.4f - 0.025f * abs(d)).coerceAtLeast(0.3f)
     }
-    val targetBlur = if (!synced || d == 0 || d == 1) 0f else min(abs(d) * 1.2f, 6f)
-    val targetScale = if (!synced || d == 0) 1f else 0.88f
+    val targetBlur = if (!synced || d == 0 || d == 1) 0f else min(1.2f + abs(d) * 0.9f, 5f)
     val lineAlpha by animateFloatAsState(targetAlpha, tween(350))
     val blurDp by animateFloatAsState(targetBlur, tween(350))
-    val lineScale by animateFloatAsState(targetScale, tween(350))
 
     val baseSp = if (line.isBackground) BackgroundFontSp else ActiveFontSp
     val ink = DesignColors.InkStrong
@@ -248,9 +249,6 @@ private fun LyricLineRow(
             .padding(vertical = 10.dp)
             .graphicsLayer {
                 alpha = lineAlpha
-                scaleX = lineScale
-                scaleY = lineScale
-                transformOrigin = TransformOrigin(0f, 0.5f)
             }
             .then(if (blurDp > 0.1f) Modifier.blur(blurDp.dp, BlurredEdgeTreatment.Unbounded) else Modifier),
     ) {

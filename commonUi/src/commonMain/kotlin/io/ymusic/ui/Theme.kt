@@ -69,75 +69,75 @@ data class DesignPalette(
     val WatchedFill = Color(0xFFFF0000)
 }
 
-/** The accent when the user has not picked one. */
-val DefaultAccent = Color(0xFFFA2D48)
+/** The accent when the user has not picked one: Apple Music's red. */
+val DefaultAccent = Color(0xFFFA233B)
 
 val LightDesignColors = DesignPalette(
     isDark = false,
     Accent = DefaultAccent,
-    InkStrong = Color(0xFF222222),
-    Ink = Color(0xFF333333),
-    InkMuted = Color(0xFF555555),
-    InkSoft = Color(0xFF666666),
-    InkSecondary = Color(0xFF8A8A8A),
-    InkFaint = Color(0xFF9A9A9A),
-    IconDots = Color(0xFF999999),
+    // Apple's light system colors: the label is pure black, separators #D1D1D6, tertiary #8E8E93.
+    InkStrong = Color(0xFF000000),
+    Ink = Color(0xFF262629),
+    InkMuted = Color(0xFF4E4E54),
+    InkSoft = Color(0xFF5E5E65),
+    InkSecondary = Color(0xFF8E8E93),
+    InkFaint = Color(0xFF9A9AA0),
+    IconDots = Color(0xFF98989E),
     OnInk = Color.White,
     OnAccent = Color.White,
-    Placeholder = Color(0xFFE3E3E3),
-    PlaceholderDim = Color(0xFFE0E0E0),
-    PlaceholderIcon = Color(0xFFB3B3B3),
-    StackNear = Color(0xFFECECEC),
-    StackFar = Color(0xFFF3F3F3),
-    StackTab = Color(0xFFEDEDED),
-    Outline = Color(0xFFCFCFCF),
-    OutlineSoft = Color(0xFFD8D8D8),
-    Divider = Color(0xFFE6E6E6),
-    DividerMini = Color(0xFFE2E2E2),
+    Placeholder = Color(0xFFE8E8ED),
+    PlaceholderDim = Color(0xFFE4E4E9),
+    PlaceholderIcon = Color(0xFFAEAEB2),
+    StackNear = Color(0xFFEDEDF2),
+    StackFar = Color(0xFFF2F2F6),
+    StackTab = Color(0xFFEDEDF1),
+    Outline = Color(0xFFC6C6CB),
+    OutlineSoft = Color(0xFFD1D1D6),
+    Divider = Color(0xFFD9D9DE),
+    DividerMini = Color(0xFFDEDEE3),
     Surface = Color.White,
-    SurfaceDim = Color(0xFFFAFAFA),
-    SurfaceElevated = Color(0xFFF5F5F5),
-    SettingsCard = Color(0xFFF2F2F2),
-    FieldPill = Color(0xFFF1F1F1),
+    SurfaceDim = Color(0xFFFAFAFC),
+    SurfaceElevated = Color(0xFFF5F5F7),
+    SettingsCard = Color(0xFFF2F2F7),
+    FieldPill = Color(0xFFF2F2F7),
     BrandGreen = Color(0xFF1DB954),
 )
 
 val DarkDesignColors = DesignPalette(
     isDark = true,
     Accent = DefaultAccent,
-    InkStrong = Color(0xFFEDEDED),
-    Ink = Color(0xFFE2E2E2),
-    InkMuted = Color(0xFFC6C6C6),
-    InkSoft = Color(0xFFB2B2B2),
-    InkSecondary = Color(0xFF9A9A9A),
-    InkFaint = Color(0xFF7E7E7E),
-    IconDots = Color(0xFF8E8E8E),
+    // Apple Music's dark grounding: pure black surfaces (OLED), the elevated panes and pills of
+    // secondarySystemBackground #1C1C1E, separators a hair above the black, tertiary ink #98989F.
+    // The label itself is white — Apple dims with alpha, not with gray text.
+    InkStrong = Color(0xFFFFFFFF),
+    Ink = Color(0xFFEBEBF0),
+    InkMuted = Color(0xFFC7C7CC),
+    InkSoft = Color(0xFFAEAEB2),
+    InkSecondary = Color(0xFF98989F),
+    InkFaint = Color(0xFF85858B),
+    IconDots = Color(0xFF8E8E93),
     OnInk = Color(0xFF141414),
     OnAccent = Color.White,
-    // The legacy YMusic grounds (#303030 / #343434 / #383838, from the v3 app) and their
-    // companions, each keeping roughly the lift it had over the old near-black trio
-    // (0xFF121212 / 0xFF171717 / 0xFF1F1F1F): placeholders/stacks/pills sit clearly above the
-    // surface, outlines lift further, and dividers stay the legacy way — slightly DARKER lines
-    // cut into the grey rather than light hairlines on black.
-    Placeholder = Color(0xFF454545),
-    PlaceholderDim = Color(0xFF414141),
-    PlaceholderIcon = Color(0xFF767676),
-    StackNear = Color(0xFF454545),
-    StackFar = Color(0xFF3D3D3D),
-    StackTab = Color(0xFF424242),
-    Outline = Color(0xFF5C5C5C),
-    OutlineSoft = Color(0xFF525252),
-    Divider = Color(0xFF2A2A2A),
-    DividerMini = Color(0xFF2D2D2D),
-    Surface = Color(0xFF272727),
-    SurfaceDim = Color(0xFF313131),
-    SurfaceElevated = Color(0xFF292929),
-    SettingsCard = Color(0xFF333333),
-    FieldPill = Color(0xFF3F3F3F),
+    Placeholder = Color(0xFF1C1C1E),
+    PlaceholderDim = Color(0xFF1A1A1C),
+    PlaceholderIcon = Color(0xFF6C6C70),
+    StackNear = Color(0xFF26262A),
+    StackFar = Color(0xFF222226),
+    StackTab = Color(0xFF2C2C2E),
+    Outline = Color(0xFF3A3A3C),
+    OutlineSoft = Color(0xFF2C2C2E),
+    Divider = Color(0xFF1F1F23),
+    DividerMini = Color(0xFF232327),
+    Surface = Color(0xFF000000),
+    SurfaceDim = Color(0xFF0A0A0C),
+    SurfaceElevated = Color(0xFF1C1C1E),
+    SettingsCard = Color(0xFF1C1C1E),
+    FieldPill = Color(0xFF1C1C1E),
     BrandGreen = Color(0xFF1DB954),
 )
 
-/** Dark with every ground pure black, for OLED screens. */
+/** Dark with every ground pure black, for OLED screens — the Apple dark palette already grounds on black,
+ *  so this only re-asserts the near-black dim bar tone. */
 val AmoledDesignColors = DarkDesignColors.copy(
     Surface = Color.Black,
     SurfaceDim = Color.Black,

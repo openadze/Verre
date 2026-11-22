@@ -129,7 +129,7 @@ class ItemActions(
  * a key this build doesn't know, so a newer bundle's chart still shows a title.
  */
 @Composable
-private fun sectionTitle(header: YtSectionHeader?): String {
+internal fun sectionTitle(header: YtSectionHeader?): String {
     val key = header?.titleKey ?: return header?.title.orEmpty()
     val resource = when (key) {
         "trending_music_videos" -> Res.string.chart_trending_music_videos

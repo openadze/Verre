@@ -715,4 +715,12 @@
     <string name="cd_lyrics">Letras</string>
     <string name="lyrics_not_found">Sem letra para esta música</string>
     <string name="cd_vocal_level">Volume da voz</string>
+    <string name="tab_listen_now">Ouvir Agora</string>
+    <string name="tab_browse">Explorar</string>
+    <string name="tab_radio">Rádio</string>
+    <string name="top_picks">Destaques</string>
+    <string name="top_picks_sub">Músicas novas, escolhidas para você</string>
+    <string name="cd_avatar">Conta e configurações</string>
+    <string name="see_all">Ver Tudo</string>
+    <string name="apple_play">Reproduzir</string>
 </resources>
