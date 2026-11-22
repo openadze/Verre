@@ -886,4 +886,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">الاستماع الآن</string>
+    <string name="tab_browse">تصفح</string>
+    <string name="tab_radio">راديو</string>
+    <string name="top_picks">أبرز الاختيارات</string>
+    <string name="top_picks_sub">موسيقى جديدة مختارة لك</string>
+    <string name="cd_avatar">الحساب والإعدادات</string>
+    <string name="see_all">عرض الكل</string>
+    <string name="apple_play">تشغيل</string>
+    <string name="cd_like">إعجاب</string>
+    <string name="like_failed">تعذر تحديث الإعجاب</string>
 </resources>

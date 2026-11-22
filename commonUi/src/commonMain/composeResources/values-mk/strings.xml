@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Слушај сега</string>
+    <string name="tab_browse">Прелистај</string>
+    <string name="tab_radio">Радио</string>
+    <string name="top_picks">Најдобар избор</string>
+    <string name="top_picks_sub">Нова музика, избрана за тебе</string>
+    <string name="cd_avatar">Сметка и поставки</string>
+    <string name="see_all">Види сѐ</string>
+    <string name="apple_play">Пушти</string>
+    <string name="cd_like">Ми се допаѓа</string>
+    <string name="like_failed">Не можеше да се ажурира твоето допаѓање</string>
 </resources>

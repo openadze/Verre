@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">İndi dinlə</string>
+    <string name="tab_browse">Gözdən keçir</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Ən yaxşı seçimlər</string>
+    <string name="top_picks_sub">Sizin üçün seçilmiş yeni musiqi</string>
+    <string name="cd_avatar">Hesab və tənzimləmələr</string>
+    <string name="see_all">Hamısına bax</string>
+    <string name="apple_play">Oxut</string>
+    <string name="cd_like">Bəyən</string>
+    <string name="like_failed">Bəyənməni yeniləmək mümkün olmadı</string>
 </resources>

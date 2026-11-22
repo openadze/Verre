@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Hallgatás most</string>
+    <string name="tab_browse">Böngészés</string>
+    <string name="tab_radio">Rádió</string>
+    <string name="top_picks">Kiemelt ajánlatok</string>
+    <string name="top_picks_sub">Új zenék, neked válogatva</string>
+    <string name="cd_avatar">Fiók és beállítások</string>
+    <string name="see_all">Összes megtekintése</string>
+    <string name="apple_play">Lejátszás</string>
+    <string name="cd_like">Tetszik</string>
+    <string name="like_failed">Nem sikerült frissíteni a kedvelést</string>
 </resources>

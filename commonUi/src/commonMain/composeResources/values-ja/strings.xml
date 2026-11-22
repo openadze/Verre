@@ -689,4 +689,14 @@
     <string name="cd_lyrics">歌詞</string>
     <string name="lyrics_not_found">この曲の歌詞はありません</string>
     <string name="cd_vocal_level">ボーカルの音量</string>
+    <string name="tab_listen_now">今すぐ聴く</string>
+    <string name="tab_browse">見つける</string>
+    <string name="tab_radio">ラジオ</string>
+    <string name="top_picks">トップピック</string>
+    <string name="top_picks_sub">あなたにおすすめの新しい音楽</string>
+    <string name="cd_avatar">アカウントと設定</string>
+    <string name="see_all">すべて表示</string>
+    <string name="apple_play">再生</string>
+    <string name="cd_like">高評価</string>
+    <string name="like_failed">高評価を更新できませんでした</string>
 </resources>

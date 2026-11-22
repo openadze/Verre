@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Sikiliza Sasa</string>
+    <string name="tab_browse">Vinjari</string>
+    <string name="tab_radio">Redio</string>
+    <string name="top_picks">Chaguo Bora</string>
+    <string name="top_picks_sub">Muziki mpya, uliochaguliwa kwa ajili yako</string>
+    <string name="cd_avatar">Akaunti na mipangilio</string>
+    <string name="see_all">Angalia Zote</string>
+    <string name="apple_play">Cheza</string>
+    <string name="cd_like">Penda</string>
+    <string name="like_failed">Haikuweza kusasisha kupenda kwako</string>
 </resources>

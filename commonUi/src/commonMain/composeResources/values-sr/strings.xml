@@ -715,4 +715,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Слушај сада</string>
+    <string name="tab_browse">Прегледај</string>
+    <string name="tab_radio">Радио</string>
+    <string name="top_picks">Најбољи избор</string>
+    <string name="top_picks_sub">Нова музика, изабрана за тебе</string>
+    <string name="cd_avatar">Налог и подешавања</string>
+    <string name="see_all">Прикажи све</string>
+    <string name="apple_play">Пусти</string>
+    <string name="cd_like">Свиђа ми се</string>
+    <string name="like_failed">Није могуће ажурирати твоје свиђање</string>
 </resources>

@@ -884,4 +884,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Гучність вокалу</string>
+    <string name="tab_listen_now">Слухати зараз</string>
+    <string name="tab_browse">Огляд</string>
+    <string name="tab_radio">Радіо</string>
+    <string name="top_picks">Найкращі добірки</string>
+    <string name="top_picks_sub">Нова музика, підібрана для вас</string>
+    <string name="cd_avatar">Акаунт і налаштування</string>
+    <string name="see_all">Переглянути все</string>
+    <string name="apple_play">Відтворити</string>
+    <string name="cd_like">Подобається</string>
+    <string name="like_failed">Не вдалося оновити вашу позначку «Подобається»</string>
 </resources>

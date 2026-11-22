@@ -728,4 +728,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Počúvajte</string>
+    <string name="tab_browse">Prehliadať</string>
+    <string name="tab_radio">Rádio</string>
+    <string name="top_picks">Top výbery</string>
+    <string name="top_picks_sub">Nová hudba vybraná pre vás</string>
+    <string name="cd_avatar">Účet a nastavenia</string>
+    <string name="see_all">Zobraziť všetko</string>
+    <string name="apple_play">Prehrať</string>
+    <string name="cd_like">Páči sa mi to</string>
+    <string name="like_failed">Nepodarilo sa aktualizovať vaše hodnotenie Páči sa mi to</string>
 </resources>

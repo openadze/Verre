@@ -810,4 +810,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Nghe ngay</string>
+    <string name="tab_browse">Khám phá</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Lựa chọn hàng đầu</string>
+    <string name="top_picks_sub">Nhạc mới được chọn riêng cho bạn</string>
+    <string name="cd_avatar">Tài khoản và cài đặt</string>
+    <string name="see_all">Xem tất cả</string>
+    <string name="apple_play">Phát</string>
+    <string name="cd_like">Thích</string>
+    <string name="like_failed">Không thể cập nhật lượt thích của bạn</string>
 </resources>

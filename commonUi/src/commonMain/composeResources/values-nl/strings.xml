@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Zangvolume</string>
+    <string name="tab_listen_now">Luister nu</string>
+    <string name="tab_browse">Ontdek</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Topkeuzes</string>
+    <string name="top_picks_sub">Nieuwe muziek, voor jou gekozen</string>
+    <string name="cd_avatar">Account en instellingen</string>
+    <string name="see_all">Bekijk alles</string>
+    <string name="apple_play">Speel af</string>
+    <string name="cd_like">Leuk</string>
+    <string name="like_failed">Kan je like niet bijwerken</string>
 </resources>

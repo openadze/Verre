@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Hadda dhegeyso</string>
+    <string name="tab_browse">Baadh</string>
+    <string name="tab_radio">Raadiyo</string>
+    <string name="top_picks">Xulashada Ugu Sarreysa</string>
+    <string name="top_picks_sub">Muusik cusub, oo adiga laguu xulay</string>
+    <string name="cd_avatar">Akoonka iyo fadhiga</string>
+    <string name="see_all">Arag Dhammaan</string>
+    <string name="apple_play">Daar</string>
+    <string name="cd_like">Ka hel</string>
+    <string name="like_failed">Lama cusboonaysiin karin ka-helitaankaaga</string>
 </resources>

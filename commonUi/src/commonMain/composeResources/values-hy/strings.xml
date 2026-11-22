@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Լսել հիմա</string>
+    <string name="tab_browse">Դիտել</string>
+    <string name="tab_radio">Ռադիո</string>
+    <string name="top_picks">Լավագույն ընտրանի</string>
+    <string name="top_picks_sub">Նոր երաժշտություն՝ ընտրված ձեզ համար</string>
+    <string name="cd_avatar">Հաշիվ և կարգավորումներ</string>
+    <string name="see_all">Տեսնել բոլորը</string>
+    <string name="apple_play">Նվագարկել</string>
+    <string name="cd_like">Հավանել</string>
+    <string name="like_failed">Չհաջողվեց թարմացնել հավանումը</string>
 </resources>

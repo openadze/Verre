@@ -689,4 +689,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">ฟังตอนนี้</string>
+    <string name="tab_browse">เลือกดู</string>
+    <string name="tab_radio">วิทยุ</string>
+    <string name="top_picks">รายการแนะนำ</string>
+    <string name="top_picks_sub">เพลงใหม่ที่คัดสรรมาเพื่อคุณ</string>
+    <string name="cd_avatar">บัญชีและการตั้งค่า</string>
+    <string name="see_all">ดูทั้งหมด</string>
+    <string name="apple_play">เล่น</string>
+    <string name="cd_like">ชอบ</string>
+    <string name="like_failed">ไม่สามารถอัปเดตการกดชอบของคุณได้</string>
 </resources>

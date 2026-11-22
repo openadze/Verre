@@ -689,4 +689,14 @@
     <string name="cd_lyrics">歌词</string>
     <string name="lyrics_not_found">这首歌没有歌词</string>
     <string name="cd_vocal_level">人声音量</string>
+    <string name="tab_listen_now">现在就听</string>
+    <string name="tab_browse">浏览</string>
+    <string name="tab_radio">广播</string>
+    <string name="top_picks">精选推荐</string>
+    <string name="top_picks_sub">为你精选的新音乐</string>
+    <string name="cd_avatar">帐号与设置</string>
+    <string name="see_all">查看全部</string>
+    <string name="apple_play">播放</string>
+    <string name="cd_like">喜欢</string>
+    <string name="like_failed">无法更新你的喜欢状态</string>
 </resources>

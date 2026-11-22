@@ -689,4 +689,14 @@
     <string name="cd_lyrics">가사</string>
     <string name="lyrics_not_found">이 곡의 가사가 없습니다</string>
     <string name="cd_vocal_level">보컬 볼륨</string>
+    <string name="tab_listen_now">지금 듣기</string>
+    <string name="tab_browse">둘러보기</string>
+    <string name="tab_radio">라디오</string>
+    <string name="top_picks">인기 선곡</string>
+    <string name="top_picks_sub">나를 위해 선곡된 새로운 음악</string>
+    <string name="cd_avatar">계정 및 설정</string>
+    <string name="see_all">모두 보기</string>
+    <string name="apple_play">재생</string>
+    <string name="cd_like">좋아요</string>
+    <string name="like_failed">좋아요를 업데이트할 수 없습니다</string>
 </resources>

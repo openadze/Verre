@@ -36,6 +36,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -48,9 +53,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.ymusic.dynamicengine.yt.YtAccountInfo
 import io.ymusic.dynamicengine.yt.YtFeedItem
 import io.ymusic.dynamicengine.yt.YtSection
+import io.ymusic.dynamicengine.yt.YtSectionHeader
 import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.cd_avatar
 import io.ymusic.ui.resources.cd_play
+import io.ymusic.ui.resources.playlist_recent_play_desc
 import io.ymusic.ui.resources.see_all
 import io.ymusic.ui.resources.show_more
 import io.ymusic.ui.resources.top_picks
@@ -79,6 +86,7 @@ internal fun AppleHomeFeed(
     onDeeplink: ((link: String, title: String?) -> Unit)?,
     emptyMessage: String,
     listState: androidx.compose.foundation.lazy.LazyListState? = null,
+    recent: List<YtFeedItem> = emptyList(),
 ) {
     val state by pager.state.collectAsStateWithLifecycle()
     val refreshing = (state as? Pager.State.Ready)?.let { it.refreshing } == true
@@ -100,7 +108,7 @@ internal fun AppleHomeFeed(
                         EmptyState(s.emptyMessage ?: emptyMessage, title = s.emptyTitle) { pager.refresh(s.selectedChipToken) }
                     }
                 } else {
-                    AppleFeedBody(s, pager, coordinator, title, account, onAvatar, onOpen, onDeeplink, listState)
+                    AppleFeedBody(s, pager, coordinator, title, account, onAvatar, onOpen, onDeeplink, listState, recent)
                 }
             }
         }
@@ -123,12 +131,14 @@ private fun AppleFeedBody(
     onOpen: ((YtFeedItem) -> Unit)?,
     onDeeplink: ((link: String, title: String?) -> Unit)?,
     hoistedListState: androidx.compose.foundation.lazy.LazyListState?,
+    recent: List<YtFeedItem>,
 ) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // The first section with items becomes Top Picks; the wide card leaves just over a card of
         // the next one peeking, the way Apple crops its carousel.
         val topPicks = state.sections.firstOrNull { it.items.isNotEmpty() }
         val shelves = if (topPicks != null) state.sections.filter { it !== topPicks } else state.sections
+        val recentTitle = stringResource(Res.string.playlist_recent_play_desc)
         val list = hoistedListState ?: rememberLazyListState()
         val moreFocus = remember { LoadMoreFocus() }
         val itemTotal = state.sections.sumOf { it.items.size }
@@ -138,6 +148,20 @@ private fun AppleFeedBody(
             topPicks?.let { picks ->
                 item(key = "top-picks-header") { TopPicksHeader() }
                 item(key = "top-picks-row") { TopPicksRow(picks, coordinator, maxWidth, onOpen) }
+            }
+            if (recent.isNotEmpty()) {
+                item(key = "recent") {
+                    AppleShelf(
+                        YtSection(
+                            header = YtSectionHeader(title = recentTitle),
+                            items = recent,
+                            playMode = YtSection.PLAY_QUEUE,
+                        ),
+                        coordinator,
+                        onOpen,
+                        onDeeplink,
+                    )
+                }
             }
             shelves.forEachIndexed { index, section ->
                 item(key = "shelf-$index") { AppleShelf(section, coordinator, onOpen, onDeeplink) }
@@ -160,6 +184,23 @@ private fun AppleFeedBody(
                         )
                     }
                 }
+            }
+        }
+        val collapsed by remember(list) {
+            derivedStateOf { list.firstVisibleItemIndex > 0 || list.firstVisibleItemScrollOffset > 40 }
+        }
+        val barAlpha by animateFloatAsState(if (collapsed) 1f else 0f)
+        if (barAlpha > 0f) {
+            Column(Modifier.fillMaxWidth().graphicsLayer { alpha = barAlpha }.background(DesignColors.Surface)) {
+                Text(
+                    title,
+                    style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+                )
+                HorizontalDivider(color = DesignColors.Divider)
             }
         }
     }

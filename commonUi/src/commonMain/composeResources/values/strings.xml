@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <!-- Brand marks — identical in every language; translations omit them on purpose. -->
     <string name="app_name">Verre</string>
     <string name="badge_premium">PREMIUM</string>
@@ -869,4 +869,6 @@
     <string name="cd_avatar">Account and settings</string>
     <string name="see_all">See All</string>
     <string name="apple_play">Play</string>
+    <string name="cd_like">Like</string>
+    <string name="like_failed">Couldn't update your like</string>
 </resources>
