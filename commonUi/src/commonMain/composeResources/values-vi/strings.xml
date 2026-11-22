@@ -805,4 +805,6 @@
     <string name="downloads_cancel_selected_message">Phần đã tải xuống đến nay sẽ bị xóa.</string>
     <string name="downloads_cancel_selected_keep">Giữ lại</string>
     <string name="data_dir_unusable">Verre không thể mở thư mục dữ liệu của ứng dụng, %1$s. Hãy đảm bảo đó là thư mục bạn có thể ghi vào, rồi mở lại Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

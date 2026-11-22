@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">آنچه تاکنون دانلود شده حذف می‌شود.</string>
     <string name="downloads_cancel_selected_keep">نگه داشتن</string>
     <string name="data_dir_unusable">Verre نمی‌تواند پوشهٔ داده‌های خود، %1$s، را باز کند. مطمئن شوید که پوشه‌ای است که می‌توانید در آن بنویسید، سپس دوباره Verre را باز کنید. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

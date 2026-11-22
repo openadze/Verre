@@ -710,4 +710,6 @@
     <string name="downloads_cancel_selected_message">Досад преузети садржај биће избрисан.</string>
     <string name="downloads_cancel_selected_keep">Задржи</string>
     <string name="data_dir_unusable">Verre не може да отвори своју фасциклу са подацима, %1$s. Проверите да ли је то фасцикла у коју можете да уписујете, па поново отворите Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

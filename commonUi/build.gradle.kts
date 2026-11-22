@@ -45,6 +45,7 @@ kotlin {
                 api(project(":media-scanner"))
                 api(project(":image-loader"))
                 api(project(":settings"))
+                api(project(":lyrics")) // LyricsRepository rides AppGraph
                 implementation(project(":projectCommon"))
                 api(project(":remote-config")) // StatUsage rides AppGraph
 

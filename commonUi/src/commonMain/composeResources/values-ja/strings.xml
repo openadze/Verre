@@ -684,4 +684,6 @@
     <string name="downloads_cancel_selected_message">これまでにダウンロードしたデータは削除されます。</string>
     <string name="downloads_cancel_selected_keep">キャンセルしない</string>
     <string name="data_dir_unusable">Verre はデータフォルダ（%1$s）を開けません。書き込み可能なフォルダであることを確認してから、Verre をもう一度開いてください。(%2$s)</string>
+    <string name="cd_lyrics">歌詞</string>
+    <string name="lyrics_not_found">この曲の歌詞はありません</string>
 </resources>

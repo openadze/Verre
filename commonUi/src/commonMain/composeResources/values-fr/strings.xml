@@ -710,4 +710,6 @@
     <string name="downloads_cancel_selected_message">Ce qui a déjà été téléchargé sera supprimé.</string>
     <string name="downloads_cancel_selected_keep">Conserver</string>
     <string name="data_dir_unusable">Verre ne peut pas ouvrir son dossier de données, %1$s. Vérifiez qu'il s'agit d'un dossier dans lequel vous pouvez écrire, puis rouvrez Verre. (%2$s)</string>
+    <string name="cd_lyrics">Paroles</string>
+    <string name="lyrics_not_found">Pas de paroles pour ce titre</string>
 </resources>

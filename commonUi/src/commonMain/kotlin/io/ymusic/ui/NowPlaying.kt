@@ -165,8 +165,11 @@ import io.ymusic.player.isPlaying
 import io.ymusic.settings.AppSettings
 import io.ymusic.settings.SettingsStore
 import io.ymusic.settings.flow
+import io.ymusic.lyrics.LyricsSettings
 import io.ymusic.settings.put
 import io.ymusic.ui.resources.Res
+import io.ymusic.ui.resources.cd_lyrics
+import io.ymusic.ui.resources.lyrics_not_found
 import io.ymusic.ui.resources.a11y_behind_live
 import io.ymusic.ui.resources.a11y_downloaded
 import io.ymusic.ui.resources.a11y_now_playing
@@ -438,6 +441,10 @@ fun NowPlayingScreen(
     onLogin: () -> Unit = {},
 ) {
     var fullscreen by remember { mutableStateOf(false) }
+    var lyricsOpen by remember { mutableStateOf(false) }
+    val lyricsEnabled by graph.settings.flow(LyricsSettings.ENABLED).collectAsStateWithLifecycle()
+    val lyricsAvailable = graph.lyrics != null && lyricsEnabled
+    val toggleLyrics: (() -> Unit)? = if (lyricsAvailable) ({ lyricsOpen = !lyricsOpen }) else null
     DisposableEffect(fullscreen) {
         graph.pip.videoFullscreen.value = fullscreen
         if (!fullscreen) graph.videoFillScreen.value = false
@@ -469,12 +476,20 @@ fun NowPlayingScreen(
             val wide = maxWidth > maxHeight
             when {
                 fullscreen -> FullscreenVideo(graph, coordinator, onExit = { fullscreen = false })
-                wide && maxWidth >= SideBySideMinWidth -> LandscapeNowPlaying(graph, coordinator, onClose, onFullscreen = { fullscreen = true })
+                lyricsOpen && toggleLyrics != null -> LyricsNowPlaying(graph, coordinator, onClose, onToggleLyrics = toggleLyrics)
+                wide && maxWidth >= SideBySideMinWidth -> LandscapeNowPlaying(
+                    graph,
+                    coordinator,
+                    onClose,
+                    onFullscreen = { fullscreen = true },
+                    onToggleLyrics = toggleLyrics,
+                )
                 else -> PortraitNowPlaying(
                     graph,
                     coordinator,
                     onClose,
                     onFullscreen = { fullscreen = true },
+                    onToggleLyrics = toggleLyrics,
                     videoHeight = if (wide) minOf(maxWidth * 9f / 16f, maxHeight * WideStackedVideoShare) else null,
                 )
             }
@@ -660,6 +675,7 @@ private fun PortraitNowPlaying(
     coordinator: PlaybackCoordinator,
     onClose: () -> Unit,
     onFullscreen: () -> Unit,
+    onToggleLyrics: (() -> Unit)? = null,
     videoHeight: Dp? = null,
 ) {
     val player = coordinator.player
@@ -696,7 +712,7 @@ private fun PortraitNowPlaying(
             .windowInsetsPadding(WindowInsets.navigationBars)
             .then(if (desktopLayoutHole) Modifier.background(Color.Transparent) else Modifier),
     ) {
-        PlayerTopBar(coordinator, sleepMs, onClose)
+        PlayerTopBar(coordinator, sleepMs, onClose, lyricsOpen = false, onToggleLyrics = onToggleLyrics)
 
         // Video surface — the shell's shared container; each engine shows/hides its own picture.
         // Black: HW overlay letterbox is transparent, so this fill is the bars.
@@ -808,6 +824,7 @@ private fun LandscapeNowPlaying(
     coordinator: PlaybackCoordinator,
     onClose: () -> Unit,
     onFullscreen: () -> Unit,
+    onToggleLyrics: (() -> Unit)? = null,
 ) {
     val player = coordinator.player
     val status by player.status.collectAsStateWithLifecycle()
@@ -848,7 +865,7 @@ private fun LandscapeNowPlaying(
                     .windowInsetsPadding(WindowInsets.navigationBars)
                     .background(DesignColors.Surface),
             ) {
-                PlayerTopBar(coordinator, sleepMs, onClose)
+                PlayerTopBar(coordinator, sleepMs, onClose, lyricsOpen = false, onToggleLyrics = onToggleLyrics)
                 val queueListState = rememberLazyListState()
                 val locateCurrent = rememberLocateCurrent(queueListState, queue.currentIndex, indexOffset = 0)
                 QueueHeader(coordinator, queue.currentIndex, queue.displayTotal, queue.shuffle, queue.loopMode, locateCurrent)
@@ -1548,7 +1565,13 @@ private fun BoxScope.PlaybackErrorText(
 
 /** chevron-down · [right:] download · sponsorblock · sleep timer · quality chip · ⋮ (reload + tracks). */
 @Composable
-private fun PlayerTopBar(coordinator: PlaybackCoordinator, sleepMs: Long?, onClose: () -> Unit) {
+private fun PlayerTopBar(
+    coordinator: PlaybackCoordinator,
+    sleepMs: Long?,
+    onClose: () -> Unit,
+    lyricsOpen: Boolean = false,
+    onToggleLyrics: (() -> Unit)? = null,
+) {
     val player = coordinator.player
     Row(
         // Paddings/gaps shave the ActionIcon hit-inset (8dp) so the glyphs keep the bar's metrics.
@@ -1560,6 +1583,14 @@ private fun PlayerTopBar(coordinator: PlaybackCoordinator, sleepMs: Long?, onClo
     ) {
         ActionIcon(Icons.Default.KeyboardArrowDown, stringResource(Res.string.cd_close), onClick = onClose)
         Box(Modifier.weight(1f))
+        onToggleLyrics?.let {
+            ActionIcon(
+                Icons.Outlined.Lyrics,
+                stringResource(Res.string.cd_lyrics),
+                tint = if (lyricsOpen) DesignColors.Accent else DesignColors.InkMuted,
+                onClick = it,
+            )
+        }
         DownloadAction(coordinator)
         SponsorBlockToggle(coordinator, rememberSponsorBlockState(coordinator))
         PlayerSleepTimerButton(coordinator, sleepMs)
@@ -2535,3 +2566,66 @@ private fun queueItemActions(coordinator: PlaybackCoordinator, index: Int, item:
 
 /** The play button shows Pause while playback is wanted, but not once the track has ended. */
 fun PlaybackStatus.showsPause(): Boolean = playWhenReady && !state.isEnded()
+
+/**
+ * Now Playing with the lyrics open: a header (cover, title, artist), the lyrics filling the middle, then the seek bar
+ * and transport. The video surface is not shown here (the lyrics button in the top bar brings it back).
+ */
+@Composable
+internal fun LyricsNowPlaying(
+    graph: AppGraph,
+    coordinator: PlaybackCoordinator,
+    onClose: () -> Unit,
+    onToggleLyrics: () -> Unit,
+) {
+    val player = coordinator.player
+    val status by player.status.collectAsStateWithLifecycle()
+    val progress by player.progress.collectAsStateWithLifecycle()
+    val queue by player.queue.collectAsStateWithLifecycle()
+    val sleepMs by player.sleepTimerMs.collectAsStateWithLifecycle()
+    val current = queue.currentItem
+    val lyrics = rememberLyricsState(graph, current)
+    val clock = rememberLyricsClock(progress, status.showsPause())
+
+    Column(
+        Modifier.fillMaxSize()
+            .background(DesignColors.Surface)
+            .windowInsetsPadding(WindowInsets.navigationBars),
+    ) {
+        PlayerTopBar(coordinator, sleepMs, onClose, lyricsOpen = true, onToggleLyrics = onToggleLyrics)
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            AudioOnlyCover(current?.displayThumbnailUrl, Modifier.size(56.dp).clip(RoundedCornerShape(8.dp)))
+            Column(Modifier.padding(start = 12.dp).weight(1f)) {
+                Text(
+                    current?.displayTitle.orEmpty(),
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                ArtistLine(current, status, TextStyle(fontSize = 13.sp, color = DesignColors.InkSecondary), Modifier)
+            }
+        }
+        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+            when (val state = lyrics) {
+                LyricsUiState.Loading -> CircularProgressIndicator(Modifier.size(32.dp), color = DesignColors.InkMuted)
+                LyricsUiState.None -> Text(
+                    stringResource(Res.string.lyrics_not_found),
+                    style = TextStyle(fontSize = 16.sp, color = DesignColors.InkSecondary),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 32.dp),
+                )
+                is LyricsUiState.Ready -> LyricsView(
+                    doc = state.doc,
+                    positionMs = { clock.value },
+                    onSeek = { player.seekTo(it) },
+                    modifier = Modifier.widthIn(max = 640.dp),
+                )
+            }
+        }
+        SeekBar(player, progress)
+        TransportRow(coordinator, status.showsPause())
+    }
+}

@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Buburahin ang na-download na sa ngayon.</string>
     <string name="downloads_cancel_selected_keep">Panatilihin</string>
     <string name="data_dir_unusable">Hindi mabuksan ng Verre ang data folder nito, %1$s. Tiyaking folder ito na kaya mong sulatan, pagkatapos ay buksan muli ang Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Изтегленото досега ще бъде изтрито.</string>
     <string name="downloads_cancel_selected_keep">Запазване</string>
     <string name="data_dir_unusable">Verre не може да отвори папката си с данни, %1$s. Уверете се, че е папка, в която можете да записвате, след което отворете Verre отново. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

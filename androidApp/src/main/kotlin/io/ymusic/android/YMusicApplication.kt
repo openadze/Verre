@@ -75,6 +75,11 @@ import io.ymusic.remoteconfig.HttpApiService
 import io.ymusic.remoteconfig.RemoteConfig
 import io.ymusic.remoteconfig.RunningBundles
 import io.ymusic.remoteconfig.StatUsage
+import io.ymusic.lyrics.FileLyricsCache
+import io.ymusic.lyrics.KmpLyricsHttp
+import io.ymusic.lyrics.LrclibProvider
+import io.ymusic.lyrics.LyricsLogger
+import io.ymusic.lyrics.LyricsRepository
 import io.ymusic.settings.AppSettings
 import io.ymusic.settings.anonymousDeviceId
 import io.ymusic.settings.flow
@@ -182,6 +187,8 @@ class SharedServices(
     val remoteConfig: RemoteConfig,
     /** The running engine.js / player.js revisions the service calls report. */
     val runningBundles: RunningBundles,
+    /** Lyrics providers + disk cache, over the app's HTTP stack. */
+    val lyrics: LyricsRepository,
 )
 
 class YMusicApplication : Application() {
@@ -510,7 +517,21 @@ class YMusicApplication : Application() {
             configUpdates = remoteConfig.appUpdate,
         )
         updates.pruneDownloads()
-        return SharedServices(http, cookies, settings, engines, cacheStore, mediaStore, playerJs, imageLoader, stats, updates, api, remoteConfig, runningBundles)
+        val lyricsLogger = rootLogger.fork("lyrics")
+        val lyricsLog = LyricsLogger { message, error -> lyricsLogger.log(Logger.Level.WARN, message, error) }
+        val lyrics = LyricsRepository(
+            providers = listOf(
+                LrclibProvider(
+                    KmpLyricsHttp(http.engine),
+                    "Verre/${BuildConfig.VERSION_NAME} (https://github.com/openadze/Verre)",
+                    lyricsLog,
+                ),
+            ),
+            cache = FileLyricsCache(FileSystem.SYSTEM, cacheDir.resolve("lyrics").toOkioPath(), lyricsLog),
+            log = lyricsLog,
+            clock = { System.currentTimeMillis() },
+        )
+        return SharedServices(http, cookies, settings, engines, cacheStore, mediaStore, playerJs, imageLoader, stats, updates, api, remoteConfig, runningBundles, lyrics)
     }
 
     private suspend fun buildGraph(): AppGraph {
@@ -794,6 +815,7 @@ class YMusicApplication : Application() {
             appVersionCode = BuildConfig.VERSION_CODE,
             runningBundles = shared.runningBundles,
             imageLoader = shared.imageLoader,
+            lyrics = shared.lyrics,
             settings = shared.settings,
             loginBrowser = { url, userAgent, state, onPageChanged, modifier ->
                 AndroidLoginBrowser(url, userAgent, state, onPageChanged, modifier)

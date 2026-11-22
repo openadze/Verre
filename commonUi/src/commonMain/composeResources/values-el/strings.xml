@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Ό,τι έχει ληφθεί μέχρι τώρα θα διαγραφεί.</string>
     <string name="downloads_cancel_selected_keep">Διατήρηση</string>
     <string name="data_dir_unusable">Το Verre δεν μπορεί να ανοίξει τον φάκελο δεδομένων του, %1$s. Βεβαιωθείτε ότι είναι φάκελος στον οποίο μπορείτε να γράψετε και ανοίξτε ξανά το Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

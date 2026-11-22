@@ -881,4 +881,6 @@
     <string name="downloads_cancel_selected_message">سيُحذف ما تم تنزيله حتى الآن.</string>
     <string name="downloads_cancel_selected_keep">إبقاء</string>
     <string name="data_dir_unusable">لا يمكن لـ Verre فتح مجلد البيانات الخاص به، %1$s. تأكد من أنه مجلد يمكنك الكتابة فيه، ثم افتح Verre مرة أخرى. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

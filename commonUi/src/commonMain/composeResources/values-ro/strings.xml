@@ -710,4 +710,6 @@
     <string name="downloads_cancel_selected_message">Ce s-a descărcat până acum va fi șters.</string>
     <string name="downloads_cancel_selected_keep">Păstrează</string>
     <string name="data_dir_unusable">Verre nu își poate deschide dosarul de date, %1$s. Asigură-te că este un dosar în care poți scrie, apoi deschide din nou Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

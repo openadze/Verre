@@ -256,6 +256,8 @@ class AppGraph(
      */
     sponsorBlockApi: SponsorBlockApi? = api?.let(::ServiceSponsorBlockApi),
     sponsorBlockStore: SponsorBlockStore = InMemorySponsorBlockStore(),
+    /** Lyrics source (providers + cache). Null hides the lyrics button (shells without one). */
+    val lyrics: io.ymusic.lyrics.LyricsRepository? = null,
     // Kept last so shells pass it as the trailing lambda.
     val playerSurface: @Composable (modifier: Modifier) -> Unit,
 ) {

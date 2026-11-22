@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Wixii ilaa hadda la soo dejiyay waa la tirtirayaa.</string>
     <string name="downloads_cancel_selected_keep">Hay</string>
     <string name="data_dir_unusable">Verre ma furi karto galkadeeda xogta, %1$s. Hubi inay tahay gal aad wax ku qori karto, kadibna mar kale fur Verre. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

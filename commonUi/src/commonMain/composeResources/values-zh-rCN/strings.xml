@@ -684,4 +684,6 @@
     <string name="downloads_cancel_selected_message">已下载的部分将被删除。</string>
     <string name="downloads_cancel_selected_keep">保留</string>
     <string name="data_dir_unusable">Verre 无法打开其数据文件夹 %1$s。请确认这是你可以写入的文件夹，然后重新打开 Verre。(%2$s)</string>
+    <string name="cd_lyrics">歌词</string>
+    <string name="lyrics_not_found">这首歌没有歌词</string>
 </resources>

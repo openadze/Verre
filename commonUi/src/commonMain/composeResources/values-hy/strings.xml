@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Մինչ այժմ ներբեռնվածը կջնջվի։</string>
     <string name="downloads_cancel_selected_keep">Պահել</string>
     <string name="data_dir_unusable">Verre-ը չի կարող բացել իր տվյալների պանակը՝ %1$s։ Համոզվեք, որ այն պանակ է, որտեղ կարող եք գրել, ապա նորից բացեք Verre-ը։ (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Wat tot nu toe is gedownload, wordt verwijderd.</string>
     <string name="downloads_cancel_selected_keep">Behouden</string>
     <string name="data_dir_unusable">Verre kan zijn gegevensmap, %1$s, niet openen. Zorg dat het een map is waarin je kunt schrijven en open Verre daarna opnieuw. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

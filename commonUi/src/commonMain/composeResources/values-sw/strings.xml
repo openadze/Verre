@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">Kilichopakuliwa hadi sasa kitafutwa.</string>
     <string name="downloads_cancel_selected_keep">Usighairi</string>
     <string name="data_dir_unusable">Verre haiwezi kufungua folda yake ya data, %1$s. Hakikisha ni folda unayoweza kuandika ndani yake, kisha ufungue Verre tena. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>

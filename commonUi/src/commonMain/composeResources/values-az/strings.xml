@@ -697,4 +697,6 @@
     <string name="downloads_cancel_selected_message">İndiyədək yüklənənlər silinəcək.</string>
     <string name="downloads_cancel_selected_keep">Saxla</string>
     <string name="data_dir_unusable">Verre məlumat qovluğunu (%1$s) aça bilmir. Bunun yaza biləcəyiniz qovluq olduğuna əmin olun, sonra Verre-i yenidən açın. (%2$s)</string>
+    <string name="cd_lyrics">Lyrics</string>
+    <string name="lyrics_not_found">No lyrics for this song</string>
 </resources>
