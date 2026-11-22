@@ -314,6 +314,8 @@
     <string name="settings_theme_dark">Темна</string>
     <string name="settings_theme_amoled">Чорна (AMOLED)</string>
     <string name="settings_accent_color">Колір акценту</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Налагодження</string>
     <string name="settings_show_fps">Показувати FPS</string>
     <string name="settings_show_fps_hint">Показувати кількість кадрів за секунду поверх відео на екрані відтворення. Підрахунок зупиняється на паузі або коли ви залишаєте екран.</string>

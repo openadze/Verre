@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">अँध्यारो</string>
     <string name="settings_theme_amoled">कालो (AMOLED)</string>
     <string name="settings_accent_color">एक्सेन्ट रङ</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">डिबग</string>
     <string name="settings_show_fps">FPS देखाउनुहोस्</string>
     <string name="settings_show_fps_hint">बजिरहेको भिडियोमाथि प्रति सेकेन्ड फ्रेम देखाउनुहोस्। पज गर्दा वा त्यो स्क्रिन छोड्दा मापन रोकिन्छ।</string>

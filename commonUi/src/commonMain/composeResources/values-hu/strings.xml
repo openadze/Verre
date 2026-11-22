@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Sötét</string>
     <string name="settings_theme_amoled">Fekete (AMOLED)</string>
     <string name="settings_accent_color">Kiemelőszín</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Hibakeresés</string>
     <string name="settings_show_fps">FPS megjelenítése</string>
     <string name="settings_show_fps_hint">Másodpercenkénti képkockaszám megjelenítése a Most szól videón. A mérés leáll szüneteltetéskor vagy a képernyő elhagyásakor.</string>

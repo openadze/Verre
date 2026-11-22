@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">ಡಾರ್ಕ್</string>
     <string name="settings_theme_amoled">ಕಪ್ಪು (AMOLED)</string>
     <string name="settings_accent_color">ಆಕ್ಸೆಂಟ್ ಬಣ್ಣ</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">ಡೀಬಗ್</string>
     <string name="settings_show_fps">FPS ತೋರಿಸಿ</string>
     <string name="settings_show_fps_hint">Now Playing ವೀಡಿಯೊದ ಮೇಲೆ ಪ್ರತಿ ಸೆಕೆಂಡಿನ ಚಿತ್ರಗಳನ್ನು ತೋರಿಸಿ. ವಿರಾಮಗೊಳಿಸಿದಾಗ ಅಥವಾ ಆ ಪರದೆಯಿಂದ ಹೊರಹೋದಾಗ ಮಾಪನ ನಿಲ್ಲುತ್ತದೆ.</string>

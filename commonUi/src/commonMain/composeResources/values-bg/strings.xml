@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Тъмна</string>
     <string name="settings_theme_amoled">Черна (AMOLED)</string>
     <string name="settings_accent_color">Акцентен цвят</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Отстраняване на грешки</string>
     <string name="settings_show_fps">Показвай FPS</string>
     <string name="settings_show_fps_hint">Показва кадрите в секунда върху видеото в „Сега се изпълнява“. Отчитането спира при пауза или когато напуснете екрана.</string>

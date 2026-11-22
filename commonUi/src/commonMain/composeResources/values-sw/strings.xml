@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Meusi</string>
     <string name="settings_theme_amoled">Nyeusi (AMOLED)</string>
     <string name="settings_accent_color">Rangi ya msisitizo</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Utatuzi</string>
     <string name="settings_show_fps">Onyesha FPS</string>
     <string name="settings_show_fps_hint">Onyesha fremu kwa sekunde juu ya video ya Inayocheza Sasa. Upimaji hukoma unaposimamisha au ukiondoka kwenye skrini hiyo.</string>

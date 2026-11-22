@@ -262,6 +262,8 @@
     <string name="settings_theme_dark">Tamna</string>
     <string name="settings_theme_amoled">Crna (AMOLED)</string>
     <string name="settings_accent_color">Boja naglaska</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Otklanjanje pogrešaka</string>
     <string name="settings_show_fps">Prikaži FPS</string>
     <string name="settings_show_fps_hint">Prikazuje broj sličica u sekundi preko videozapisa na zaslonu Sada svira. Mjerenje se zaustavlja pri pauzi ili kad napustite zaslon.</string>

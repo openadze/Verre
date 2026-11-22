@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Tume</string>
     <string name="settings_theme_amoled">Must (AMOLED)</string>
     <string name="settings_accent_color">Rõhuvärv</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Silumine</string>
     <string name="settings_show_fps">Näita FPS-i</string>
     <string name="settings_show_fps_hint">Kuva kaadrisagedus vaate Praegu mängib video peal. Mõõtmine peatub pausi ajal või kui sellelt ekraanilt lahkud.</string>

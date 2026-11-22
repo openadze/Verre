@@ -262,6 +262,8 @@
     <string name="settings_theme_dark">כהה</string>
     <string name="settings_theme_amoled">שחור (AMOLED)</string>
     <string name="settings_accent_color">צבע הדגשה</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">ניפוי באגים</string>
     <string name="settings_show_fps">הצג FPS</string>
     <string name="settings_show_fps_hint">הצגת מספר התמונות לשנייה מעל הסרטון במסך המתנגן כעת. המדידה נעצרת בהשהיה או כשיוצאים מהמסך.</string>

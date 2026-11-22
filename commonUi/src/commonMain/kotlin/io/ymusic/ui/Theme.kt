@@ -70,7 +70,7 @@ data class DesignPalette(
 }
 
 /** The accent when the user has not picked one. */
-val DefaultAccent = Color(0xFFE8732A)
+val DefaultAccent = Color(0xFFFA2D48)
 
 val LightDesignColors = DesignPalette(
     isDark = false,

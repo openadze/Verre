@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Tünd</string>
     <string name="settings_theme_amoled">Qara (AMOLED)</string>
     <string name="settings_accent_color">Vurğu rəngi</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Sazlama</string>
     <string name="settings_show_fps">FPS-i göstər</string>
     <string name="settings_show_fps_hint">İndi oxudulur videosunun üzərində saniyədəki kadr sayını göstərir. Fasilədə və ya ekrandan çıxdıqda ölçmə dayanır.</string>

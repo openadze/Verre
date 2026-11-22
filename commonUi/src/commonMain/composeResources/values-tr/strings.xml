@@ -257,6 +257,8 @@
     <string name="settings_theme_dark">Koyu</string>
     <string name="settings_theme_amoled">Siyah (AMOLED)</string>
     <string name="settings_accent_color">Vurgu rengi</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Hata ayıklama</string>
     <string name="settings_show_fps">FPS'yi göster</string>
     <string name="settings_show_fps_hint">Şimdi Çalıyor videosunun üzerinde saniyedeki kare sayısını gösterir. Duraklatıldığında veya ekrandan çıktığınızda ölçüm durur.</string>

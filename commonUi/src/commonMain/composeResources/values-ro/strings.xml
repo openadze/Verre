@@ -262,6 +262,8 @@
     <string name="settings_theme_dark">Întunecată</string>
     <string name="settings_theme_amoled">Negru (AMOLED)</string>
     <string name="settings_accent_color">Culoare de accent</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Depanare</string>
     <string name="settings_show_fps">Afișează FPS</string>
     <string name="settings_show_fps_hint">Afișează cadrele pe secundă peste videoclipul din Se redă acum. Măsurarea se oprește când pui pauză sau părăsești ecranul.</string>

@@ -84,6 +84,8 @@ import io.ymusic.ui.resources.settings_stats
 import io.ymusic.ui.resources.settings_stats_hint
 import io.ymusic.ui.resources.settings_terms
 import io.ymusic.ui.resources.settings_theme
+import io.ymusic.ui.resources.settings_glass
+import io.ymusic.ui.resources.settings_glass_hint
 import io.ymusic.ui.resources.settings_theme_amoled
 import io.ymusic.ui.resources.settings_theme_dark
 import io.ymusic.ui.resources.settings_theme_light
@@ -154,6 +156,7 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
                     scope.launch { graph.settings.put(AppSettings.themeAccent, hex) }
                 },
             )
+            ToggleRow(graph, GlassSettings.ENABLED, Res.string.settings_glass, Res.string.settings_glass_hint)
             LanguageRow(
                 current = uiLanguage.ifBlank { defaultUiLanguageTag() },
                 onSelect = { tag ->

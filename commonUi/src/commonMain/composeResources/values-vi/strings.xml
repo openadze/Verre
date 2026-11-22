@@ -290,6 +290,8 @@
     <string name="settings_theme_dark">Tối</string>
     <string name="settings_theme_amoled">Đen (AMOLED)</string>
     <string name="settings_accent_color">Màu nhấn</string>
+    <string name="settings_glass">Liquid Glass</string>
+    <string name="settings_glass_hint">Translucent glass buttons and surfaces. Turn it off for solid ones; it also helps older devices.</string>
     <string name="settings_debug">Gỡ lỗi</string>
     <string name="settings_show_fps">Hiện FPS</string>
     <string name="settings_show_fps_hint">Hiện số khung hình mỗi giây trên video Đang phát. Ngừng đo khi tạm dừng hoặc khi rời màn hình đó.</string>

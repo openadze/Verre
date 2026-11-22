@@ -189,7 +189,7 @@ private fun HueBar(hue: Float, onChange: (Float) -> Unit) {
 
 private val AccentPresets = listOf(
     DefaultAccent,
-    Color(0xFFD32F2F),
+    Color(0xFFE8732A),
     Color(0xFFC2185B),
     Color(0xFF7B1FA2),
     Color(0xFF341C9A),
