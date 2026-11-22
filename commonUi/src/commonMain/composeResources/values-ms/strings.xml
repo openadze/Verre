@@ -689,4 +689,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Dengar Sekarang</string>
+    <string name="tab_browse">Layari</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Pilihan Terbaik</string>
+    <string name="top_picks_sub">Muzik baharu, dipilih untuk anda</string>
+    <string name="cd_avatar">Akaun dan tetapan</string>
+    <string name="see_all">Lihat Semua</string>
+    <string name="apple_play">Main</string>
+    <string name="cd_like">Suka</string>
+    <string name="like_failed">Tidak dapat mengemas kini suka anda</string>
 </resources>

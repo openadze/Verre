@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Ακούστε τώρα</string>
+    <string name="tab_browse">Περιήγηση</string>
+    <string name="tab_radio">Ραδιόφωνο</string>
+    <string name="top_picks">Κορυφαίες επιλογές</string>
+    <string name="top_picks_sub">Νέα μουσική, επιλεγμένη για εσάς</string>
+    <string name="cd_avatar">Λογαριασμός και ρυθμίσεις</string>
+    <string name="see_all">Προβολή όλων</string>
+    <string name="apple_play">Αναπαραγωγή</string>
+    <string name="cd_like">Μου αρέσει</string>
+    <string name="like_failed">Δεν ήταν δυνατή η ενημέρωση της επισήμανσης «Μου αρέσει»</string>
 </resources>

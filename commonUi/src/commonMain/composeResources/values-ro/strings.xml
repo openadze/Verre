@@ -715,4 +715,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Ascultă acum</string>
+    <string name="tab_browse">Răsfoiește</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Recomandări de top</string>
+    <string name="top_picks_sub">Muzică nouă, aleasă pentru tine</string>
+    <string name="cd_avatar">Cont și setări</string>
+    <string name="see_all">Vezi tot</string>
+    <string name="apple_play">Redă</string>
+    <string name="cd_like">Apreciază</string>
+    <string name="like_failed">Nu s-a putut actualiza aprecierea</string>
 </resources>

@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Kuula kohe</string>
+    <string name="tab_browse">Sirvi</string>
+    <string name="tab_radio">Raadio</string>
+    <string name="top_picks">Parimad valikud</string>
+    <string name="top_picks_sub">Uus muusika, valitud sulle</string>
+    <string name="cd_avatar">Konto ja sätted</string>
+    <string name="see_all">Kuva kõik</string>
+    <string name="apple_play">Esita</string>
+    <string name="cd_like">Meeldib</string>
+    <string name="like_failed">Meeldimist ei saanud värskendada</string>
 </resources>

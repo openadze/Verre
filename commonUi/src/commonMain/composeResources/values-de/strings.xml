@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Songtext</string>
     <string name="lyrics_not_found">Kein Songtext für diesen Titel</string>
     <string name="cd_vocal_level">Gesangslautstärke</string>
+    <string name="tab_listen_now">Jetzt hören</string>
+    <string name="tab_browse">Entdecken</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Top-Tipps</string>
+    <string name="top_picks_sub">Neue Musik, für dich ausgewählt</string>
+    <string name="cd_avatar">Konto und Einstellungen</string>
+    <string name="see_all">Alle anzeigen</string>
+    <string name="apple_play">Wiedergabe</string>
+    <string name="cd_like">Gefällt mir</string>
+    <string name="like_failed">„Gefällt mir“ konnte nicht aktualisiert werden</string>
 </resources>

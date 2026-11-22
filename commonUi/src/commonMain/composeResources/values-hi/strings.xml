@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">अभी सुनें</string>
+    <string name="tab_browse">ब्राउज़ करें</string>
+    <string name="tab_radio">रेडियो</string>
+    <string name="top_picks">शीर्ष पसंद</string>
+    <string name="top_picks_sub">आपके लिए चुना गया नया संगीत</string>
+    <string name="cd_avatar">खाता और सेटिंग्स</string>
+    <string name="see_all">सभी देखें</string>
+    <string name="apple_play">चलाएं</string>
+    <string name="cd_like">लाइक</string>
+    <string name="like_failed">आपका लाइक अपडेट नहीं हो सका</string>
 </resources>

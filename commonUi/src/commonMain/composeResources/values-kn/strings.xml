@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">ಈಗ ಆಲಿಸಿ</string>
+    <string name="tab_browse">ಬ್ರೌಸ್ ಮಾಡಿ</string>
+    <string name="tab_radio">ರೇಡಿಯೊ</string>
+    <string name="top_picks">ಪ್ರಮುಖ ಆಯ್ಕೆಗಳು</string>
+    <string name="top_picks_sub">ನಿಮಗಾಗಿ ಆಯ್ಕೆಮಾಡಿದ ಹೊಸ ಸಂಗೀತ</string>
+    <string name="cd_avatar">ಖಾತೆ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="see_all">ಎಲ್ಲವನ್ನೂ ನೋಡಿ</string>
+    <string name="apple_play">ಪ್ಲೇ ಮಾಡಿ</string>
+    <string name="cd_like">ಲೈಕ್</string>
+    <string name="like_failed">ನಿಮ್ಮ ಲೈಕ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
 </resources>

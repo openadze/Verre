@@ -728,4 +728,14 @@
     <string name="cd_lyrics">Текст песни</string>
     <string name="lyrics_not_found">Для этой песни нет текста</string>
     <string name="cd_vocal_level">Громкость вокала</string>
+    <string name="tab_listen_now">Слушать</string>
+    <string name="tab_browse">Обзор</string>
+    <string name="tab_radio">Радио</string>
+    <string name="top_picks">Топ-подборки</string>
+    <string name="top_picks_sub">Новая музыка, подобранная для вас</string>
+    <string name="cd_avatar">Аккаунт и настройки</string>
+    <string name="see_all">См. все</string>
+    <string name="apple_play">Воспроизвести</string>
+    <string name="cd_like">Нравится</string>
+    <string name="like_failed">Не удалось обновить отметку «Нравится»</string>
 </resources>

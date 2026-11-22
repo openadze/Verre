@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <!-- Drawer sections -->
     <string name="section_discover">Descobrir</string>
     <string name="section_yt_music">YT Music</string>
@@ -725,4 +725,6 @@
     <string name="cd_avatar">Conta e configurações</string>
     <string name="see_all">Ver Tudo</string>
     <string name="apple_play">Reproduzir</string>
+    <string name="cd_like">Curtir</string>
+    <string name="like_failed">Não foi possível atualizar a curtida</string>
 </resources>

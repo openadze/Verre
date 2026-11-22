@@ -702,4 +702,14 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="tab_listen_now">Luister nou</string>
+    <string name="tab_browse">Blaai</string>
+    <string name="tab_radio">Radio</string>
+    <string name="top_picks">Topkeuses</string>
+    <string name="top_picks_sub">Nuwe musiek, vir jou gekies</string>
+    <string name="cd_avatar">Rekening en instellings</string>
+    <string name="see_all">Sien alles</string>
+    <string name="apple_play">Speel</string>
+    <string name="cd_like">Hou van</string>
+    <string name="like_failed">Kon nie jou hou-van opdateer nie</string>
 </resources>
