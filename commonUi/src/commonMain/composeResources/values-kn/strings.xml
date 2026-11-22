@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre ತನ್ನ ಡೇಟಾ ಫೋಲ್ಡರ್ %1$s ಅನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ. ಅದು ನೀವು ಬರೆಯಬಹುದಾದ ಫೋಲ್ಡರ್ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ, ನಂತರ Verre ಅನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

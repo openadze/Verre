@@ -16,6 +16,7 @@ import io.ymusic.mse.cinterop.mse_host_set_speed
 import io.ymusic.mse.cinterop.mse_host_set_video_hidden
 import io.ymusic.mse.cinterop.mse_host_set_video_surface
 import io.ymusic.mse.cinterop.mse_host_set_virtualizer
+import io.ymusic.mse.cinterop.mse_host_set_vocal
 import io.ymusic.mse.cinterop.mse_host_set_volume
 import io.ymusic.mse.cinterop.mse_host_video_decoder
 import io.ymusic.mse.cinterop.mse_host_video_size
@@ -145,6 +146,11 @@ actual object MseHostNative {
     actual fun setVirtualizer(handle: Long, width: Float) {
         if (handle == 0L) return
         mse_host_set_virtualizer(handle.toCPointer<COpaque>(), width)
+    }
+
+    actual fun setVocal(handle: Long, level: Float) {
+        if (handle == 0L) return
+        mse_host_set_vocal(handle.toCPointer<COpaque>(), level)
     }
 
     actual fun setPreamp(handle: Long, db: Float) {

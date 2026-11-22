@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre veri klasörünü (%1$s) açamıyor. Bunun yazabildiğiniz bir klasör olduğundan emin olun, ardından Verre'i yeniden açın. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vokal ses düzeyi</string>
 </resources>

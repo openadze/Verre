@@ -714,4 +714,5 @@
     <string name="data_dir_unusable">Verre ne peut pas ouvrir son dossier de données, %1$s. Vérifiez qu'il s'agit d'un dossier dans lequel vous pouvez écrire, puis rouvrez Verre. (%2$s)</string>
     <string name="cd_lyrics">Paroles</string>
     <string name="lyrics_not_found">Pas de paroles pour ce titre</string>
+    <string name="cd_vocal_level">Volume de la voix</string>
 </resources>

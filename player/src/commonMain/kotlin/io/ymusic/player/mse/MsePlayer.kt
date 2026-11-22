@@ -646,6 +646,9 @@ class MsePlayer internal constructor(
         if (previous == null || config.volume != previous.volume || config.stableVolume != previous.stableVolume) {
             videoSurface.setVolume(hostVolume(config))
         }
+        if (previous == null || config.vocalLevel != previous.vocalLevel) {
+            videoSurface.setVocalLevel(config.vocalLevel.coerceIn(0f, 1f))
+        }
         if (previous == null ||
             config.eqBands != previous.eqBands ||
             config.bassBoostDb != previous.bassBoostDb ||

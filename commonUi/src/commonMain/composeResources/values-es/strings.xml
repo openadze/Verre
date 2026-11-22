@@ -714,4 +714,5 @@
     <string name="data_dir_unusable">Verre no puede abrir su carpeta de datos, %1$s. Asegúrate de que sea una carpeta en la que puedas escribir y vuelve a abrir Verre. (%2$s)</string>
     <string name="cd_lyrics">Letra</string>
     <string name="lyrics_not_found">No hay letra para esta canción</string>
+    <string name="cd_vocal_level">Volumen de la voz</string>
 </resources>

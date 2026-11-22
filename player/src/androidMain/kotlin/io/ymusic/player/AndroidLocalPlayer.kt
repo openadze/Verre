@@ -370,7 +370,8 @@ internal class AndroidLocalPlayer(
             )
         }
         if (config.eqBands != prev.eqBands || config.bassBoostDb != prev.bassBoostDb ||
-            config.virtualizer != prev.virtualizer || config.preampDb != prev.preampDb
+            config.virtualizer != prev.virtualizer || config.preampDb != prev.preampDb ||
+            config.vocalLevel != prev.vocalLevel
         ) {
             applyColor(config)
         }
@@ -558,6 +559,7 @@ internal class AndroidLocalPlayer(
         AudioFxNative.setBass(fxHandle, config.bassBoostDb)
         AudioFxNative.setVirtualizer(fxHandle, config.virtualizer)
         AudioFxNative.setPreamp(fxHandle, config.preampDb)
+        AudioFxNative.setVocal(fxHandle, config.vocalLevel)
     }
 
     private fun durationOrUnknown(): Long =

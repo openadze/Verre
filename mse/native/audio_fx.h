@@ -21,6 +21,8 @@ void audio_fx_set_volume(AudioFx *fx, float vol);
 void audio_fx_set_eq(AudioFx *fx, const float bands_db[AFX_BANDS]);
 void audio_fx_set_bass(AudioFx *fx, float db);
 void audio_fx_set_virtualizer(AudioFx *fx, float width);
+/* Vocal level 0..1 (1 = untouched): centre-channel vocal-band reduction. Not stem separation. */
+void audio_fx_set_vocal(AudioFx *fx, float level);
 /* User level trim, -12..+12 dB, on top of the automatic loudness-matched pre-gain. */
 void audio_fx_set_preamp(AudioFx *fx, float db);
 void audio_fx_set_speed(AudioFx *fx, float speed);

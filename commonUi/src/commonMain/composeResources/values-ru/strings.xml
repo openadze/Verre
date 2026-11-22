@@ -727,4 +727,5 @@
     <string name="data_dir_unusable">Verre не удаётся открыть папку с данными %1$s. Убедитесь, что это папка, в которую можно записывать, и снова откройте Verre. (%2$s)</string>
     <string name="cd_lyrics">Текст песни</string>
     <string name="lyrics_not_found">Для этой песни нет текста</string>
+    <string name="cd_vocal_level">Громкость вокала</string>
 </resources>

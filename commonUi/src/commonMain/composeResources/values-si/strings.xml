@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre හට එහි දත්ත ෆෝල්ඩරය, %1$s, විවෘත කළ නොහැක. එය ඔබට ලිවිය හැකි ෆෝල්ඩරයක් බව තහවුරු කර, පසුව Verre නැවත විවෘත කරන්න. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

@@ -74,6 +74,9 @@ data class PlaybackConfig(
     val virtualizer: Float = 1f,
     /** Level trim into the equalizer, −12..+12 dB, on top of its automatic loudness matching. */
     val preampDb: Float = 0f,
+    /** 1 = the vocal as mastered; 0 = lead vocal reduced (centre-channel cancellation in the vocal band, "Sing").
+     *  Session-only: not persisted, and reset to 1 when the item changes. */
+    val vocalLevel: Float = 1f,
     /** False bypasses the equalizer/bass/virtualizer/preamp (system audio effects take over); the values are kept. */
     val inAppAudioFx: Boolean = true,
     /** False: no loudness gain ([PlayableItem.loudnessScale], YouTube's), and no YouTube stable-volume track. */

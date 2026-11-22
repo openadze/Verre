@@ -883,4 +883,5 @@
     <string name="data_dir_unusable">Verre не вдається відкрити свою папку з даними %1$s. Переконайтеся, що це папка, у яку можна записувати, і знову відкрийте Verre. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Гучність вокалу</string>
 </resources>

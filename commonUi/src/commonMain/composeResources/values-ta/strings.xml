@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre அதன் தரவுக் கோப்புறையான %1$s ஐத் திறக்க முடியவில்லை. அது நீங்கள் எழுதக்கூடிய கோப்புறை என்பதை உறுதிசெய்து, பிறகு Verre ஐ மீண்டும் திறக்கவும். (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

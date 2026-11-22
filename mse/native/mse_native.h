@@ -33,6 +33,7 @@ void mse_host_set_pitch(void *h, float pitch);
 void mse_host_set_eq(void *h, const float *bands_db);
 void mse_host_set_bass(void *h, float db);
 void mse_host_set_virtualizer(void *h, float width);
+void mse_host_set_vocal(void *h, float level);
 void mse_host_set_preamp(void *h, float db);
 void mse_host_set_video_hidden(void *h, int hidden);
 int mse_host_pcm_levels(void *h, float *out, int n);

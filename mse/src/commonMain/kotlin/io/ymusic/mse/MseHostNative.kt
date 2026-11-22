@@ -29,6 +29,8 @@ expect object MseHostNative {
 
     fun setVirtualizer(handle: Long, width: Float)
 
+    fun setVocal(handle: Long, level: Float)
+
     fun setPreamp(handle: Long, db: Float)
 
     /** The picture is off screen: rest the video decoder, keep buffering the chosen quality. */

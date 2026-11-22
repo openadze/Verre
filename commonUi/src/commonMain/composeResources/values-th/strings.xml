@@ -688,4 +688,5 @@
     <string name="data_dir_unusable">Verre เปิดโฟลเดอร์ข้อมูลของแอป %1$s ไม่ได้ ตรวจสอบว่าเป็นโฟลเดอร์ที่คุณเขียนได้ แล้วเปิด Verre อีกครั้ง (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

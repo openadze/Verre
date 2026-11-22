@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre તેનું ડેટા ફોલ્ડર, %1$s, ખોલી શકતું નથી. ખાતરી કરો કે તે એવું ફોલ્ડર છે જેમાં તમે લખી શકો, પછી Verre ફરી ખોલો. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

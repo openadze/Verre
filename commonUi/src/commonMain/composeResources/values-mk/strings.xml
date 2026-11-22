@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre не може да ја отвори својата папка со податоци, %1$s. Проверете дали е папка во која можете да запишувате, а потоа повторно отворете го Verre. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

@@ -399,6 +399,8 @@ internal class PlayerImpl(
 
     override fun setPreamp(db: Float) = pushConfig(currentConfig.copy(preampDb = db.coerceIn(-12f, 12f)))
 
+    override fun setVocalLevel(level: Float) = pushConfig(currentConfig.copy(vocalLevel = level.coerceIn(0f, 1f)))
+
     override fun setInAppAudioFx(enabled: Boolean) = pushConfig(currentConfig.copy(inAppAudioFx = enabled))
 
     override fun setStableVolume(enabled: Boolean) = pushConfig(currentConfig.copy(stableVolume = enabled))

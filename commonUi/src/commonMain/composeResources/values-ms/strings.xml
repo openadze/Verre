@@ -688,4 +688,5 @@
     <string name="data_dir_unusable">Verre tidak dapat membuka folder datanya, %1$s. Pastikan ia folder yang boleh anda tulis, kemudian buka Verre semula. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

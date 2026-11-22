@@ -44,3 +44,8 @@ The table YouTube's `navigator.mediaCapabilities.decodingInfo` and the MSE type 
 - **Lock order**: MSE `h->mu` → `h->av_mu` → `a->mu` → `a->show_mu`; file_av `p->mu`; then the presenter's `present_mu` → `mu`, and `present_mu` → the D3D11 device lock. vpipe's mutex is a leaf. Kotlin: `bindLock` for the presenter's lifetime and binders, `frameLock` only for CPU frames — a binder can wait on an engine's video lock while that engine's thread is inside `onFrame`.
 
 Visual check: [`playground/README.md`](../playground/README.md) — JVM `:playground:run`, Android `:playground-android:installDebug`.
+
+
+## Vocal level ("Sing")
+
+`audio_fx_set_vocal(level)` (1 = untouched, 0 = reduced): inside the colour stage, a wide band-pass (800 Hz, Q 0.5) of the mid signal is subtracted from the mid, so a centre-panned lead vocal drops while bass, kick and the side signal stay. It is centre cancellation, not stem separation: other centre-panned content in that band dips too, and mono tracks are untouched. Wiring: `PlaybackConfig.vocalLevel` -> `MseVideoSurface.setVocalLevel` / `AudioFxNative.setVocal` -> JNI/cinterop. Not wired yet: the JVM local engine (`FileAv`) and `desktopRust`. Host test: `mse/native/test/audio_fx_vocal_test.c`.

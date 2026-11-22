@@ -84,6 +84,8 @@ actual object MseHostNative {
     @JvmStatic
     actual external fun setVirtualizer(handle: Long, width: Float)
 
+    actual external fun setVocal(handle: Long, level: Float)
+
     actual external fun setPreamp(handle: Long, db: Float)
 
     @JvmStatic

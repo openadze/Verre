@@ -2634,6 +2634,10 @@ internal fun LyricsNowPlaying(
     val current = queue.currentItem
     val lyrics = rememberLyricsState(graph, current)
     val clock = rememberLyricsClock(progress, status.showsPause())
+    val config by player.config.collectAsStateWithLifecycle()
+    var showQueue by remember { mutableStateOf(false) }
+    // The vocal level is per song, as in Apple Music Sing.
+    LaunchedEffect(current?.let { (it as? io.ymusic.player.PlayableItem.YtMedia)?.videoId ?: "${it.displayTitle}|${it.displaySubtitle}" }) { if (player.config.value.vocalLevel != 1f) player.setVocalLevel(1f) }
 
     Column(
         Modifier.fillMaxSize()
@@ -2657,23 +2661,61 @@ internal fun LyricsNowPlaying(
             }
         }
         Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-            when (val state = lyrics) {
-                LyricsUiState.Loading -> CircularProgressIndicator(Modifier.size(32.dp), color = DesignColors.InkMuted)
-                LyricsUiState.None -> Text(
-                    stringResource(Res.string.lyrics_not_found),
-                    style = TextStyle(fontSize = 16.sp, color = DesignColors.InkSecondary),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 32.dp),
-                )
-                is LyricsUiState.Ready -> LyricsView(
-                    doc = state.doc,
-                    positionMs = { clock.value },
-                    onSeek = { player.seekTo(it) },
-                    modifier = Modifier.widthIn(max = 640.dp),
-                )
+            if (showQueue) {
+                LyricsQueuePane(coordinator, queue)
+            } else {
+                when (val state = lyrics) {
+                    LyricsUiState.Loading -> CircularProgressIndicator(Modifier.size(32.dp), color = DesignColors.InkMuted)
+                    LyricsUiState.None -> Text(
+                        stringResource(Res.string.lyrics_not_found),
+                        style = TextStyle(fontSize = 16.sp, color = DesignColors.InkSecondary),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 32.dp),
+                    )
+                    is LyricsUiState.Ready -> {
+                        LyricsView(
+                            doc = state.doc,
+                            positionMs = { clock.value },
+                            onSeek = { player.seekTo(it) },
+                            modifier = Modifier.widthIn(max = 640.dp),
+                        )
+                        VocalLevelPill(
+                            level = config.vocalLevel,
+                            onLevel = { player.setVocalLevel(it) },
+                            modifier = Modifier.align(Alignment.BottomEnd).padding(end = 20.dp, bottom = 12.dp),
+                        )
+                    }
+                }
             }
         }
         SeekBar(player, progress)
         TransportRow(coordinator, status.showsPause())
+        PlayerVolumeRow(config.volume, onVolume = { player.volume = it })
+        LyricsBottomBar(showQueue, onShowLyrics = { showQueue = false }, onShowQueue = { showQueue = true })
+    }
+}
+
+/** The queue inside the lyrics screen: the same header (shuffle, repeat) and rows as the portrait queue. */
+@Composable
+private fun LyricsQueuePane(coordinator: PlaybackCoordinator, queue: QueueState) {
+    val player = coordinator.player
+    val listState = rememberLazyListState()
+    val locateCurrent = rememberLocateCurrent(listState, queue.currentIndex, indexOffset = 0)
+    val dragState = rememberReorderDragState(listState, indexOffset = 0) { from, to -> player.move(from, to) }
+    FollowCurrentQueueItem(listState, queue.currentIndex)
+    val queueMoreFocus = remember { LoadMoreFocus() }
+    QueueMoreSettle(queueMoreFocus, queue)
+    Column(Modifier.fillMaxSize()) {
+        QueueHeader(coordinator, queue.currentIndex, queue.displayTotal, queue.shuffle, queue.loopMode, locateCurrent)
+        HorizontalDivider(color = DesignColors.Divider)
+        LazyColumn(state = listState, modifier = Modifier.weight(1f)) {
+            itemsIndexed(queue.items) { index, item ->
+                QueueRow(
+                    coordinator, index, item, current = index == queue.currentIndex, dragState,
+                    modifier = queueMoreFocus.item(index),
+                )
+            }
+            queue.more?.let { more -> item { QueueMoreRow(player, more, queue.items.size, queueMoreFocus) } }
+        }
     }
 }

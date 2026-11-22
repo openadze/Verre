@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre-ek ezin du bere datu-karpeta ireki, %1$s. Ziurtatu idatz dezakezun karpeta bat dela, eta ireki berriro Verre. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

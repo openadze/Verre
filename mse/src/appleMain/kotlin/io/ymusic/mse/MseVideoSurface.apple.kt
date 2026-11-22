@@ -26,6 +26,11 @@ actual class MseVideoSurface {
         MseHostNative.setVolume(host, volume)
     }
 
+    actual fun setVocalLevel(level: Float) {
+        if (host == 0L) return
+        MseHostNative.setVocal(host, level)
+    }
+
     actual fun setAudioEffect(
         bands: FloatArray,
         bass: Float,

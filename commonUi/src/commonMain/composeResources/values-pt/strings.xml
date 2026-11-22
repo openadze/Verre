@@ -714,4 +714,5 @@
     <string name="data_dir_unusable">O Verre não consegue abrir sua pasta de dados, %1$s. Verifique se é uma pasta na qual você pode gravar e abra o Verre novamente. (%2$s)</string>
     <string name="cd_lyrics">Letras</string>
     <string name="lyrics_not_found">Sem letra para esta música</string>
+    <string name="cd_vocal_level">Volume da voz</string>
 </resources>

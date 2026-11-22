@@ -11,6 +11,8 @@
 #define AFX_FFT 2048
 #define AFX_VIS_CAP 65536 /* power of two; > the deepest sink delay (~1.3s at 48k) */
 #define AFX_BASS_HZ 150.f
+#define AFX_VOCAL_HZ 800.f /* centre of the band the lead vocal sits in */
+#define AFX_VOCAL_Q 0.5f   /* wide: roughly 250 Hz .. 2.5 kHz */
 #define AFX_LIMIT 32112.f /* -0.18 dBFS on the s16 scale */
 #define AFX_LIMIT_RELEASE_S 0.08f
 #define AFX_LIMIT_ABSORB_DB 6.f
@@ -31,10 +33,12 @@ struct AudioFx {
     float bass_db;
     float preamp_db;
     float width;
+    float vocal_cut; /* 0 = untouched, 1 = centre-panned vocal band removed */
     float speed;
     float pitch;
     Biquad peak[AFX_BANDS];
     Biquad bass;
+    Biquad vocal_bp;
     float pre;
     float lim_gain;
     float lim_release;
@@ -120,6 +124,26 @@ static void bq_peak(Biquad *b, float fs, float f0, float db, float q)
     b->b2 = b2 / a0;
     b->a1 = a1 / a0;
     b->a2 = a2 / a0;
+}
+
+/* RBJ band-pass, constant 0 dB peak gain: subtracting it from the mid signal notches that band out of the centre. */
+static void bq_bandpass(Biquad *b, float fs, float f0, float q)
+{
+    float w0, c, s, alpha, a0;
+    if (fs < 1.f || f0 >= fs * 0.48f) {
+        b->b0 = b->b1 = b->b2 = b->a1 = b->a2 = 0;
+        return;
+    }
+    w0 = 2.f * PI * f0 / fs;
+    c = cosf(w0);
+    s = sinf(w0);
+    alpha = s / (2.f * q);
+    a0 = 1.f + alpha;
+    b->b0 = alpha / a0;
+    b->b1 = 0.f;
+    b->b2 = -alpha / a0;
+    b->a1 = -2.f * c / a0;
+    b->a2 = (1.f - alpha) / a0;
 }
 
 static void bq_lowshelf(Biquad *b, float fs, float f0, float db)
@@ -224,6 +248,9 @@ static void rebuild(AudioFx *fx)
     fx->lim_release = 1.f - expf(-1.f / (AFX_LIMIT_RELEASE_S * fs));
     if (fabsf(fx->width - 1.f) >= 0.02f)
         fx->color_on = 1;
+    bq_bandpass(&fx->vocal_bp, fs, AFX_VOCAL_HZ, AFX_VOCAL_Q);
+    if (fx->vocal_cut >= 0.02f)
+        fx->color_on = 1;
     if (fabsf(fx->volume - 1.f) >= 0.001f)
         fx->color_on = 1;
 }
@@ -287,6 +314,7 @@ void audio_fx_reset(AudioFx *fx)
     for (i = 0; i < AFX_BANDS; i++)
         bq_clear(&fx->peak[i]);
     bq_clear(&fx->bass);
+    bq_clear(&fx->vocal_bp);
     fx->lim_gain = 1.f;
     memset(fx->vis, 0, sizeof(fx->vis));
     memset(fx->vis_hold, 0, sizeof(fx->vis_hold));
@@ -352,6 +380,17 @@ void audio_fx_set_virtualizer(AudioFx *fx, float width)
         return;
     pthread_mutex_lock(&fx->mu);
     fx->width = clampf(width, 0.f, 2.f);
+    rebuild(fx);
+    pthread_mutex_unlock(&fx->mu);
+}
+
+/* level: 1 = vocal as mastered, 0 = lead vocal reduced as far as centre cancellation in the vocal band can. */
+void audio_fx_set_vocal(AudioFx *fx, float level)
+{
+    if (!fx)
+        return;
+    pthread_mutex_lock(&fx->mu);
+    fx->vocal_cut = 1.f - clampf(level, 0.f, 1.f);
     rebuild(fx);
     pthread_mutex_unlock(&fx->mu);
 }
@@ -521,6 +560,15 @@ void audio_fx_color(AudioFx *fx, int16_t *s16, int frames, int ch)
             if (nch > 1 && fabsf(fx->width - 1.f) >= 0.02f) {
                 mid = 0.5f * (l + r);
                 side = 0.5f * (l - r) * fx->width;
+                l = mid + side;
+                r = mid - side;
+            }
+            if (nch > 1 && fx->vocal_cut >= 0.02f) {
+                /* Lead vocals are centre-panned: take the vocal band out of the mid signal only, so bass, kick and
+                 * the stereo image (side) stay. Mono tracks have no side to hide behind and are left alone. */
+                mid = 0.5f * (l + r);
+                side = 0.5f * (l - r);
+                mid -= fx->vocal_cut * bq_tick(&fx->vocal_bp, 0, mid);
                 l = mid + side;
                 r = mid - side;
             }

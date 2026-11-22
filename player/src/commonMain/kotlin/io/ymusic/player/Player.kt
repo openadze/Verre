@@ -155,6 +155,9 @@ interface Player {
 
     fun setPreamp(db: Float)
 
+    /** Sets [PlaybackConfig.vocalLevel], 0..1. */
+    fun setVocalLevel(level: Float)
+
     /** Sets [PlaybackConfig.inAppAudioFx]. */
     fun setInAppAudioFx(enabled: Boolean)
 

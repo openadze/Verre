@@ -449,6 +449,14 @@ Java_io_ymusic_mse_MseHostNative_setVirtualizer(JNIEnv *env, jclass cls, jlong h
 }
 
 JNIEXPORT void JNICALL
+Java_io_ymusic_mse_MseHostNative_setVocal(JNIEnv *env, jclass cls, jlong handle, jfloat level)
+{
+    (void)env;
+    (void)cls;
+    mse_host_set_vocal((MseHost *)(intptr_t)handle, level);
+}
+
+JNIEXPORT void JNICALL
 Java_io_ymusic_mse_MseHostNative_setPreamp(JNIEnv *env, jclass cls, jlong handle, jfloat db)
 {
     (void)env;

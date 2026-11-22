@@ -69,6 +69,14 @@ Java_io_ymusic_mse_AudioFxNative_setVirtualizer(JNIEnv *env, jclass cls, jlong h
 }
 
 JNIEXPORT void JNICALL
+Java_io_ymusic_mse_AudioFxNative_setVocal(JNIEnv *env, jclass cls, jlong handle, jfloat level)
+{
+    (void)env;
+    (void)cls;
+    audio_fx_set_vocal((AudioFx *)(intptr_t)handle, level);
+}
+
+JNIEXPORT void JNICALL
 Java_io_ymusic_mse_AudioFxNative_setPreamp(JNIEnv *env, jclass cls, jlong handle, jfloat db)
 {
     (void)env;

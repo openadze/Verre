@@ -688,4 +688,5 @@
     <string name="data_dir_unusable">Verre 无法打开其数据文件夹 %1$s。请确认这是你可以写入的文件夹，然后重新打开 Verre。(%2$s)</string>
     <string name="cd_lyrics">歌词</string>
     <string name="lyrics_not_found">这首歌没有歌词</string>
+    <string name="cd_vocal_level">人声音量</string>
 </resources>

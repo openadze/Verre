@@ -688,4 +688,5 @@
     <string name="data_dir_unusable">Verre이 데이터 폴더(%1$s)를 열 수 없습니다. 쓰기 가능한 폴더인지 확인한 후 Verre을 다시 여세요. (%2$s)</string>
     <string name="cd_lyrics">가사</string>
     <string name="lyrics_not_found">이 곡의 가사가 없습니다</string>
+    <string name="cd_vocal_level">보컬 볼륨</string>
 </resources>

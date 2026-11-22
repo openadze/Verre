@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre ei saa avada oma andmekausta %1$s. Veendu, et see on kaust, kuhu saad kirjutada, ja ava Verre uuesti. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Vocal volume</string>
 </resources>

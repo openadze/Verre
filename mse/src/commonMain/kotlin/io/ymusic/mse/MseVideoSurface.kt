@@ -15,6 +15,9 @@ expect class MseVideoSurface {
 
     fun setVolume(volume: Float)
 
+    /** 1 = vocal as mastered, 0 = lead vocal reduced (centre-channel cancellation in the vocal band). */
+    fun setVocalLevel(level: Float)
+
     fun setAudioEffect(
         bands: FloatArray,
         bass: Float,

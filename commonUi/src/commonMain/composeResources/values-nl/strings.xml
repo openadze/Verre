@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre kan zijn gegevensmap, %1$s, niet openen. Zorg dat het een map is waarin je kunt schrijven en open Verre daarna opnieuw. (%2$s)</string>
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
+    <string name="cd_vocal_level">Zangvolume</string>
 </resources>

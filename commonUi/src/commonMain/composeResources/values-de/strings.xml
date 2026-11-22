@@ -701,4 +701,5 @@
     <string name="data_dir_unusable">Verre kann seinen Datenordner %1$s nicht öffnen. Stelle sicher, dass es ein Ordner ist, in den du schreiben kannst, und öffne Verre dann erneut. (%2$s)</string>
     <string name="cd_lyrics">Songtext</string>
     <string name="lyrics_not_found">Kein Songtext für diesen Titel</string>
+    <string name="cd_vocal_level">Gesangslautstärke</string>
 </resources>
