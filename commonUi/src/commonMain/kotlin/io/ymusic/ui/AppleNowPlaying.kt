@@ -2,9 +2,18 @@ package io.ymusic.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,16 +52,22 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import projectcommon.error.errorCode
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -62,6 +77,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.ymusic.lyrics.LyricsDoc
 import io.ymusic.player.LoopMode
 import io.ymusic.player.PlayableItem
 import io.ymusic.ui.resources.Res
@@ -106,19 +122,59 @@ internal fun AppleNowPlaying(
     val current = queue.currentItem
     val playing = status.showsPause()
     var mode by rememberSaveable { mutableStateOf(AppleNowPlayingMode.Cover) }
+    var lyricsFocus by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(mode) { if (mode != AppleNowPlayingMode.Lyrics) lyricsFocus = false }
+    val sheenTransition = rememberInfiniteTransition(label = "np-sheen")
+    val sheenAlpha by sheenTransition.animateFloat(
+        initialValue = 0.02f,
+        targetValue = 0.09f,
+        animationSpec = infiniteRepeatable(tween(4200), RepeatMode.Reverse),
+        label = "np-sheen-alpha",
+    )
 
     Column(
-        Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.navigationBars).padding(horizontal = 24.dp),
+        Modifier
+            .fillMaxSize()
+            .drawBehind { drawRect(AmWhite.copy(alpha = sheenAlpha)) }
+            .windowInsetsPadding(WindowInsets.navigationBars)
+            .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Grabber(onClose)
+        if (!lyricsFocus) Grabber(onClose)
         Box(Modifier.weight(1f).fillMaxWidth()) {
             Crossfade(mode, label = "apple-now-playing-mode") { m ->
                 when (m) {
                     AppleNowPlayingMode.Cover -> CoverFace(graph, coordinator, current, status, playing)
-                    AppleNowPlayingMode.Lyrics -> Column(Modifier.fillMaxSize()) {
-                        CompactTrackHeader(graph, coordinator, current, status)
-                        LyricsFace(graph, coordinator, current, lyricsAvailable)
+                    AppleNowPlayingMode.Lyrics -> Box(Modifier.fillMaxSize()) {
+                        Column(Modifier.fillMaxSize()) {
+                            if (!lyricsFocus) {
+                                CompactTrackHeader(graph, coordinator, current, status) {
+                                    CircleChip {
+                                        Icon(
+                                            VerreIcons.Fullscreen,
+                                            null,
+                                            Modifier.size(18.dp).clickable(role = Role.Button) { lyricsFocus = true },
+                                            tint = AmWhite,
+                                        )
+                                    }
+                                }
+                            }
+                            LyricsFace(graph, coordinator, current, lyricsAvailable)
+                        }
+                        if (lyricsFocus) {
+                            Box(
+                                Modifier
+                                    .align(Alignment.TopEnd)
+                                    .padding(top = 12.dp)
+                                    .size(36.dp)
+                                    .clip(CircleShape)
+                                    .background(AmChip)
+                                    .clickable(role = Role.Button) { lyricsFocus = false },
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Icon(VerreIcons.FullscreenExit, null, Modifier.size(20.dp), tint = AmWhite)
+                            }
+                        }
                     }
                     AppleNowPlayingMode.Queue -> Column(Modifier.fillMaxSize()) {
                         CompactTrackHeader(graph, coordinator, current, status)
@@ -127,19 +183,21 @@ internal fun AppleNowPlaying(
                 }
             }
         }
-        if (mode == AppleNowPlayingMode.Cover) {
-            Spacer(Modifier.height(4.dp))
+        if (!lyricsFocus) {
+            if (mode == AppleNowPlayingMode.Cover) {
+                Spacer(Modifier.height(4.dp))
+            }
+            AppleProgress(coordinator, progress)
+            AppleTransport(coordinator, playing)
+            AppleVolume(config.volume) { player.volume = it }
+            AppleBottomRow(
+                mode = mode,
+                lyricsAvailable = lyricsAvailable,
+                sleepActive = sleepMs != null,
+                onMode = { target -> mode = if (mode == target) AppleNowPlayingMode.Cover else target },
+                sleepButton = { PlayerSleepTimerButton(coordinator, sleepMs) },
+            )
         }
-        AppleProgress(coordinator, progress)
-        AppleTransport(coordinator, playing)
-        AppleVolume(config.volume) { player.volume = it }
-        AppleBottomRow(
-            mode = mode,
-            lyricsAvailable = lyricsAvailable,
-            sleepActive = sleepMs != null,
-            onMode = { target -> mode = if (mode == target) AppleNowPlayingMode.Cover else target },
-            sleepButton = { PlayerSleepTimerButton(coordinator, sleepMs) },
-        )
     }
 }
 
@@ -159,20 +217,85 @@ private fun Grabber(onClose: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CoverFace(graph: AppGraph, coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus, playing: Boolean) {
+    val haptic = LocalHapticFeedback.current
+    var vinylMode by rememberSaveable { mutableStateOf(false) }
+    var rotationDeg by remember { mutableFloatStateOf(0f) }
+    LaunchedEffect(playing, vinylMode) {
+        if (playing && vinylMode) {
+            var last = withFrameNanos { it }
+            while (true) {
+                val now = withFrameNanos { it }
+                rotationDeg = (rotationDeg + ((now - last) / 1_000_000_000f) * 36f) % 360f
+                last = now
+            }
+        }
+    }
     // iOS shrinks the artwork while paused and springs it back on play.
     val scale by animateFloatAsState(if (playing) 1f else 0.82f, spring(dampingRatio = 0.7f, stiffness = 300f), label = "cover-scale")
+    val shape = if (vinylMode) CircleShape else RoundedCornerShape(10.dp)
     Column(Modifier.fillMaxSize()) {
-        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-            AudioOnlyCover(
-                current?.displayThumbnailUrl,
-                Modifier.fillMaxWidth()
+        Box(
+            Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .pointerInput(coordinator) {
+                    var drag = 0f
+                    detectHorizontalDragGestures(
+                        onDragCancel = { drag = 0f },
+                        onDragEnd = {
+                            if (drag < -90f) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                coordinator.player.skipNext()
+                            } else if (drag > 90f) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                coordinator.player.skipPrev()
+                            }
+                            drag = 0f
+                        },
+                        onHorizontalDrag = { _, amount -> drag += amount },
+                    )
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
                     .aspectRatio(1f)
-                    .graphicsLayer { scaleX = scale; scaleY = scale }
-                    .shadow(24.dp, RoundedCornerShape(10.dp), clip = false)
-                    .clip(RoundedCornerShape(10.dp)),
-            )
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                        if (vinylMode) rotationZ = rotationDeg
+                    }
+                    .shadow(24.dp, shape, clip = false)
+                    .clip(shape)
+                    .combinedClickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {},
+                        onDoubleClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            vinylMode = !vinylMode
+                        },
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                AudioOnlyCover(current?.displayThumbnailUrl, Modifier.fillMaxSize())
+                if (vinylMode) {
+                    Box(
+                        Modifier
+                            .size(56.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xCC1C1C1E))
+                            .border(2.dp, AmWhite30, CircleShape),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Box(Modifier.size(16.dp).clip(CircleShape).background(AmWhite))
+                    }
+                }
+            }
         }
         Row(Modifier.fillMaxWidth().padding(top = 20.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
@@ -226,7 +349,13 @@ private fun CircleChip(content: @Composable BoxScope.() -> Unit) {
 
 /** Lyrics / queue header: a 56dp cover, the title and artist, the star and more chips. */
 @Composable
-private fun CompactTrackHeader(graph: AppGraph, coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus) {
+private fun CompactTrackHeader(
+    graph: AppGraph,
+    coordinator: PlaybackCoordinator,
+    current: PlayableItem?,
+    status: io.ymusic.player.PlaybackStatus,
+    extraAction: (@Composable () -> Unit)? = null,
+) {
     Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
         AudioOnlyCover(current?.displayThumbnailUrl, Modifier.size(56.dp).clip(RoundedCornerShape(6.dp)))
         Column(Modifier.padding(start = 14.dp).weight(1f)) {
@@ -238,6 +367,10 @@ private fun CompactTrackHeader(graph: AppGraph, coordinator: PlaybackCoordinator
             )
             ArtistLine(current, status, TextStyle(fontSize = 17.sp, color = AmWhite60), Modifier)
         }
+        if (extraAction != null) {
+            extraAction()
+            Spacer(Modifier.width(10.dp))
+        }
         TrackButtons(graph, coordinator, current)
     }
 }
@@ -247,18 +380,26 @@ private fun LyricsFace(graph: AppGraph, coordinator: PlaybackCoordinator, curren
     val player = coordinator.player
     val progress by player.progress.collectAsStateWithLifecycle()
     val status by player.status.collectAsStateWithLifecycle()
-    val config by player.config.collectAsStateWithLifecycle()
     val lyrics = rememberLyricsState(graph, current)
     val clock = rememberLyricsClock(progress, status.showsPause())
+    var quoteTarget by remember { mutableStateOf<Pair<LyricsDoc, Int>?>(null) }
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
             !available -> Text(stringResource(Res.string.lyrics_not_found), style = TextStyle(fontSize = 16.sp, color = AmWhite60), textAlign = TextAlign.Center)
             lyrics is LyricsUiState.Loading -> CircularProgressIndicator(Modifier.size(32.dp), color = AmWhite60)
             lyrics is LyricsUiState.None -> Text(stringResource(Res.string.lyrics_not_found), style = TextStyle(fontSize = 16.sp, color = AmWhite60), textAlign = TextAlign.Center)
             lyrics is LyricsUiState.Ready -> {
-                LyricsView(doc = lyrics.doc, positionMs = { clock.value }, onSeek = { player.seekTo(it) })
+                LyricsView(
+                    doc = lyrics.doc,
+                    positionMs = { clock.value },
+                    onSeek = { player.seekTo(it) },
+                    onLineLongClick = { index, _ -> quoteTarget = lyrics.doc to index },
+                )
             }
         }
+    }
+    quoteTarget?.let { (doc, idx) ->
+        LyricQuoteSheet(doc, idx, current) { quoteTarget = null }
     }
 }
 
@@ -339,19 +480,29 @@ private fun AppleProgress(coordinator: PlaybackCoordinator, progress: io.ymusic.
 @Composable
 private fun AppleTransport(coordinator: PlaybackCoordinator, playing: Boolean) {
     val player = coordinator.player
+    val haptic = LocalHapticFeedback.current
     MediaLtr {
         Row(
             Modifier.fillMaxWidth().padding(vertical = 18.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            BigGlyph(VerreIcons.FastRewind, stringResource(Res.string.cd_previous), 44.dp) { player.skipPrev() }
+            BigGlyph(VerreIcons.FastRewind, stringResource(Res.string.cd_previous), 44.dp) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                player.skipPrev()
+            }
             BigGlyph(
                 if (playing) VerreIcons.Pause else VerreIcons.PlayArrow,
                 stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play),
                 60.dp,
-            ) { player.togglePlay() }
-            BigGlyph(VerreIcons.FastForward, stringResource(Res.string.cd_next), 44.dp) { player.skipNext() }
+            ) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                player.togglePlay()
+            }
+            BigGlyph(VerreIcons.FastForward, stringResource(Res.string.cd_next), 44.dp) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                player.skipNext()
+            }
         }
     }
 }
@@ -434,9 +585,27 @@ internal fun AppleMiniPlayer(
         restingShadow = false,
         enabled = true,
     ) {
+        val haptic = LocalHapticFeedback.current
         Row(
             Modifier.fillMaxWidth().clip(shape)
                 .background(DesignColors.SurfaceElevated, shape)
+                .pointerInput(coordinator) {
+                    var drag = 0f
+                    detectHorizontalDragGestures(
+                        onDragCancel = { drag = 0f },
+                        onDragEnd = {
+                            if (drag < -80f) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                coordinator.player.skipNext()
+                            } else if (drag > 80f) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                coordinator.player.skipPrev()
+                            }
+                            drag = 0f
+                        },
+                        onHorizontalDrag = { _, amount -> drag += amount },
+                    )
+                }
                 .clickable(onClick = onExpand)
                 .padding(start = 8.dp, end = 4.dp, top = 7.dp, bottom = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -450,10 +619,17 @@ internal fun AppleMiniPlayer(
                 modifier = Modifier.padding(start = 12.dp).weight(1f),
             )
             val playing = status.showsPause()
+            if (playing) {
+                MiniVisualizerBars()
+            }
             BigGlyph2(if (playing) VerreIcons.Pause else VerreIcons.PlayArrow, stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play)) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 coordinator.player.togglePlay()
             }
-            BigGlyph2(VerreIcons.FastForward, stringResource(Res.string.cd_next)) { coordinator.player.skipNext() }
+            BigGlyph2(VerreIcons.FastForward, stringResource(Res.string.cd_next)) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                coordinator.player.skipNext()
+            }
         }
     }
 }
@@ -490,9 +666,11 @@ private fun LikeStar(graph: AppGraph, videoId: String) {
     if (loaded.rateTokens.isEmpty()) return
     val liked = status == YtVideoDetails.LIKE
     val label = stringResource(Res.string.cd_like)
+    val haptic = LocalHapticFeedback.current
     Box(
         Modifier.size(32.dp).clip(CircleShape).background(AmChip)
             .clickable(role = Role.Button) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 val target = if (liked) YtVideoDetails.INDIFFERENT else YtVideoDetails.LIKE
                 val token = loaded.rateTokens[target] ?: return@clickable
                 val previous = status
@@ -517,5 +695,27 @@ private fun LikeStar(graph: AppGraph, videoId: String) {
             Modifier.size(20.dp),
             tint = AmWhite,
         )
+    }
+}
+@Composable
+private fun MiniVisualizerBars() {
+    val transition = rememberInfiniteTransition(label = "mini-viz")
+    val b1 by transition.animateFloat(0.25f, 1f, infiniteRepeatable(tween(420), RepeatMode.Reverse), label = "b1")
+    val b2 by transition.animateFloat(0.95f, 0.3f, infiniteRepeatable(tween(340), RepeatMode.Reverse), label = "b2")
+    val b3 by transition.animateFloat(0.35f, 0.85f, infiniteRepeatable(tween(500), RepeatMode.Reverse), label = "b3")
+    Row(
+        Modifier.padding(end = 4.dp).height(14.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        verticalAlignment = Alignment.Bottom,
+    ) {
+        listOf(b1, b2, b3).forEach { frac ->
+            Box(
+                Modifier
+                    .width(2.5.dp)
+                    .height(14.dp * frac)
+                    .clip(RoundedCornerShape(1.dp))
+                    .background(DesignColors.Accent),
+            )
+        }
     }
 }

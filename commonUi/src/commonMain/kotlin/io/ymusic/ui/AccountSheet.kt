@@ -24,6 +24,10 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,8 +63,11 @@ internal fun AppleAccountSheet(
     onOpenSettings: () -> Unit,
     onOpenDownloads: () -> Unit,
     onOpenPlayAgain: () -> Unit,
+    onOpenReplay: (() -> Unit)? = null,
+    onOpenIpod: (() -> Unit)? = null,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var avatarTaps by remember { mutableIntStateOf(0) }
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -75,7 +82,20 @@ internal fun AppleAccountSheet(
                 .padding(bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clickable(enabled = onOpenIpod != null) {
+                        avatarTaps++
+                        if (avatarTaps >= 7) {
+                            avatarTaps = 0
+                            onDismiss()
+                            onOpenIpod?.invoke()
+                        }
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(14.dp),
+            ) {
                 Box(Modifier.size(52.dp).clip(CircleShape), contentAlignment = Alignment.Center) {
                     if (account != null && account.thumbs.isNotEmpty()) {
                         ThumbImage(account.thumbs, CircleShape) { ThumbPlaceholder(VerreIcons.PersonOutline, 24.dp) }
@@ -160,6 +180,16 @@ internal fun AppleAccountSheet(
                 ) {
                     onDismiss()
                     onOpenPlayAgain()
+                }
+                if (onOpenReplay != null) {
+                    HorizontalDivider(Modifier.padding(start = 52.dp), color = DesignColors.Divider)
+                    AccountActionRow(
+                        icon = VerreIcons.StarBorder,
+                        label = "Verre Replay",
+                    ) {
+                        onDismiss()
+                        onOpenReplay()
+                    }
                 }
             }
             Spacer(Modifier.height(4.dp))
