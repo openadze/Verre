@@ -204,3 +204,4 @@ E93001 - lyrics: a lyrics payload (LRC / TTML / plain) could not be parsed; the 
 E93002 - lyrics: a provider request failed (network error or unexpected HTTP status); the repository logs it and tries the next provider (LyricsProviderException)
 E93003 - lyrics: a provider response could not be read (malformed JSON / unexpected shape) (LyricsProviderException)
 E93004 - lyrics: a cache file is unreadable; FileLyricsCache logs it, deletes the file and reads it as a miss (LyricsCacheException)
+E20166 - rating the playing video from the Now Playing star failed with an uncoded error (commonUi AppleNowPlaying.kt)

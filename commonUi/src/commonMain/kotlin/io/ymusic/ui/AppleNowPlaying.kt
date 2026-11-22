@@ -1,4 +1,4 @@
-package io.ymusic.ui
+﻿package io.ymusic.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
@@ -31,6 +31,17 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import io.ymusic.dynamicengine.yt.YtVideoDetails
+import io.ymusic.dynamicengine.yt.extractVideoDetails
+import io.ymusic.dynamicengine.yt.rateVideo
+import io.ymusic.ui.resources.cd_like
+import io.ymusic.ui.resources.like_failed
+import kmpcommon.log.Logger
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.launch
+import projectcommon.error.errorCode
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -77,7 +88,7 @@ private val AmChip = Color(0x33FFFFFF)
  * the cover gradient with white ink: a grabber, then either the big cover with title / artist / star / more, the
  * lyrics under a compact track header, or the queue under the same header; below that always the thin progress
  * bar with elapsed and remaining time, the three bare transport glyphs, the volume bar and the bottom row
- * (lyrics · sleep timer · queue). The cover shrinks while paused, as on iOS.
+ * (lyrics Â· sleep timer Â· queue). The cover shrinks while paused, as on iOS.
  */
 @Composable
 internal fun AppleNowPlaying(
@@ -104,13 +115,13 @@ internal fun AppleNowPlaying(
         Box(Modifier.weight(1f).fillMaxWidth()) {
             Crossfade(mode, label = "apple-now-playing-mode") { m ->
                 when (m) {
-                    AppleNowPlayingMode.Cover -> CoverFace(coordinator, current, status, playing)
+                    AppleNowPlayingMode.Cover -> CoverFace(graph, coordinator, current, status, playing)
                     AppleNowPlayingMode.Lyrics -> Column(Modifier.fillMaxSize()) {
-                        CompactTrackHeader(coordinator, current, status)
+                        CompactTrackHeader(graph, coordinator, current, status)
                         LyricsFace(graph, coordinator, current, lyricsAvailable)
                     }
                     AppleNowPlayingMode.Queue -> Column(Modifier.fillMaxSize()) {
-                        CompactTrackHeader(coordinator, current, status)
+                        CompactTrackHeader(graph, coordinator, current, status)
                         QueueFace(coordinator, queue)
                     }
                 }
@@ -149,7 +160,7 @@ private fun Grabber(onClose: () -> Unit) {
 }
 
 @Composable
-private fun CoverFace(coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus, playing: Boolean) {
+private fun CoverFace(graph: AppGraph, coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus, playing: Boolean) {
     // iOS shrinks the artwork while paused and springs it back on play.
     val scale by animateFloatAsState(if (playing) 1f else 0.82f, spring(dampingRatio = 0.7f, stiffness = 300f), label = "cover-scale")
     Column(Modifier.fillMaxSize()) {
@@ -173,7 +184,7 @@ private fun CoverFace(coordinator: PlaybackCoordinator, current: PlayableItem?, 
                 )
                 ArtistPill(current, status)
             }
-            TrackButtons(coordinator)
+            TrackButtons(graph, coordinator, current)
         }
     }
 }
@@ -203,7 +214,7 @@ private fun ArtistPill(current: PlayableItem?, status: io.ymusic.player.Playback
 @Composable
 private fun TrackButtons(coordinator: PlaybackCoordinator) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-        CircleChip { Icon(VerreIcons.StarBorderOutline, null, Modifier.size(20.dp), tint = AmWhite) }
+        current?.videoId?.takeIf { !graph.guest }?.let { LikeStar(graph, it) }
         CircleChip { PlayerMoreMenu(coordinator) }
     }
 }
@@ -215,7 +226,7 @@ private fun CircleChip(content: @Composable BoxScope.() -> Unit) {
 
 /** Lyrics / queue header: a 56dp cover, the title and artist, the star and more chips. */
 @Composable
-private fun CompactTrackHeader(coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus) {
+private fun CompactTrackHeader(graph: AppGraph, coordinator: PlaybackCoordinator, current: PlayableItem?, status: io.ymusic.player.PlaybackStatus) {
     Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
         AudioOnlyCover(current?.displayThumbnailUrl, Modifier.size(56.dp).clip(RoundedCornerShape(6.dp)))
         Column(Modifier.padding(start = 14.dp).weight(1f)) {
@@ -227,7 +238,7 @@ private fun CompactTrackHeader(coordinator: PlaybackCoordinator, current: Playab
             )
             ArtistLine(current, status, TextStyle(fontSize = 17.sp, color = AmWhite60), Modifier)
         }
-        TrackButtons(coordinator)
+        TrackButtons(graph, coordinator, current)
     }
 }
 
@@ -324,7 +335,7 @@ private fun AppleProgress(coordinator: PlaybackCoordinator, progress: io.ymusic.
     }
 }
 
-/** Rewind · play/pause · forward: bare white glyphs, no circle, as on iOS. */
+/** Rewind Â· play/pause Â· forward: bare white glyphs, no circle, as on iOS. */
 @Composable
 private fun AppleTransport(coordinator: PlaybackCoordinator, playing: Boolean) {
     val player = coordinator.player
@@ -360,7 +371,7 @@ private fun AppleVolume(volume: Float, onVolume: (Float) -> Unit) {
     PlayerVolumeRow(volume, onVolume, Modifier.padding(horizontal = 0.dp))
 }
 
-/** Lyrics · sleep timer · queue. The active mode sits on a white-ish rounded square, like the iOS bottom row. */
+/** Lyrics Â· sleep timer Â· queue. The active mode sits on a white-ish rounded square, like the iOS bottom row. */
 @Composable
 private fun AppleBottomRow(
     mode: AppleNowPlayingMode,
@@ -454,5 +465,57 @@ private fun BigGlyph2(icon: androidx.compose.ui.graphics.vector.ImageVector, des
         contentAlignment = Alignment.Center,
     ) {
         Icon(icon, null, Modifier.size(26.dp), tint = DesignColors.InkStrong)
+    }
+}
+
+@Composable
+private fun LikeStar(graph: AppGraph, videoId: String) {
+    val scope = rememberCoroutineScope()
+    val snackbar = LocalSnackbar.current
+    val failed = stringResource(Res.string.like_failed)
+    var details by remember(videoId) { mutableStateOf<YtVideoDetails?>(null) }
+    var status by remember(videoId) { mutableStateOf(YtVideoDetails.INDIFFERENT) }
+    LaunchedEffect(videoId) {
+        try {
+            val loaded = graph.engines.extractVideoDetails(videoId, graph.logger)
+            details = loaded
+            status = loaded.likeStatus
+        } catch (error: CancellationException) {
+            throw error
+        } catch (error: Throwable) {
+            graph.logger?.log(Logger.Level.WARN, "like status failed", error)
+        }
+    }
+    val loaded = details ?: return
+    if (loaded.rateTokens.isEmpty()) return
+    val liked = status == YtVideoDetails.LIKE
+    val label = stringResource(Res.string.cd_like)
+    Box(
+        Modifier.size(32.dp).clip(CircleShape).background(AmChip)
+            .clickable(role = Role.Button) {
+                val target = if (liked) YtVideoDetails.INDIFFERENT else YtVideoDetails.LIKE
+                val token = loaded.rateTokens[target] ?: return@clickable
+                val previous = status
+                status = target
+                scope.launch {
+                    try {
+                        graph.engines.rateVideo(videoId, target, token, graph.logger)
+                    } catch (error: CancellationException) {
+                        throw error
+                    } catch (error: Throwable) {
+                        graph.logger?.log(Logger.Level.WARN, "rate video failed", error)
+                        status = previous
+                        snackbar("$failed (${error.errorCode() ?: "E20166"})")
+                    }
+                }
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            if (liked) VerreIcons.StarBorder else VerreIcons.StarBorderOutline,
+            label,
+            Modifier.size(20.dp),
+            tint = AmWhite,
+        )
     }
 }
