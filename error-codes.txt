@@ -201,3 +201,6 @@ E92003 D data dir: an unreadable database could not be moved aside; its store fa
 E92004 D data dir: the data dir cannot be used (a file in the way, not writable, a link into a folder that is gone); the launch shows the code and quits (desktopApp dataDirUnusable, captured; Rust R90408)
 E92005 D app log: logs.db did not open; the app log stays in memory for this launch (desktopApp openLogStore, logged; Rust R90409)
 E93001 - lyrics: a lyrics payload (LRC / TTML / plain) could not be parsed; the provider's caller must log it (LyricsParseException)
+E93002 - lyrics: a provider request failed (network error or unexpected HTTP status); the repository logs it and tries the next provider (LyricsProviderException)
+E93003 - lyrics: a provider response could not be read (malformed JSON / unexpected shape) (LyricsProviderException)
+E93004 - lyrics: a cache file is unreadable; FileLyricsCache logs it, deletes the file and reads it as a miss (LyricsCacheException)
