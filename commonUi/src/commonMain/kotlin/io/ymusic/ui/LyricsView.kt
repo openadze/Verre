@@ -3,7 +3,8 @@ package io.ymusic.ui
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -157,6 +158,7 @@ fun LyricsView(
     positionMs: () -> Long,
     onSeek: (Long) -> Unit,
     modifier: Modifier = Modifier,
+    onLineLongClick: ((Int, LyricLine) -> Unit)? = null,
 ) {
     // Word by word only where the source has real word timing (LRCLIB's word-level lyrics, TTML, enhanced LRC);
     // plain line-synced lyrics are lit line by line, never with guessed word times.
@@ -223,6 +225,7 @@ fun LyricsView(
                     timeline = timeline,
                     positionMs = positionMs,
                     onClick = { if (synced) onSeek(line.startMs) },
+                    onLongClick = onLineLongClick?.let { cb -> { cb(index, line) } },
                 )
             }
             item(key = "bottom") { Box(Modifier.height(maxHeight * 0.7f)) }
@@ -230,6 +233,7 @@ fun LyricsView(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun LyricLineRow(
     line: LyricLine,
@@ -240,6 +244,7 @@ private fun LyricLineRow(
     timeline: LyricsTimeline,
     positionMs: () -> Long,
     onClick: () -> Unit,
+    onLongClick: (() -> Unit)? = null,
 ) {
     if (line.text.isBlank() && line.parts.isEmpty()) {
         Box(Modifier.height(if (synced) 0.dp else 16.dp))
@@ -280,7 +285,13 @@ private fun LyricLineRow(
 
     Column(
         Modifier.fillMaxWidth()
-            .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null, enabled = synced, onClick = onClick)
+            .combinedClickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                enabled = synced || onLongClick != null,
+                onClick = onClick,
+                onLongClick = onLongClick,
+            )
             .padding(vertical = 10.dp)
             .graphicsLayer {
                 alpha = lineAlpha
