@@ -151,6 +151,10 @@ import io.ymusic.ui.resources.playlist_top_tracks_desc
 import io.ymusic.ui.resources.queue_last
 import io.ymusic.ui.resources.queue_next
 import io.ymusic.ui.resources.section_library
+import io.ymusic.dynamicengine.yt.YtAccountInfo
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.style.TextAlign
 import io.ymusic.ui.resources.shuffle_all
 import io.ymusic.ui.resources.sort_date_added
 import io.ymusic.ui.resources.sort_date_created
@@ -234,7 +238,12 @@ internal val LocalLibrarySearch = staticCompositionLocalOf<(() -> Unit)?> { null
  *  design/final/library.html's chips + section-header + list-row language (the account half of that
  *  mockup lands with sign-in). */
 @Composable
-fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
+fun LibraryScreen(
+    graph: AppGraph,
+    coordinator: PlaybackCoordinator,
+    account: YtAccountInfo? = null,
+    onAvatar: (() -> Unit)? = null,
+) {
     val store = graph.mediaStore
     if (store == null) {
         CenteredBox {
@@ -266,11 +275,11 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
     val appleHeader = platformUsesTouch && !desktopLayoutHole
     when {
         loaded == null -> Column(Modifier.fillMaxSize()) {
-            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), null, null)
+            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), account, onAvatar)
             CenteredBox { CircularProgressIndicator() }
         }
         loaded.isEmpty -> Column(Modifier.fillMaxSize()) {
-            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), null, null)
+            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), account, onAvatar)
             EmptyLibrary(graph.scanLibraryFolder, scanController)
         }
         else -> {
@@ -453,7 +462,8 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                             AppleLibraryHome(
                                 loaded,
                                 coordinator,
-                                openDrawer = openDrawer,
+                                account = account,
+                                onAvatar = onAvatar ?: openDrawer,
                                 onOpenCategory = openAppleCategory,
                             )
                         } else {
@@ -570,102 +580,148 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
 private fun AppleLibraryHome(
     content: LibraryContent,
     coordinator: PlaybackCoordinator,
-    openDrawer: (() -> Unit)?,
+    account: YtAccountInfo?,
+    onAvatar: (() -> Unit)?,
     onOpenCategory: (LibraryTab) -> Unit,
 ) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-        AppleLargeHeader(stringResource(Res.string.section_library), account = null, onAvatar = openDrawer)
-        // The shell bar (and so its search icon) is gone under the Apple layout: local search
-        // lives here, beside the title, as on iOS.
-        val openSearch = LocalLibrarySearch.current
-        if (openSearch != null) {
-            Row(
-                Modifier.fillMaxWidth().padding(start = 20.dp, end = 16.dp, top = 2.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                ActionIcon(
-                    VerreIcons.SearchOutline,
-                    stringResource(Res.string.cd_search),
-                    iconSize = 22.dp,
-                    tint = DesignColors.InkSecondary,
-                    onClick = openSearch,
-                )
-                Text(
-                    stringResource(Res.string.library_search_field_hint),
-                    style = TextStyle(fontSize = 15.sp, color = DesignColors.InkSecondary),
-                    modifier = Modifier.weight(1f),
-                )
-            }
-        }
-        // Apple's category cards, in Apple's order; each shows a count where one load already has it.
-        val songCount = content.songs.size
-        val categories = listOf(
-            LibraryTab.Playlists to VerreIcons.LibraryMusicOutline,
-            LibraryTab.Artists to VerreIcons.PersonOutline,
-            LibraryTab.Albums to VerreIcons.Album,
-            LibraryTab.Songs to VerreIcons.MusicNoteOutline,
-            LibraryTab.Genres to VerreIcons.Category,
-            LibraryTab.Folders to VerreIcons.FolderOutline,
-        )
-        Column(
-            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            categories.chunked(2).forEach { row ->
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    row.forEach { (category, icon) ->
-                        AppleCategoryCard(
-                            label = stringResource(category.label),
-                            icon = icon,
-                            count = if (category == LibraryTab.Songs && songCount > 0) songCount else null,
-                            modifier = Modifier.weight(1f),
-                        ) { onOpenCategory(category) }
-                    }
-                    if (row.size == 1) Spacer(Modifier.weight(1f))
+    val scroll = rememberScrollState()
+    val collapsed by remember { derivedStateOf { scroll.value > 60 } }
+    val barAlpha by animateFloatAsState(if (collapsed) 1f else 0f)
+    val recentSongs = remember(content.songs) {
+        content.songs.sortedByDescending { it.createdAt }.take(12)
+    }
+    Box(Modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize().verticalScroll(scroll)) {
+            AppleLargeHeader(stringResource(Res.string.section_library), account = account, onAvatar = onAvatar)
+            val openSearch = LocalLibrarySearch.current
+            if (openSearch != null) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 6.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(DesignColors.SurfaceElevated)
+                        .clickable(onClick = openSearch)
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(VerreIcons.SearchOutline, null, Modifier.size(18.dp), tint = DesignColors.InkSecondary)
+                    Text(
+                        stringResource(Res.string.library_search_field_hint),
+                        style = TextStyle(fontSize = 15.sp, color = DesignColors.InkSecondary),
+                        modifier = Modifier.weight(1f),
+                    )
                 }
             }
+            val categories = listOf(
+                LibraryTab.Playlists to VerreIcons.LibraryMusicOutline,
+                LibraryTab.Artists to VerreIcons.PersonOutline,
+                LibraryTab.Albums to VerreIcons.Album,
+                LibraryTab.Songs to VerreIcons.MusicNoteOutline,
+                LibraryTab.Genres to VerreIcons.Category,
+                LibraryTab.Folders to VerreIcons.FolderOutline,
+            )
+            Column(Modifier.fillMaxWidth().padding(top = 8.dp)) {
+                categories.forEachIndexed { index, (category, icon) ->
+                    AppleLibraryCategoryRow(
+                        label = stringResource(category.label),
+                        icon = icon,
+                        onClick = { onOpenCategory(category) },
+                    )
+                    if (index < categories.lastIndex) {
+                        HorizontalDivider(Modifier.padding(start = 56.dp), color = DesignColors.Divider)
+                    }
+                }
+            }
+            if (recentSongs.isNotEmpty()) {
+                Text(
+                    stringResource(Res.string.sort_date_added),
+                    style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 12.dp),
+                )
+                Column(
+                    Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    recentSongs.chunked(2).forEachIndexed { rowIndex, pair ->
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                            pair.forEachIndexed { colIndex, song ->
+                                val idx = rowIndex * 2 + colIndex
+                                Column(
+                                    Modifier.weight(1f).clickable { coordinator.playLocal(recentSongs, idx) },
+                                ) {
+                                    val shape = RoundedCornerShape(8.dp)
+                                    Box(Modifier.fillMaxWidth().aspectRatio(1f).clip(shape)) {
+                                        ArtImage(localArtUrl(song), shape) {
+                                            ThumbPlaceholder(VerreIcons.MusicNote, 36.dp)
+                                        }
+                                    }
+                                    Text(
+                                        song.title,
+                                        style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium, color = DesignColors.Ink),
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.padding(top = 6.dp),
+                                    )
+                                    song.artist?.takeIf { it.isNotBlank() }?.let { artist ->
+                                        Text(
+                                            artist,
+                                            style = TextStyle(fontSize = 13.sp, color = DesignColors.InkSecondary),
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                        )
+                                    }
+                                }
+                            }
+                            if (pair.size == 1) Spacer(Modifier.weight(1f))
+                        }
+                    }
+                }
+            }
+            Spacer(Modifier.height(LocalMiniPlayerInset.current + 16.dp))
         }
-        Spacer(Modifier.height(LocalMiniPlayerInset.current))
+        if (barAlpha > 0f) {
+            Column(Modifier.fillMaxWidth().graphicsLayer { alpha = barAlpha }.background(DesignColors.Surface)) {
+                Text(
+                    stringResource(Res.string.section_library),
+                    style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+                )
+                HorizontalDivider(color = DesignColors.Divider)
+            }
+        }
     }
 }
 
-/** One category card: a flat elevated pane, the glyph in the accent at Apple's red, the label
- *  beside it — no gradient, no fill art. */
 @Composable
-private fun AppleCategoryCard(
+private fun AppleLibraryCategoryRow(
     label: String,
     icon: ImageVector,
-    count: Int?,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     Row(
-        modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(DesignColors.SurfaceElevated)
+        Modifier
+            .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 18.dp),
+            .padding(horizontal = 20.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Icon(icon, null, Modifier.size(22.dp), tint = DesignColors.Accent)
+        Icon(icon, null, Modifier.size(24.dp), tint = DesignColors.Accent)
         Text(
             label,
-            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+            style = TextStyle(fontSize = 18.sp, color = DesignColors.Ink),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
-        count?.let {
-            Text(
-                it.toString(),
-                style = TextStyle(fontSize = 14.sp, color = DesignColors.InkSecondary),
-            )
-        }
+        Icon(VerreIcons.KeyboardArrowRight, null, Modifier.size(20.dp), tint = DesignColors.InkSecondary)
     }
 }
-
 /**
  * The phone Library's pinned top row: on the home grid just the large-title spacing (the grid
  * carries its own header); inside a category, the category's name with a back chevron that
