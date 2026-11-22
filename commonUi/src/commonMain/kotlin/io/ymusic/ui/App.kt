@@ -1126,6 +1126,8 @@ private fun AppRoot(
                                 }
                                 LaunchedEffect(ytMusicTab) { graph.settings.put(AppSettings.lastYtMusicTab, ytMusicTab.key) }
                                 var accountSheetOpen by remember { mutableStateOf(false) }
+                                var replayOpen by remember { mutableStateOf(false) }
+                                var ipodOpen by remember { mutableStateOf(false) }
                                 val screens = @Composable {
                                     // Pushed layers slide in from the end and slide back out — the
                                     // mobile navigation idiom — with a gentle crossfade so the swap
@@ -1339,7 +1341,15 @@ private fun AppRoot(
                                         onOpenSettings = { onSection(AppSection.Settings) },
                                         onOpenDownloads = { onSection(AppSection.Downloads) },
                                         onOpenPlayAgain = { onSection(AppSection.PlayAgain) },
+                                        onOpenReplay = if (!graph.guest) { { replayOpen = true } } else null,
+                                        onOpenIpod = { ipodOpen = true },
                                     )
+                                }
+                                if (replayOpen) {
+                                    VerreReplaySheet(graph, coordinator) { replayOpen = false }
+                                }
+                                if (ipodOpen) {
+                                    IpodEasterEggDialog(coordinator) { ipodOpen = false }
                                 }
                                 val mini: @Composable (Modifier) -> Unit = { mod ->
                                     DisposableEffect(Unit) { onDispose { miniHeightPx = 0 } }
