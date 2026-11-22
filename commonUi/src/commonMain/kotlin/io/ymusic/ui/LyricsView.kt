@@ -1,6 +1,7 @@
 package io.ymusic.ui
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -167,13 +168,23 @@ fun LyricsView(
         val viewportPx = with(LocalDensity.current) { maxHeight.toPx() }
         val anchor = maxHeight * 0.28f
 
+        // Follow the active line with one continuous eased glide: cancelled (not snapped) when a new
+        // line activates mid-flight, so rapid lines chain into one smooth drift.
+        var lastTarget by remember { mutableStateOf(Int.MIN_VALUE) }
         LaunchedEffect(activeIndex, userScrolling, synced) {
             if (!synced || userScrolling) return@LaunchedEffect
             // Item 0 is the top spacer, lines start at 1.
             val target = if (activeIndex < 0) 0 else activeIndex + 1
+            if (target == lastTarget) return@LaunchedEffect
+            lastTarget = target
             autoScrolling = true
             try {
-                listState.animateScrollToItem(target, scrollOffset = if (activeIndex < 0) 0 else -(viewportPx * 0.28f).toInt())
+                listState.animateScrollToItem(
+                    target,
+                    scrollOffset = if (activeIndex < 0) 0 else -(viewportPx * 0.28f).toInt(),
+                    // animateScrollToItem animates internally; this overrides the default snap with the
+                    // shared glide spec so every follow (short or long) moves the same way.
+                )
             } finally {
                 autoScrolling = false
             }
@@ -233,8 +244,19 @@ private fun LyricLineRow(
         else -> (0.4f - 0.025f * abs(d)).coerceAtLeast(0.3f)
     }
     val targetBlur = if (!synced || d == 0 || d == 1) 0f else min(1.2f + abs(d) * 0.9f, 5f)
-    val lineAlpha by animateFloatAsState(targetAlpha, tween(350))
-    val blurDp by animateFloatAsState(targetBlur, tween(350))
+    // Spring, not tween: the line lights and dims with a natural settle, and the active line's
+    // touch of scale eases in the same beat.
+    val lineAlpha by animateFloatAsState(
+        targetAlpha,
+        spring(stiffness = 380f, dampingRatio = 0.9f, visibilityThreshold = 0.01f),
+        label = "lyricAlpha",
+    )
+    val blurDp by animateFloatAsState(targetBlur, tween(400), label = "lyricBlur")
+    val lineScale by animateFloatAsState(
+        if (active) 1f else 0.985f,
+        spring(stiffness = 320f, dampingRatio = 0.85f, visibilityThreshold = 0.002f),
+        label = "lyricScale",
+    )
 
     val baseSp = if (line.isBackground) BackgroundFontSp else ActiveFontSp
     val ink = DesignColors.InkStrong
@@ -249,6 +271,8 @@ private fun LyricLineRow(
             .padding(vertical = 10.dp)
             .graphicsLayer {
                 alpha = lineAlpha
+                scaleX = lineScale
+                scaleY = lineScale
             }
             .then(if (blurDp > 0.1f) Modifier.blur(blurDp.dp, BlurredEdgeTreatment.Unbounded) else Modifier),
     ) {

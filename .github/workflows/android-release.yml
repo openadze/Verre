@@ -1,12 +1,14 @@
-name: android-debug
+name: android-release
 
-# Verre debug APK, one ABI (arm64-v8a by default). Runs on a push to master and by hand
-# (Actions -> android-debug -> Run workflow, where another ABI can be picked).
-# The first run is the slow one (ffmpeg pack + NDK); the caches make the next ones quick.
-# Output: the artifact "verre-debug-apk" on the run page.
+# Verre release APK, one ABI (arm64-v8a by default). Runs on a push to master and by hand
+# (Actions -> android-release -> Run workflow, where another ABI can be picked).
+# assembleRelease bakes PRODUCTION and runs R8 + resource shrinking: the app ships minified,
+# with debug logs and debuggable off — no debug-build lags on phones. The first run is the slow
+# one (ffmpeg pack + NDK); the caches make the next ones quick.
+# Output: the artifact "verre-release-apk" on the run page.
 on:
   push:
-    branches: [master]
+    branches: [master, main]
     paths-ignore: ['**.md', 'docs/**', 'assets/**']
   workflow_dispatch:
     inputs:
@@ -20,7 +22,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: android-debug-${{ github.ref }}
+  group: android-release-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -111,12 +113,23 @@ jobs:
           node-version: 22
       - uses: gradle/actions/setup-gradle@0b6dd653ba04f4f93bf581ec31e66cbd7dcb644d # v4
 
-      - name: Assemble the debug APK
+      - name: Assemble the release APK
         working-directory: YMusicV4
-        run: ./gradlew :androidApp:assembleDebug :engine-js:closureJs :engine-js:closurePlayerJs
+        # Debug-signed when no android.signing.* secret exists (AndroidSigning.kt): installable for
+        # testing, never distributable. R8 + resource shrinking keep it light for any phone.
+        run: ./gradlew :androidApp:assembleRelease :engine-js:closureJs :engine-js:closurePlayerJs
+        env:
+          ORG_GRADLE_PROJECT_sentryEnvironment: beta
+
+      - name: Collect the APKs
+        working-directory: YMusicV4
+        run: |
+          mkdir -p out
+          cp androidApp/build/outputs/apk/release/*.apk out/
+          ls -l out
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: verre-debug-apk
-          path: YMusicV4/androidApp/build/outputs/apk/debug/*.apk
+          name: verre-release-apk
+          path: YMusicV4/out/*.apk
           if-no-files-found: error

@@ -45,6 +45,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.Role
@@ -103,11 +104,14 @@ internal val GridTitleStyle: TextStyle @Composable get() =
     TextStyle(fontSize = 12.5.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink, lineHeight = 15.6.sp)
 internal val GridSubStyle: TextStyle @Composable get() = TextStyle(fontSize = 11.sp, color = DesignColors.InkSecondary)
 
-/** What the ⋮ overflow offers for an item; empty = no overflow shown. */
+/** What the ⋮ overflow offers for an item; empty = no overflow shown. The [icons] map carries an
+ *  optional glyph per label for the touch sheet ([SongMenuSheet]); entries without one fall back
+ *  to a generic glyph. */
 class ItemActions(
     val entries: List<Pair<String, () -> Unit>>,
     /** Labels drawn with a trailing check — toggle-state items (e.g. "Download location"). */
     val checked: Set<String> = emptySet(),
+    val icons: Map<String, ImageVector> = emptyMap(),
 )
 
 /**
@@ -506,11 +510,16 @@ private fun TagPill(label: String, accent: String?, modifier: Modifier, onClick:
 
 internal val MoreMenuHitSize = 40.dp
 
+/** The glyph a sheet row falls back to when an action carries none. */
+private val DefaultMenuIcon = VerreIcons.ChevronRight
+
 /**
- * A ⋮ menu. In a focusable item ([inFocusableItem]) it is not a focus stop, so Tab moves item to
- * item: the keyboard opens it with Shift+F10 or the context-menu key on its item (in an [itemList]),
- * a screen reader through the item's custom action, which merges into the item. A TV remote has
- * neither key nor Tab, so there it stays focusable, entered from its item (see [itemList]).
+ * A ⋮ menu. Touch platforms get the Apple-style flat bottom sheet ([SongMenuSheet]) with one
+ * icon-led row per action; keyboard/TV keep the compact dropdown. In a focusable item
+ * ([inFocusableItem]) it is not a focus stop, so Tab moves item to item: the keyboard opens it
+ * with Shift+F10 or the context-menu key on its item (in an [itemList]), a screen reader through
+ * the item's custom action, which merges into the item. A TV remote has neither key nor Tab, so
+ * there it stays focusable, entered from its item (see [itemList]).
  */
 @Composable
 internal fun MoreMenu(
@@ -556,22 +565,34 @@ internal fun MoreMenu(
             open = false
             openedByKey = false
         }
-        DropdownMenu(expanded = open, onDismissRequest = dismiss) {
-            val firstEntry = remember { FocusRequester() }
-            actions.entries.forEachIndexed { index, (label, action) ->
-                DropdownMenuItem(
-                    text = { Text(label) },
-                    trailingIcon = if (label in actions.checked) {
-                        { Icon(VerreIcons.Check, contentDescription = null, tint = DesignColors.Accent) }
-                    } else {
-                        null
-                    },
-                    onClick = { action(); dismiss() },
-                    modifier = if (index == 0) Modifier.focusRequester(firstEntry) else Modifier,
-                )
-            }
-            if (openedByKey && actions.entries.isNotEmpty()) {
-                LaunchedEffect(Unit) { firstEntry.requestFocus() }
+        if (open && platformUsesTouch && !desktopLayoutHole) {
+            // Touch: the flat icon-led sheet, staggered rows, no gradient.
+            SongMenuSheet(
+                actions.entries.map { (label, action) ->
+                    SongMenuAction(actions.icons[label] ?: DefaultMenuIcon, label, action)
+                },
+            ) { open = false }
+        } else if (open) {
+            DropdownMenu(expanded = open, onDismissRequest = dismiss) {
+                val firstEntry = remember { FocusRequester() }
+                actions.entries.forEachIndexed { index, (label, action) ->
+                    DropdownMenuItem(
+                        text = { Text(label) },
+                        leadingIcon = {
+                            Icon(actions.icons[label] ?: DefaultMenuIcon, contentDescription = null, tint = DesignColors.InkSecondary)
+                        },
+                        trailingIcon = if (label in actions.checked) {
+                            { Icon(VerreIcons.Check, contentDescription = null, tint = DesignColors.Accent) }
+                        } else {
+                            null
+                        },
+                        onClick = { action(); dismiss() },
+                        modifier = if (index == 0) Modifier.focusRequester(firstEntry) else Modifier,
+                    )
+                }
+                if (openedByKey && actions.entries.isNotEmpty()) {
+                    LaunchedEffect(Unit) { firstEntry.requestFocus() }
+                }
             }
         }
     }

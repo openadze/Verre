@@ -1,6 +1,14 @@
 package io.ymusic.ui
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -1045,6 +1053,7 @@ private fun AppRoot(
                             LocalNavigateToSection provides { openSection(it) },
                             LocalLibraryFolderReveal provides libraryReveal,
                             LocalLibraryGroupReveal provides libraryGroupReveal,
+                            LocalLibrarySearch provides (if (graph.mediaStore != null) openLibrarySearch else null),
                             *songActions.provided(),
                             LocalCaptchaResolver provides captchaResolver,
                             LocalSignInResolver provides signInResolver,
@@ -1062,7 +1071,9 @@ private fun AppRoot(
                                 topBar = {
                                     // Search and the detail pages carry their own app bars.
                                     val replacementBar = appBarSlot.replacement
-                                    val appleOwnsTop = appleBar && section == AppSection.YtMusic && layers.isEmpty() && replacementBar == null
+                                    val appleOwnsTop = appleBar &&
+                                        ((section == AppSection.YtMusic && layers.isEmpty()) || section == AppSection.Library) &&
+                                        replacementBar == null
                                     if (layers.isEmpty() && replacementBar != null) {
                                         ElevatedBarColumn { replacementBar() }
                                     } else if (layers.isEmpty() && !appleOwnsTop) {
@@ -1110,7 +1121,24 @@ private fun AppRoot(
                                 },
                             ) { padding ->
                                 val screens = @Composable {
-                                    when (val top = layers.lastOrNull()) {
+                                    // Pushed layers slide in from the end and slide back out — the
+                                    // mobile navigation idiom — with a gentle crossfade so the swap
+                                    // never reads as a hard cut. Keyed by stack SIZE: a lateral move
+                                    // (search raised to top) slides like a push, a pop reverses.
+                                    AnimatedContent(
+                                        targetState = layers.size to (layers.lastOrNull() as? Any),
+                                        transitionSpec = {
+                                            val pushing = targetState.first >= initialState.first
+                                            val sign = if (pushing) 1 else -1
+                                            val enter = slideInHorizontally(tween(260, easing = FastOutSlowInEasing)) { w -> sign * w / 4 } +
+                                                fadeIn(tween(220))
+                                            val exit = slideOutHorizontally(tween(260, easing = FastOutSlowInEasing)) { w -> -sign * w / 4 } +
+                                                fadeOut(tween(180))
+                                            enter.togetherWith(exit)
+                                        },
+                                        label = "layers",
+                                    ) { (_, top) ->
+                                    when (top) {
                                         is AppLayer.Search -> key(top) {
                                             SearchScreen(
                                                 graph,
@@ -1250,6 +1278,7 @@ private fun AppRoot(
                                                 else -> ComingSoon(section)
                                             }
                                         }
+                                    }
                                     }
                                 }
                                 // Apple Music's bottom tab bar (appleBar, hoisted above the Scaffold).

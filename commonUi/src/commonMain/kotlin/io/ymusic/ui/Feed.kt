@@ -58,7 +58,8 @@ import io.ymusic.dynamicengine.yt.YtSection
 import io.ymusic.dynamicengine.yt.YtSectionHeader
 import io.ymusic.dynamicengine.yt.subscribeChannel
 import io.ymusic.ui.resources.Res
-import io.ymusic.ui.resources.cd_download
+import io.ymusic.ui.resources.menu_download_song
+import io.ymusic.ui.resources.menu_download_song_with_lyrics
 import io.ymusic.ui.resources.cd_share
 import io.ymusic.ui.resources.cd_sort
 import io.ymusic.ui.resources.error_captcha
@@ -833,6 +834,18 @@ private fun itemActions(item: YtFeedItem, coordinator: PlaybackCoordinator): Ite
     val removeFromYtPlaylist = LocalRemoveFromYtPlaylist.current
     val share = LocalShareYoutube.current
     val subscribe = if (item.kind == YtFeedItem.KIND_CHANNEL) rememberChannelSubscriber(coordinator) else null
+    val icons = mapOf(
+        stringResource(Res.string.menu_play_single) to VerreIcons.PlayArrow,
+        stringResource(Res.string.menu_start_radio) to VerreIcons.SensorsOutline,
+        stringResource(Res.string.queue_next) to VerreIcons.PlaylistAdd,
+        stringResource(Res.string.queue_last) to VerreIcons.QueueMusicOutline,
+        stringResource(Res.string.menu_add_to_playlist) to VerreIcons.PlaylistAddOutline,
+        stringResource(Res.string.menu_download_song) to VerreIcons.FileDownloadOutline,
+        stringResource(Res.string.menu_download_song_with_lyrics) to VerreIcons.LyricsOutline,
+        stringResource(Res.string.cd_share) to VerreIcons.ShareOutline,
+        stringResource(Res.string.menu_remove_from_playlist) to VerreIcons.PlaylistRemove,
+        stringResource(Res.string.menu_remove) to VerreIcons.DeleteOutline,
+    )
     return ItemActions(
         if (item.kind == YtFeedItem.KIND_VIDEO) {
             buildList {
@@ -844,7 +857,12 @@ private fun itemActions(item: YtFeedItem, coordinator: PlaybackCoordinator): Ite
                     add(stringResource(Res.string.menu_add_to_playlist) to { ytPlaylists.addToPlaylist(item.id) })
                 }
                 if (downloadLauncher != null && !item.live) {
-                    add(stringResource(Res.string.cd_download) to { downloadLauncher.launch(item) })
+                    // The full options dialog: format, quality, captions.
+                    add(stringResource(Res.string.menu_download_song) to { downloadLauncher.launch(item) })
+                    // One tap: the Quick preset, with captions (kept as LRC lyrics by MP3/Opus).
+                    if (downloadLauncher.quickPreset.value.captionLanguage != null) {
+                        add(stringResource(Res.string.menu_download_song_with_lyrics) to { downloadLauncher.quickLaunch(item) })
+                    }
                 }
                 if (share != null) add(stringResource(Res.string.cd_share) to { share(item.kind, item.id) })
                 if (removeFromYtPlaylist != null && item.removeToken != null) {
@@ -870,6 +888,7 @@ private fun itemActions(item: YtFeedItem, coordinator: PlaybackCoordinator): Ite
                 }
             }
         },
+        icons = icons,
     )
 }
 

@@ -171,6 +171,8 @@ import io.ymusic.ui.resources.ic_sponsor_block
 import io.ymusic.ui.resources.media_engine_unavailable
 import io.ymusic.ui.resources.menu_add_to_playlist
 import io.ymusic.ui.resources.menu_details_comments
+import io.ymusic.ui.resources.menu_download_song
+import io.ymusic.ui.resources.menu_download_song_with_lyrics
 import io.ymusic.ui.resources.menu_go_to_album
 import io.ymusic.ui.resources.menu_go_to_artist
 import io.ymusic.ui.resources.menu_reload_player
@@ -1943,6 +1945,8 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
     val scope = rememberCoroutineScope()
     var tracksOpen by remember { mutableStateOf(false) }
     val config by player.config.collectAsStateWithLifecycle()
+    val downloadLauncher = LocalDownloadLauncher.current
+    val downloadable = coordinator.downloadable(current)
     HoldVideoOverlay(open || tracksOpen || playbackOpen || eqOpen || detailsOpen)
 
     Box {
@@ -1956,6 +1960,19 @@ internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
                 if (ytPlaylists != null) {
                     MoreMenuItem(VerreIcons.PlaylistAddOutline, stringResource(Res.string.menu_add_to_playlist)) {
                         ytPlaylists.addToPlaylist(video.videoId)
+                        open = false
+                    }
+                }
+            }
+            if (downloadable != null && downloadLauncher != null) {
+                MoreMenuItem(VerreIcons.FileDownloadOutline, stringResource(Res.string.menu_download_song)) {
+                    downloadLauncher.launch(downloadable)
+                    open = false
+                }
+                // One tap with the Quick preset, captions on (kept as LRC lyrics by MP3/Opus).
+                if (downloadLauncher.quickPreset.value.captionLanguage != null) {
+                    MoreMenuItem(VerreIcons.LyricsOutline, stringResource(Res.string.menu_download_song_with_lyrics)) {
+                        downloadLauncher.quickLaunch(downloadable)
                         open = false
                     }
                 }
@@ -2536,7 +2553,19 @@ private fun queueItemActions(coordinator: PlaybackCoordinator, index: Int, item:
     val ytPlaylists = LocalYtPlaylistActions.current
     val downloadLauncher = LocalDownloadLauncher.current
     val startRadio = stringResource(Res.string.menu_start_radio)
-    val download = stringResource(Res.string.cd_download)
+    val downloadSong = stringResource(Res.string.menu_download_song)
+    val downloadSongWithLyrics = stringResource(Res.string.menu_download_song_with_lyrics)
+    val icons = mapOf(
+        startRadio to VerreIcons.SensorsOutline,
+        playNext to VerreIcons.PlaylistAdd,
+        addToPlaylistLabel to VerreIcons.PlaylistAddOutline,
+        goToArtist to VerreIcons.PersonOutline,
+        goToAlbum to VerreIcons.Album,
+        downloadSong to VerreIcons.FileDownloadOutline,
+        downloadSongWithLyrics to VerreIcons.LyricsOutline,
+        shareLabel to VerreIcons.ShareOutline,
+        removeFromQueue to VerreIcons.DeleteOutline,
+    )
     return ItemActions(
         buildList {
             val video = coordinator.downloadable(item)
@@ -2556,12 +2585,19 @@ private fun queueItemActions(coordinator: PlaybackCoordinator, index: Int, item:
                 }
                 is PlayableItem.YtMedia -> {
                     if (ytPlaylists != null) add(addToPlaylistLabel to { ytPlaylists.addToPlaylist(item.videoId) })
-                    if (video != null && downloadLauncher != null) add(download to { downloadLauncher.launch(video) })
+                    if (video != null && downloadLauncher != null) {
+                        add(downloadSong to { downloadLauncher.launch(video) })
+                        // One tap with the Quick preset, captions on (kept as LRC lyrics by MP3/Opus).
+                        if (downloadLauncher.quickPreset.value.captionLanguage != null) {
+                            add(downloadSongWithLyrics to { downloadLauncher.quickLaunch(video) })
+                        }
+                    }
                     if (shareYoutube != null) add(shareLabel to { shareYoutube(YtFeedItem.KIND_VIDEO, item.videoId) })
                 }
             }
             add(removeFromQueue to { player.removeAt(index) })
         },
+        icons = icons,
     )
 }
 

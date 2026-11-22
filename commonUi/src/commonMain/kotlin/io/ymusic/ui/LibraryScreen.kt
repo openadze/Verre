@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -91,6 +92,7 @@ import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.add_to_playlist_new
 import io.ymusic.ui.resources.cd_add_to_playlist
 import io.ymusic.ui.resources.cd_back
+import io.ymusic.ui.resources.cd_search
 import io.ymusic.ui.resources.delete_from_disk_confirm
 import io.ymusic.ui.resources.delete_from_disk_message
 import io.ymusic.ui.resources.delete_from_disk_title
@@ -107,6 +109,7 @@ import io.ymusic.ui.resources.library_no_genres
 import io.ymusic.ui.resources.library_no_songs
 import io.ymusic.ui.resources.library_rescan
 import io.ymusic.ui.resources.library_scan_folder
+import io.ymusic.ui.resources.library_search_field_hint
 import io.ymusic.ui.resources.library_scanning
 import io.ymusic.ui.resources.library_scanning_count
 import io.ymusic.ui.resources.library_tab_albums
@@ -147,6 +150,7 @@ import io.ymusic.ui.resources.playlist_top_tracks
 import io.ymusic.ui.resources.playlist_top_tracks_desc
 import io.ymusic.ui.resources.queue_last
 import io.ymusic.ui.resources.queue_next
+import io.ymusic.ui.resources.section_library
 import io.ymusic.ui.resources.shuffle_all
 import io.ymusic.ui.resources.sort_date_added
 import io.ymusic.ui.resources.sort_date_created
@@ -221,6 +225,10 @@ internal val LocalRemoveFromPlayHistory = compositionLocalOf<((MediaStoreItem) -
 /** The Library tab row's [AppBarSlot]: a tab's selection bar takes the tab row's place, and holds the Library on that tab. */
 private val LocalLibraryTabRowSlot = staticCompositionLocalOf<AppBarSlot?> { null }
 
+/** Opens the Library's own local-file search (the shell bar's search icon on desktop, the header's on
+ *  the Apple phone layout, where the shell bar is gone). Null where there is nothing to search. */
+internal val LocalLibrarySearch = staticCompositionLocalOf<(() -> Unit)?> { null }
+
 /** The local library over [AppGraph.mediaStore]: an empty state with the scan action until the first
  *  scan lands, then the Folders/Playlists/Songs/Artists/Albums/Genres tabs. Styled with
  *  design/final/library.html's chips + section-header + list-row language (the account half of that
@@ -253,9 +261,18 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
     val scanController = LocalScanController.current
 
     val loaded = content
+    // The Apple phone layout owns its header, so the shell bar is hidden there (App.kt): the
+    // loading and first-open states must carry the large title themselves.
+    val appleHeader = platformUsesTouch && !desktopLayoutHole
     when {
-        loaded == null -> CenteredBox { CircularProgressIndicator() }
-        loaded.isEmpty -> EmptyLibrary(graph.scanLibraryFolder, scanController)
+        loaded == null -> Column(Modifier.fillMaxSize()) {
+            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), null, null)
+            CenteredBox { CircularProgressIndicator() }
+        }
+        loaded.isEmpty -> Column(Modifier.fillMaxSize()) {
+            if (appleHeader) AppleLargeHeader(stringResource(Res.string.section_library), null, null)
+            EmptyLibrary(graph.scanLibraryFolder, scanController)
+        }
         else -> {
             // Download location (a Library folder, root or nested) — the Folders tab marks it and its
             // menu re-designates it. Only meaningful when the shell can download.
@@ -302,6 +319,34 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                 songSelection.abandon()
                 tab = it
             }
+
+            // Apple Music's phone Library: the category grid IS the home — Playlists, Artists,
+            // Albums, Songs (and Genres/Folders below the fold), each a white card with a red
+            // glyph; tapping one drills into that tab, which then shows the large title + a back
+            // row instead of the grid. The desktop/rail layout keeps the classic tab row.
+            val appleLibrary = platformUsesTouch && !desktopLayoutHole && !holdingTab
+            var appleHome by rememberSaveable { mutableStateOf(true) }
+            // Only a tab CHANGE leaves the grid — not the first composition (which would land on the
+            // last-open category instead of the home the Apple layout opens on).
+            var appleSeenTab by rememberSaveable { mutableStateOf(tab) }
+            LaunchedEffect(tab) {
+                if (tab != appleSeenTab) {
+                    appleSeenTab = tab
+                    appleHome = false
+                }
+            }
+            val openAppleCategory: (LibraryTab) -> Unit = { target ->
+                songSelection.abandon()
+                tab = target
+                appleHome = false
+            }
+            // Every reveal (Show in folder, Go to artist…) drills into its tab, never the grid.
+            val revealApple: (LibraryTab) -> Unit = { target ->
+                if (appleLibrary) appleHome = false
+                revealTab(target)
+            }
+            // System back inside an Apple category returns to the grid first.
+            NestedBackHandler(enabled = appleLibrary && !appleHome) { appleHome = true }
             val currentSelectTab by rememberUpdatedState(selectTab)
             val currentHoldingTab by rememberUpdatedState(holdingTab)
             DisposableEffect(Unit) {
@@ -338,7 +383,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             var revealBucket by remember { mutableStateOf<Long?>(null) }
             val reveal: (MediaStoreItem) -> Unit = { item ->
                 item.bucketId?.let { revealBucket = it }
-                revealTab(LibraryTab.Folders)
+                revealApple(LibraryTab.Folders)
             }
             // A cross-section reveal (Downloads → "Reveal in Library"): open the requested folder here
             // and clear the request so it fires once.
@@ -346,7 +391,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             LaunchedEffect(folderReveal?.value) {
                 val bucketId = folderReveal?.value ?: return@LaunchedEffect
                 revealBucket = bucketId
-                revealTab(LibraryTab.Folders)
+                revealApple(LibraryTab.Folders)
                 folderReveal.value = null
             }
             // "Go to artist/album" from anywhere: open that group's tab drilled into it, then clear the request.
@@ -355,7 +400,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             LaunchedEffect(groupReveal?.value) {
                 val request = groupReveal?.value ?: return@LaunchedEffect
                 revealGroup = request
-                revealTab(
+                revealApple(
                     when (request.kind) {
                         LibraryGroupKind.Artist -> LibraryTab.Artists
                         LibraryGroupKind.Album -> LibraryTab.Albums
@@ -365,7 +410,7 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             }
             // Keeps each tab's saveable state (folder path, scroll) while another tab is showing.
             val tabStateHolder = rememberSaveableStateHolder()
-            // Live swipe progress (−1..1) so the underline tracks the drag, not just the commit.
+            // Live swipe progress (−1..1) so the underline tracks the drag, not the commit.
             var tabDrag by remember { mutableFloatStateOf(0f) }
             Column(Modifier.fillMaxSize()) {
                 // The tab row is pinned under the app bar and elevates with it (one continuous
@@ -391,6 +436,8 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                         )
                     } else if (tabRowReplacement != null) {
                         tabRowReplacement()
+                    } else if (appleLibrary) {
+                        AppleLibraryTopRow(home = appleHome, tab = tab, onHome = { appleHome = true })
                     } else {
                         LibraryTabRow(tab, tabDrag, onSelect = selectTab)
                     }
@@ -399,6 +446,17 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                 Box(Modifier.weight(1f)) {
                     CompositionLocalProvider(LocalLibraryReveal provides reveal) {
                         val openDrawer = LocalOpenNavDrawer.current
+                        // The category grid is a mode of its own, not another tab: the phone Library
+                        // opens on it and returns there via the top row's Library button, while the
+                        // swiped tabs stay one gesture away exactly as before.
+                        if (appleLibrary && appleHome) {
+                            AppleLibraryHome(
+                                loaded,
+                                coordinator,
+                                openDrawer = openDrawer,
+                                onOpenCategory = openAppleCategory,
+                            )
+                        } else {
                         SwipeTabSwitcher(
                             tab,
                             LibraryTab.entries,
@@ -493,10 +551,151 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                                 }
                             }
                         }
+                        }
                     }
                     ScanProgressLine(scanController, Modifier.align(Alignment.TopCenter))
                 }
             }
+        }
+    }
+}
+
+/**
+ * Apple Music's phone Library home: the large "Library" title, then a 2-column grid of category
+ * cards — Playlists, Artists, Albums, Songs first (Apple's order), Genres and Folders below —
+ * each a flat elevated card with the category's glyph in the accent. Counts come from the loaded
+ * content where they are cheap (songs), hidden where they would cost a query per card.
+ */
+@Composable
+private fun AppleLibraryHome(
+    content: LibraryContent,
+    coordinator: PlaybackCoordinator,
+    openDrawer: (() -> Unit)?,
+    onOpenCategory: (LibraryTab) -> Unit,
+) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+        AppleLargeHeader(stringResource(Res.string.section_library), account = null, onAvatar = openDrawer)
+        // The shell bar (and so its search icon) is gone under the Apple layout: local search
+        // lives here, beside the title, as on iOS.
+        val openSearch = LocalLibrarySearch.current
+        if (openSearch != null) {
+            Row(
+                Modifier.fillMaxWidth().padding(start = 20.dp, end = 16.dp, top = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                ActionIcon(
+                    VerreIcons.SearchOutline,
+                    stringResource(Res.string.cd_search),
+                    iconSize = 22.dp,
+                    tint = DesignColors.InkSecondary,
+                    onClick = openSearch,
+                )
+                Text(
+                    stringResource(Res.string.library_search_field_hint),
+                    style = TextStyle(fontSize = 15.sp, color = DesignColors.InkSecondary),
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+        // Apple's category cards, in Apple's order; each shows a count where one load already has it.
+        val songCount = content.songs.size
+        val categories = listOf(
+            LibraryTab.Playlists to VerreIcons.LibraryMusicOutline,
+            LibraryTab.Artists to VerreIcons.PersonOutline,
+            LibraryTab.Albums to VerreIcons.Album,
+            LibraryTab.Songs to VerreIcons.MusicNoteOutline,
+            LibraryTab.Genres to VerreIcons.Category,
+            LibraryTab.Folders to VerreIcons.FolderOutline,
+        )
+        Column(
+            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            categories.chunked(2).forEach { row ->
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    row.forEach { (category, icon) ->
+                        AppleCategoryCard(
+                            label = stringResource(category.label),
+                            icon = icon,
+                            count = if (category == LibraryTab.Songs && songCount > 0) songCount else null,
+                            modifier = Modifier.weight(1f),
+                        ) { onOpenCategory(category) }
+                    }
+                    if (row.size == 1) Spacer(Modifier.weight(1f))
+                }
+            }
+        }
+        Spacer(Modifier.height(LocalMiniPlayerInset.current))
+    }
+}
+
+/** One category card: a flat elevated pane, the glyph in the accent at Apple's red, the label
+ *  beside it — no gradient, no fill art. */
+@Composable
+private fun AppleCategoryCard(
+    label: String,
+    icon: ImageVector,
+    count: Int?,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(DesignColors.SurfaceElevated)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 18.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Icon(icon, null, Modifier.size(22.dp), tint = DesignColors.Accent)
+        Text(
+            label,
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
+        count?.let {
+            Text(
+                it.toString(),
+                style = TextStyle(fontSize = 14.sp, color = DesignColors.InkSecondary),
+            )
+        }
+    }
+}
+
+/**
+ * The phone Library's pinned top row: on the home grid just the large-title spacing (the grid
+ * carries its own header); inside a category, the category's name with a back chevron that
+ * returns to the grid — the same place the tab row sits, so the pinned bar keeps its height.
+ */
+@Composable
+private fun AppleLibraryTopRow(home: Boolean, tab: LibraryTab, onHome: () -> Unit) {
+    if (home) {
+        // The grid scrolls under this bar; keep it a plain transparent strip so the large title
+        // below the (hidden) app bar is the only heading.
+        Box(Modifier.fillMaxWidth().height(4.dp))
+    } else {
+        Row(
+            Modifier.fillMaxWidth().height(44.dp).padding(start = 8.dp, end = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ActionIcon(
+                VerreIcons.ArrowBack,
+                stringResource(Res.string.cd_back),
+                hitSize = 36.dp,
+                tint = DesignColors.Accent,
+                onClick = onHome,
+            )
+            Text(
+                stringResource(tab.label),
+                style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
         }
     }
 }
@@ -2006,6 +2205,20 @@ private fun songActions(song: MediaStoreItem, coordinator: PlaybackCoordinator, 
     val goToArtist = stringResource(Res.string.menu_go_to_artist)
     val goToAlbum = stringResource(Res.string.menu_go_to_album)
     val selectLabel = stringResource(Res.string.downloads_action_select)
+    val icons = mapOf(
+        play to VerreIcons.PlayArrow,
+        next to VerreIcons.PlaylistAdd,
+        last to VerreIcons.QueueMusicOutline,
+        addToPlaylistLabel to VerreIcons.PlaylistAddOutline,
+        removeFromPlaylistLabel to VerreIcons.PlaylistRemove,
+        removeFromTopTracks to VerreIcons.DeleteOutline,
+        goToArtist to VerreIcons.PersonOutline,
+        goToAlbum to VerreIcons.Album,
+        showInFolder to VerreIcons.FolderOutline,
+        (revealInFileManagerLabel ?: showInFolder) to VerreIcons.FolderOutline,
+        removeFromDisk to VerreIcons.DeleteOutline,
+        selectLabel to VerreIcons.Check,
+    )
     return ItemActions(
         buildList {
             add(play to { coordinator.playLocalSingle(song) })
@@ -2025,6 +2238,7 @@ private fun songActions(song: MediaStoreItem, coordinator: PlaybackCoordinator, 
             if (requestDelete != null) add(removeFromDisk to { requestDelete(song) })
             if (onSelect != null) add(selectLabel to onSelect)
         },
+        icons = icons,
     )
 }
 

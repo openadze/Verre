@@ -888,17 +888,6 @@ object VerreIcons {
             .addPath(pathData = addPathNodes("m 418,628 l 202,-129 q 11,-7 11,-19 t -11,-19 L 418,332 q -11,-8 -23,-1.5 T 383,351 l 0,258 q 0,14 12,20.5 t 23,-1.5 Z m 62,252 q -82,0 -155,-31.5 t -127.5,-86 Q 143,708 111.5,635 T 80,480 q 0,-83 31.5,-156 t 86,-127 Q 252,143 325,111.5 T 480,80 q 83,0 156,31.5 T 763,197 q 54,54 85.5,127 T 880,480 q 0,82 -31.5,155 T 763,762.5 q -54,54.5 -127,86 T 480,880 Z m 0,-60 q 142,0 241,-99.5 T 820,480 q 0,-142 -99,-241 t -241,-99 q -141,0 -240.5,99 T 140,480 q 0,141 99.5,240.5 T 480,820 Z m 0,-340 Z"), fill = SolidColor(Color.Black))
             .build()
     }
-    val PlayCircleOutline: ImageVector by lazy {
-        ImageVector.Builder(
-            name = "PlayCircleOutline",
-            defaultWidth = 24.dp,
-            defaultHeight = 24.dp,
-            viewportWidth = 960f,
-            viewportHeight = 960f,
-        )
-            .addPath(pathData = addPathNodes("m 418,628 l 202,-129 q 11,-7 11,-19 t -11,-19 L 418,332 q -11,-8 -23,-1.5 T 383,351 l 0,258 q 0,14 12,20.5 t 23,-1.5 Z m 62,252 q -82,0 -155,-31.5 t -127.5,-86 Q 143,708 111.5,635 T 80,480 q 0,-83 31.5,-156 t 86,-127 Q 252,143 325,111.5 T 480,80 q 83,0 156,31.5 T 763,197 q 54,54 85.5,127 T 880,480 q 0,82 -31.5,155 T 763,762.5 q -54,54.5 -127,86 T 480,880 Z m 0,-60 q 142,0 241,-99.5 T 820,480 q 0,-142 -99,-241 t -241,-99 q -141,0 -240.5,99 T 140,480 q 0,141 99.5,240.5 T 480,820 Z m 0,-340 Z"), fill = SolidColor(Color.Black))
-            .build()
-    }
     val PlaylistAdd: ImageVector by lazy {
         ImageVector.Builder(
             name = "PlaylistAdd",
