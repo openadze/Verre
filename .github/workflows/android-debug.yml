@@ -44,7 +44,16 @@ jobs:
 
       - name: Install Android platform 37 (Backdrop needs compileSdk 37)
         run: |
-          [ -d "$ANDROID_HOME/platforms/android-37" ] || yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37" > /dev/null
+          # API 37 is published only minor-versioned (android-37.0), so android-37 is "not available".
+          sdk="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          set +o pipefail
+          yes | "$sdk" --licenses > /dev/null 2>&1 || true
+          for pkg in "platforms;android-37.0" "platforms;android-37"; do
+            "$sdk" --install "$pkg" && break
+          done
+          ls "$ANDROID_HOME/platforms"
+          [ -d "$ANDROID_HOME/platforms/android-37.0" ] || [ -d "$ANDROID_HOME/platforms/android-37" ] \
+            || { echo "::error::no Android 37 platform installed" >&2; exit 1; }
 
       - id: ndk
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
