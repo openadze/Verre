@@ -76,7 +76,7 @@ class NeteaseProvider(
     private fun parseOptionalLrc(raw: String?, tag: String): List<LyricLine> {
         if (raw == null || !LrcParser.looksLikeLrc(raw)) return emptyList()
         return try {
-            LrcParser.parse(raw, ID).lines.filter { it.text.isNotBlank() }
+            LrcParser.parse(raw, ID).lines.filter { it.text.isNotBlank() && it.text.trim() != "//" }
         } catch (e: LyricsParseException) {
             log?.warn("NetEase: $tag does not parse", e)
             emptyList()
