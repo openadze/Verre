@@ -30,15 +30,15 @@
 
 ## Status
 
-| Step | What | State |
-|---|---|---|
-| 0 | Fork and rebrand | done, not compiled on a device |
-| 1 | `:lyrics` core (parsers, selector, timeline) | done, 13 unit tests |
-| 2 | Providers, cache, offline lyrics | next |
-| 3 | Lyrics screen | |
-| 4 | Liquid Glass | |
-| 5 | Theme and design | |
-| 6 | Polish | |
+| Step | What                                         | State                                                        |
+| ---- | -------------------------------------------- | ------------------------------------------------------------ |
+| 0    | Fork and rebrand                             | done, not compiled on a device                               |
+| 1    | `:lyrics` core (parsers, selector, timeline) | done, 13 unit tests                                          |
+| 2    | Providers, cache, offline lyrics             | done (LRCLIB, file cache, download hook), 31 tests in `:lyrics` |
+| 3    | Lyrics screen                                | done (word-by-word, instrumental dots, in Now Playing)       |
+| 4    | Liquid Glass                                 | in progress: `Glass.kt` + mini-player done, rest of the buttons next |
+| 5    | Theme and design                             |                                                              |
+| 6    | Polish                                       |                                                              |
 
 Details: [`docs/verre/PROGRESS.md`](docs/verre/PROGRESS.md) and [`docs/verre/PLAN.md`](docs/verre/PLAN.md).
 
@@ -69,7 +69,7 @@ Without `secrets.properties` the app does not talk to the upstream's services (r
 - [YMusic V4](https://github.com/ymusic-io/YMusicV4) by ymusic-io, the base of this app (GPL-3.0).
 - Lyrics ideas from [Better Lyrics](https://github.com/boidushya/better-lyrics), `@braccato/*` parsers (MIT) and
   [LRCLIB](https://lrclib.net).
-- Liquid Glass: [Backdrop](https://github.com/Kyant0/AndroidLiquidGlass) by Kyant0 (Apache-2.0), planned for step 4.
+- Liquid Glass: [Backdrop](https://github.com/Kyant0/AndroidLiquidGlass) 2.0.0 by Kyant0 (Apache-2.0), used since step 4.
 
 ## License
 

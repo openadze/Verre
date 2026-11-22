@@ -12,6 +12,19 @@ The shared Compose Multiplatform app UI (jvm + android; iOS later).
   pane, but only from `SideBySideMinWidth`, below which the pane would out-size the video and the layout stacks
   (video height capped so the list stays usable).
 
+- **Liquid Glass (step 4)** — `Glass.kt`, on Kyant0's Backdrop 2.0.0 (`Libs.Backdrop.core`; 2.0.1+ needs Compose 1.12).
+  `Modifier.glassSurface(shape, fallback, tint, blurRadius, refract)` refracts `LocalGlassBackdrop` (blur + vibrancy +
+  lens) and, when that is `null`, paints `fallback` in the same shape: that is the plain translucent fallback, so call
+  sites never branch. `Modifier.glassSource(layerBackdrop)` marks the content to refract. Rules: provide
+  `LocalGlassBackdrop` only to the overlay subtree, never to the captured content (a surface that refracts a layer it is
+  drawn into recurses); the capture box and the glass surface are siblings (see the mini-player in `App.kt`); `refract`
+  needs a corner-based shape (`RoundedCornerShape`, `CircleShape`), so a plain rectangle passes `refract = false`.
+  Android < 12 loses the blur and < 13 the lens (the library skips those effects). `GlassSettings.ENABLED`
+  (`glass_enabled`, default on) is the kill switch; there is no Settings toggle yet (it needs a string in every locale).
+  Wired so far: the docked mini-player. The desktop-hole layout and the rail never provide a backdrop, so they keep their
+  old fills. Not glass yet: transport/overlay buttons, chips, top bars, lyrics controls (video sits on a native surface
+  that cannot be captured, so glass over the video is out of scope).
+
 - **Navigation shell** — phones use the drawer and the bottom mini-player. Windows at least 750dp wide and 480dp tall
   use `AppRail` (`Rail.kt`) instead: a left rail carrying the same sections and the mini-player, which hosts the shared
   video surface in its art tile. The expanded rail always sits beside the content (expanding moves it over) and starts

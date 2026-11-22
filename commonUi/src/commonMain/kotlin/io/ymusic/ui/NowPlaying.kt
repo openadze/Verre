@@ -118,6 +118,7 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -324,8 +325,9 @@ fun MiniPlayer(
         ) {
             MiniArtTile(coordinator, item, surface, onExpand, Modifier.height(tileH).aspectRatio(16f / 9f), coverOnly = true)
             Column(
+                // Liquid Glass over the screens behind the bar; without a backdrop (desktop, glass off) the plain fill.
                 Modifier.weight(1f)
-                    .background(DesignColors.SurfaceDim)
+                    .glassSurface(RectangleShape, fallback = DesignColors.SurfaceDim, tint = DesignColors.SurfaceDim.copy(alpha = 0.55f), refract = false)
                     .onSizeChanged { colH = it.height },
             ) {
                 MiniProgress(progress, Modifier.fillMaxWidth().height(4.dp))

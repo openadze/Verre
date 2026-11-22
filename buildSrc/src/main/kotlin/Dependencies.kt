@@ -31,6 +31,8 @@ object Versions {
     const val okhttp = "5.4.0"
     const val okio = "3.17.0"
     const val sqldelight = "2.3.2"
+    // Kyant0 Backdrop (Liquid Glass). 2.0.0 was built with Kotlin 2.3 / Compose MP 1.11, like this project; 2.0.1+ needs Compose 1.12.
+    const val backdrop = "2.0.0"
 
     // :player local-file backends (per platform; Apple uses AVFoundation cinterop, no dep)
     const val media3 = "1.11.0"   // Android ExoPlayer
@@ -112,6 +114,10 @@ object Libs {
 
     object OkHttp {
         const val core = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    }
+
+    object Backdrop {
+        const val core = "io.github.kyant0:backdrop:${Versions.backdrop}"
     }
 
     object Okio {

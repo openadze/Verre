@@ -108,6 +108,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import io.ymusic.download.DownloadFormat
 import io.ymusic.dynamicengine.yt.YtFeedItem
 import io.ymusic.dynamicengine.yt.YtFeedPage
@@ -1294,21 +1295,34 @@ private fun AppRoot(
                                     // A screen reader takes a row painted over by the bar as visible, focusing it without
                                     // scrolling and skipping its ⋮; with one on, the content ends above the bar instead.
                                     val contentEndsAboveMini = rememberTouchExplorationEnabled()
+                                    // Liquid Glass: the screens are captured as the backdrop the mini-player refracts. The capture
+                                    // box is a sibling of the mini-player, never its parent (a surface must not refract itself).
+                                    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }
+                                        .collectAsStateWithLifecycle()
+                                    val glassBackdrop = rememberLayerBackdrop()
                                     Box(Modifier.fillMaxSize()) {
-                                        Column(
-                                            Modifier.fillMaxSize().padding(padding)
-                                                .padding(bottom = if (contentEndsAboveMini) miniInset else 0.dp),
-                                        ) {
-                                            CompositionLocalProvider(
-                                                LocalMiniPlayerInset provides if (contentEndsAboveMini) 0.dp else miniInset,
-                                                LocalNestedBack provides nestedBack,
-                                            ) { screens() }
+                                        Box(Modifier.fillMaxSize().then(if (glassOn) Modifier.glassSource(glassBackdrop) else Modifier)) {
+                                            Column(
+                                                Modifier.fillMaxSize().padding(padding)
+                                                    .padding(bottom = if (contentEndsAboveMini) miniInset else 0.dp),
+                                            ) {
+                                                CompositionLocalProvider(
+                                                    LocalMiniPlayerInset provides if (contentEndsAboveMini) 0.dp else miniInset,
+                                                    LocalNestedBack provides nestedBack,
+                                                ) { screens() }
+                                            }
                                         }
-                                        if (!railWindow) mini(
-                                            Modifier.align(Alignment.BottomCenter)
-                                                .fillMaxWidth()
-                                                .navigationBarsPadding(),
-                                        )
+                                        if (!railWindow) {
+                                            CompositionLocalProvider(
+                                                LocalGlassBackdrop provides if (glassOn) glassBackdrop else null,
+                                            ) {
+                                                mini(
+                                                    Modifier.align(Alignment.BottomCenter)
+                                                        .fillMaxWidth()
+                                                        .navigationBarsPadding(),
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }

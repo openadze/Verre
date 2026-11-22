@@ -1,7 +1,8 @@
 # :lyrics
 
 Verre's lyrics module. commonMain, no UI. Step 1 = model + parsers (pure Kotlin); step 2 = providers, cache,
-repository and settings keys. The lyrics screen is step 3 (see `docs/verre/PLAN.md`).
+repository and settings keys (both done). The lyrics screen (step 3) lives in `:commonUi` (`LyricsView.kt`), the
+download hook in `:download` (`Lyrics.kt`).
 
 ## Model
 
