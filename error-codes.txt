@@ -200,3 +200,4 @@ E92002 D data dir: a database SQLite reports corrupt or not a database was moved
 E92003 D data dir: an unreadable database could not be moved aside; its store fails to open as before (desktopApp openDatabase, logged; Rust R90407)
 E92004 D data dir: the data dir cannot be used (a file in the way, not writable, a link into a folder that is gone); the launch shows the code and quits (desktopApp dataDirUnusable, captured; Rust R90408)
 E92005 D app log: logs.db did not open; the app log stays in memory for this launch (desktopApp openLogStore, logged; Rust R90409)
+E93001 - lyrics: a lyrics payload (LRC / TTML / plain) could not be parsed; the provider's caller must log it (LyricsParseException)

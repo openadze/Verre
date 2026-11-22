@@ -35,6 +35,7 @@ Each module has a one-line summary here; deeper detail lives in the module's own
 - **`iosApp`** *(not a Gradle module — the Xcode shell)* — the iOS product shell: SwiftUI `@main` hosting the same shared Compose `App` from the `:commonUi` framework, over AVFoundation local + MSE YouTube engines. → [`iosApp/README.md`](iosApp/README.md)
 - **`:log-store`** — the app log: one SQLite table (`logs.db`) every layer writes through `DbLogger`, read by the feedback export and by the lines an error event takes to Sentry. → [`log-store/README.md`](log-store/README.md)
 - **`:settings`** — typed key-value `SettingsStore` (StateFlow reads, per-key distinct), in-memory + JVM Properties-file impls, `AppSettings` descriptors (hl/gl/theme accent/uiLanguage — hl/gl is InnerTube content language/region, uiLanguage is the app chrome; kept independent). Android persistence = the shell's SharedPreferences-backed store (`androidApp/PrefsSettingsStore`).
+- **`:lyrics`** — Verre's lyrics core, pure Kotlin and UI-free: LRC / enhanced LRC / TTML / plain parsers into `LyricsDoc` (word > line > text), best-candidate selector, playback-position timeline. → [`lyrics/README.md`](lyrics/README.md)
 - **`:playground`** — Compose MP MSE YouTube lab (`YtMsePlayerScreen` + native blit hole) on JVM, iOS, and Android (`:playground-android`). → [`playground/README.md`](playground/README.md)
 
 ## Coding Rules

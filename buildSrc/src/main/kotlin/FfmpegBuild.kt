@@ -26,8 +26,18 @@ import java.io.File
  * the staged host CLI via `-Dio.ymusic.ffmpeg`.
  */
 object FfmpegBuild {
-    /** The ABIs the apk and the device tests ship; every Android native (quickjs, mse, ffmpeg) is built for each. */
-    val ANDROID_ABIS = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+    /**
+     * The ABIs the apk and the device tests ship; every Android native (quickjs, mse, ffmpeg) is built for each.
+     * Verre: the env `VERRE_ANDROID_ABIS` (comma separated) narrows it, so CI debug builds make one ABI only.
+     */
+    val ANDROID_ABIS: List<String> =
+        System
+            .getenv("VERRE_ANDROID_ABIS")
+            ?.split(',')
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() }
+            ?.takeIf { it.isNotEmpty() }
+            ?: listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 
     fun root(project: Project): File = project.rootProject.projectDir.parentFile.resolve("ffmpeg-build")
 
