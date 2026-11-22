@@ -68,6 +68,8 @@ internal fun AppLogo(size: Dp, modifier: Modifier = Modifier) {
 /** The sections the app's navigation lists, on both the drawer and the rail. */
 internal fun listedSections(showCatalogue: Boolean, guest: Boolean, showDonate: Boolean): List<AppSection> =
     AppSection.entries
+        // Verre is YouTube Music only: the YouTube (Discover) section is no longer listed.
+        .filter { it != AppSection.Discover }
         .filter { it != AppSection.Catalogue || showCatalogue }
         .filter { it != AppSection.PlayAgain || !guest }
         .filter { it != AppSection.Donate || showDonate }

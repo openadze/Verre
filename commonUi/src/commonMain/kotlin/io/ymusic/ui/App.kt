@@ -214,7 +214,7 @@ private val QueueActions = setOf(LinkAction.QUEUE_NEXT, LinkAction.QUEUE_LAST)
 private val DownloadActions = setOf(LinkAction.DOWNLOAD, LinkAction.DOWNLOAD_M4A, LinkAction.DOWNLOAD_MP3)
 
 /** The sections a restart resumes; anything else (Settings, Downloads, …) resumes the last of these. */
-private val ResumableSections = setOf(AppSection.Discover, AppSection.Library, AppSection.YtMusic)
+private val ResumableSections = setOf(AppSection.Library, AppSection.YtMusic)
 
 /** The section state a shell hands to [App]: starts on the last resumable section the user had open. */
 @Composable
@@ -400,7 +400,7 @@ private fun AppRoot(
         var usesRail by remember { mutableStateOf(false) }
         if (catalogue == null) {
             LaunchedEffect(section) {
-                if (section == AppSection.Catalogue) onSection(AppSection.Discover)
+                if (section == AppSection.Catalogue) onSection(AppSection.YtMusic)
             }
         }
         val discoverTabs = remember(graph) { discoverTabsFor(graph) }
@@ -592,7 +592,7 @@ private fun AppRoot(
             when {
                 existing >= 0 && existing == layers.lastIndex -> Unit // already on top
                 existing >= 0 -> layers.add(layers.removeAt(existing))
-                else -> layers.add(AppLayer.Search(SearchSession.youtube(graph, scope)))
+                else -> layers.add(AppLayer.Search(SearchSession.music(graph, scope)))
             }
         }
         DisposableEffect(drawer, scope) {
@@ -736,13 +736,13 @@ private fun AppRoot(
         // The "Search "q" online" hand-off: jump to Discover and run q as a YouTube search there,
         // reusing Discover's single search layer (its stack, not Library's).
         val searchOnline: (String) -> Unit = { q ->
-            onSection(AppSection.Discover)
-            val discover = sectionLayers.getOrPut(AppSection.Discover) { mutableStateListOf() }
+            onSection(AppSection.YtMusic)
+            val discover = sectionLayers.getOrPut(AppSection.YtMusic) { mutableStateListOf() }
             val existing = discover.indexOfFirst { it is AppLayer.Search }
             val layer = if (existing >= 0) {
                 discover.removeAt(existing) as AppLayer.Search
             } else {
-                AppLayer.Search(SearchSession.youtube(graph, scope))
+                AppLayer.Search(SearchSession.music(graph, scope))
             }
             layer.session.apply {
                 field = androidx.compose.ui.text.input.TextFieldValue(q)
@@ -761,8 +761,8 @@ private fun AppRoot(
         val latestOnSection by androidx.compose.runtime.rememberUpdatedState(onSection)
         fun openPage(link: String) {
             graph.pip.nowPlayingOpen.value = false
-            latestOnSection(AppSection.Discover)
-            openDeeplinkIn(sectionLayers.getOrPut(AppSection.Discover) { mutableStateListOf() }, link, null)
+            latestOnSection(AppSection.YtMusic)
+            openDeeplinkIn(sectionLayers.getOrPut(AppSection.YtMusic) { mutableStateListOf() }, link, null)
         }
         LaunchedEffect(graph, coordinator) {
             IncomingLinks.links.collect { (url, action) ->
@@ -883,7 +883,7 @@ private fun AppRoot(
         // root is back left to the OS to exit the app.
         val nestedBack = remember { NestedBackStack() }
         val backEnabled = drawer.isOpen || nowPlayingOpen || layers.isNotEmpty() || nestedBack.active ||
-            section != AppSection.Discover
+            section != AppSection.YtMusic
         val onBack: () -> Unit = {
             val top = layers.lastOrNull()
             when {
@@ -897,7 +897,7 @@ private fun AppRoot(
                 top is AppLayer.Verify && top.state.canGoBack -> top.state.goBack()
                 layers.isNotEmpty() -> popLayer()
                 nestedBack.active -> nestedBack.back()
-                else -> onSection(AppSection.Discover)
+                else -> onSection(AppSection.YtMusic)
             }
         }
         PlatformBackHandler(enabled = backEnabled, onBack = onBack)
@@ -1288,7 +1288,7 @@ private fun AppRoot(
                                                     signedIn = signedIn,
                                                     onLogin = openLogin,
                                                 )
-                                                AppSection.Feedback -> FeedbackScreen(graph, onDismiss = { onSection(AppSection.Discover) })
+                                                AppSection.Feedback -> FeedbackScreen(graph, onDismiss = { onSection(AppSection.YtMusic) })
                                                 AppSection.Catalogue ->
                                                     if (catalogue != null) catalogue() else ComingSoon(section)
                                                 else -> ComingSoon(section)

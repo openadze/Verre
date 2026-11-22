@@ -3,7 +3,7 @@ package io.ymusic.lyrics
 import kotlin.math.abs
 
 /**
- * LRCLIB (lrclib.net): free, open, line-synced (sometimes enhanced) and plain lyrics. `/api/get` first (exact
+ * LRCLIB (lrclib.net): free, open lyrics: `lyricsfile` (word timing), line-synced and plain. `/api/get` first (exact
  * match with duration), then `/api/search` when it is a 404. [userAgent] must identify the app (LRCLIB asks for it).
  */
 class LrclibProvider(
@@ -54,10 +54,22 @@ class LrclibProvider(
     private fun searchUrl(q: LyricsQuery): String =
         "$baseUrl/search?track_name=${UrlEncode.component(q.title)}&artist_name=${UrlEncode.component(q.primaryArtist)}"
 
-    /** Synced lyrics win over plain; an instrumental track or an empty item is "not found". */
+    /**
+     * Preference: `lyricsfile` (YAML, can hold word timing) > `syncedLyrics` (line LRC) > `plainLyrics`. A lyricsfile
+     * that does not parse is logged and the legacy fields are used instead, so one bad upload never hides the lyrics.
+     * An instrumental track or an empty item is "not found".
+     */
     private fun fromItem(item: Any?): LyricsResult? {
         val m = item.asMap() ?: throw LyricsProviderException("E93003", "LRCLIB item is not an object")
         if (m["instrumental"] == true) return LyricsResult.NotFound
+        val file = (m["lyricsfile"] as? String)?.takeIf { it.isNotBlank() }
+        if (file != null) {
+            try {
+                return LyricsResult.Found(LyricsParsers.parse(file, ID, LyricsFormat.LYRICSFILE), file, LyricsFormat.LYRICSFILE)
+            } catch (e: LyricsParseException) {
+                log?.warn("LRCLIB: lyricsfile does not parse, using the legacy fields", e)
+            }
+        }
         val synced = (m["syncedLyrics"] as? String)?.takeIf { it.isNotBlank() }
         if (synced != null) {
             return LyricsResult.Found(LyricsParsers.parse(synced, ID, LyricsFormat.LRC), synced, LyricsFormat.LRC)
