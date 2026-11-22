@@ -42,6 +42,10 @@ jobs:
         with:
           path: YMusicV4
 
+      - name: Install Android platform 37 (Backdrop needs compileSdk 37)
+        run: |
+          [ -d "$ANDROID_HOME/platforms/android-37" ] || yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37" > /dev/null
+
       - id: ndk
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
