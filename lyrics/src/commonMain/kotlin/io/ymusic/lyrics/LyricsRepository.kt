@@ -6,7 +6,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 data class LyricsOptions(
     val enabled: Boolean = true,
     val preferWordSync: Boolean = true,
-    val providerIds: List<String> = listOf(LrclibProvider.ID),
+    val providerIds: List<String> = listOf(LyricsPlusProvider.ID, LrclibProvider.ID, NeteaseProvider.ID),
 )
 
 /**

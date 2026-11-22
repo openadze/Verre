@@ -79,7 +79,9 @@ import io.ymusic.lyrics.FileLyricsCache
 import io.ymusic.lyrics.KmpLyricsHttp
 import io.ymusic.lyrics.LrclibProvider
 import io.ymusic.lyrics.LyricsLogger
+import io.ymusic.lyrics.LyricsPlusProvider
 import io.ymusic.lyrics.LyricsRepository
+import io.ymusic.lyrics.NeteaseProvider
 import io.ymusic.settings.AppSettings
 import io.ymusic.settings.anonymousDeviceId
 import io.ymusic.settings.flow
@@ -519,13 +521,16 @@ class YMusicApplication : Application() {
         updates.pruneDownloads()
         val lyricsLogger = rootLogger.fork("lyrics")
         val lyricsLog = LyricsLogger { message, error -> lyricsLogger.log(Logger.Level.WARN, message, error) }
+        val lyricsHttp = KmpLyricsHttp(http.engine)
         val lyrics = LyricsRepository(
             providers = listOf(
+                LyricsPlusProvider(lyricsHttp),
                 LrclibProvider(
-                    KmpLyricsHttp(http.engine),
+                    lyricsHttp,
                     "Verre/${BuildConfig.VERSION_NAME} (https://github.com/openadze/Verre)",
                     lyricsLog,
                 ),
+                NeteaseProvider(lyricsHttp, lyricsLog),
             ),
             cache = FileLyricsCache(FileSystem.SYSTEM, cacheDir.resolve("lyrics").toOkioPath(), lyricsLog),
             log = lyricsLog,

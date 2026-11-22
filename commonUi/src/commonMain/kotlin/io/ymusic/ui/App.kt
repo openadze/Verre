@@ -1120,6 +1120,12 @@ private fun AppRoot(
                                     }
                                 },
                             ) { padding ->
+                                var ytMusicTab by rememberSaveable {
+                                    val saved = graph.settings.flow(AppSettings.lastYtMusicTab).value
+                                    mutableStateOf(YtMusicTab.entries.firstOrNull { it.key == saved } ?: YtMusicTab.Home)
+                                }
+                                LaunchedEffect(ytMusicTab) { graph.settings.put(AppSettings.lastYtMusicTab, ytMusicTab.key) }
+                                var accountSheetOpen by remember { mutableStateOf(false) }
                                 val screens = @Composable {
                                     // Pushed layers slide in from the end and slide back out — the
                                     // mobile navigation idiom — with a gentle crossfade so the swap
@@ -1259,12 +1265,19 @@ private fun AppRoot(
                                                     signedIn = signedIn,
                                                     account = account,
                                                     onLogin = openLogin,
-                                                    onOpenSettings = { onSection(AppSection.Settings) },
+                                                    onOpenSettings = { accountSheetOpen = true },
                                                     onOpen = openItem,
                                                     onDeeplink = openDeeplink,
                                                     hideTabRow = platformUsesTouch && !railWindow,
+                                                    selectedTab = ytMusicTab,
+                                                    onSelectTab = { ytMusicTab = it },
                                                 )
-                                                AppSection.Library -> LibraryScreen(graph, coordinator)
+                                                AppSection.Library -> LibraryScreen(
+                                                    graph,
+                                                    coordinator,
+                                                    account = account,
+                                                    onAvatar = { accountSheetOpen = true },
+                                                )
                                                 AppSection.PlayAgain -> PlayAgainScreen(graph, coordinator)
                                                 AppSection.Downloads -> DownloadsScreen(graph, coordinator)
                                                 AppSection.Settings -> SettingsScreen(
@@ -1282,26 +1295,30 @@ private fun AppRoot(
                                     }
                                 }
                                 // Apple Music's bottom tab bar (appleBar, hoisted above the Scaffold).
-                                val ytTabKey by graph.settings.flow(AppSettings.lastYtMusicTab).collectAsStateWithLifecycle()
                                 val searchOpen = section == AppSection.YtMusic && layers.any { it is AppLayer.Search }
                                 val appleSelected = when {
                                     section == AppSection.Library -> AppleTab.Library
                                     searchOpen -> AppleTab.Search
-                                    ytTabKey == YtMusicTab.Explore.key -> AppleTab.Browse
-                                    ytTabKey == YtMusicTab.Charts.key -> AppleTab.Radio
+                                    ytMusicTab == YtMusicTab.Explore -> AppleTab.Browse
+                                    ytMusicTab == YtMusicTab.Charts -> AppleTab.Radio
                                     else -> AppleTab.ListenNow
                                 }
                                 val onAppleTab: (AppleTab) -> Unit = { tab ->
                                     graph.pip.nowPlayingOpen.value = false
                                     while (layers.isNotEmpty()) popLayer()
-                                    fun yt(key: String) {
-                                        scope.launch { graph.settings.put(AppSettings.lastYtMusicTab, key) }
-                                        onSection(AppSection.YtMusic)
-                                    }
                                     when (tab) {
-                                        AppleTab.ListenNow -> yt(YtMusicTab.Home.key)
-                                        AppleTab.Browse -> yt(YtMusicTab.Explore.key)
-                                        AppleTab.Radio -> yt(YtMusicTab.Charts.key)
+                                        AppleTab.ListenNow -> {
+                                            ytMusicTab = YtMusicTab.Home
+                                            onSection(AppSection.YtMusic)
+                                        }
+                                        AppleTab.Browse -> {
+                                            ytMusicTab = YtMusicTab.Explore
+                                            onSection(AppSection.YtMusic)
+                                        }
+                                        AppleTab.Radio -> {
+                                            ytMusicTab = YtMusicTab.Charts
+                                            onSection(AppSection.YtMusic)
+                                        }
                                         AppleTab.Library -> onSection(AppSection.Library)
                                         AppleTab.Search -> {
                                             onSection(AppSection.YtMusic)
@@ -1309,6 +1326,20 @@ private fun AppRoot(
                                             if (stack.none { it is AppLayer.Search }) stack.add(AppLayer.Search(SearchSession.music(graph, scope)))
                                         }
                                     }
+                                }
+                                if (accountSheetOpen) {
+                                    AppleAccountSheet(
+                                        guest = graph.guest,
+                                        signedIn = signedIn,
+                                        account = account,
+                                        onDismiss = { accountSheetOpen = false },
+                                        onLogin = openLogin,
+                                        onSwitchAccount = openSwitchAccount,
+                                        onSignOut = { accountController.signOut() },
+                                        onOpenSettings = { onSection(AppSection.Settings) },
+                                        onOpenDownloads = { onSection(AppSection.Downloads) },
+                                        onOpenPlayAgain = { onSection(AppSection.PlayAgain) },
+                                    )
                                 }
                                 val mini: @Composable (Modifier) -> Unit = { mod ->
                                     DisposableEffect(Unit) { onDispose { miniHeightPx = 0 } }

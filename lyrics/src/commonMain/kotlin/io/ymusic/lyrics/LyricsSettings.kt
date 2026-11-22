@@ -10,8 +10,11 @@ object LyricsSettings {
     val ENABLED = BoolSetting("lyrics_enabled", true)
     val PREFER_WORD_SYNC = BoolSetting("lyrics_prefer_word_sync", true)
 
-    /** Provider ids, in the order they are tried. Only LRCLIB exists so far. */
-    val PROVIDERS = StringSetSetting("lyrics_providers", setOf(LrclibProvider.ID))
+    /** Provider ids, in the order they are tried. */
+    val PROVIDERS = StringSetSetting(
+        "lyrics_providers",
+        setOf(LyricsPlusProvider.ID, LrclibProvider.ID, NeteaseProvider.ID),
+    )
 }
 
 /** The current lyrics options (a snapshot of the settings' present values). */
