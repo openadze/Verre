@@ -40,10 +40,14 @@ class NeteaseProvider(
         val lyricRoot = MiniJson.parse(lyricResp.body).asMap()
             ?: throw LyricsProviderException("E93003", "NetEase /lyric is not an object")
 
+        val tlyricText = (lyricRoot["tlyric"].asMap()?.get("lyric") as? String)?.takeIf { it.isNotBlank() }
+        val romalrcText = (lyricRoot["romalrc"].asMap()?.get("lyric") as? String)?.takeIf { it.isNotBlank() }
+
         val yrcText = (lyricRoot["yrc"].asMap()?.get("lyric") as? String)?.takeIf { it.isNotBlank() }
         if (yrcText != null && YrcParser.looksLikeYrc(yrcText)) {
             try {
-                return LyricsResult.Found(LyricsParsers.parse(yrcText, ID, LyricsFormat.YRC), yrcText, LyricsFormat.YRC)
+                val doc = attachSubtitles(LyricsParsers.parse(yrcText, ID, LyricsFormat.YRC), tlyricText, romalrcText)
+                return LyricsResult.Found(doc, yrcText, LyricsFormat.YRC)
             } catch (e: LyricsParseException) {
                 log?.warn("NetEase: YRC does not parse, falling back to LRC", e)
             }
@@ -52,7 +56,45 @@ class NeteaseProvider(
         val lrcText = (lyricRoot["lrc"].asMap()?.get("lyric") as? String)?.takeIf { it.isNotBlank() }
             ?: return LyricsResult.NotFound
         val format = if (LrcParser.looksLikeLrc(lrcText)) LyricsFormat.LRC else LyricsFormat.PLAIN
-        return LyricsResult.Found(LyricsParsers.parse(lrcText, ID, format), lrcText, format)
+        val doc = attachSubtitles(LyricsParsers.parse(lrcText, ID, format), tlyricText, romalrcText)
+        return LyricsResult.Found(doc, lrcText, format)
+    }
+
+    private fun attachSubtitles(doc: LyricsDoc, tlyric: String?, romalrc: String?): LyricsDoc {
+        if (doc.syncType == SyncType.NONE || (tlyric == null && romalrc == null)) return doc
+        val translations = parseOptionalLrc(tlyric, "tlyric")
+        val romanizations = parseOptionalLrc(romalrc, "romalrc")
+        if (translations.isEmpty() && romanizations.isEmpty()) return doc
+        val updated = doc.lines.map { line ->
+            val trans = findClosestLine(translations, line.startMs)
+            val roma = findClosestLine(romanizations, line.startMs)
+            if (trans == null && roma == null) line else line.copy(translation = trans, romanization = roma)
+        }
+        return doc.copy(lines = updated)
+    }
+
+    private fun parseOptionalLrc(raw: String?, tag: String): List<LyricLine> {
+        if (raw == null || !LrcParser.looksLikeLrc(raw)) return emptyList()
+        return try {
+            LrcParser.parse(raw, ID).lines.filter { it.text.isNotBlank() }
+        } catch (e: LyricsParseException) {
+            log?.warn("NetEase: $tag does not parse", e)
+            emptyList()
+        }
+    }
+
+    private fun findClosestLine(lines: List<LyricLine>, targetMs: Long): String? {
+        if (lines.isEmpty()) return null
+        var best: LyricLine? = null
+        var bestDiff = 500L
+        for (candidate in lines) {
+            val diff = abs(candidate.startMs - targetMs)
+            if (diff <= bestDiff) {
+                bestDiff = diff
+                best = candidate
+            }
+        }
+        return best?.text?.takeIf { it.isNotBlank() }
     }
 
     private fun pickSongId(songs: List<*>, wantedMs: Long?): Long? {
