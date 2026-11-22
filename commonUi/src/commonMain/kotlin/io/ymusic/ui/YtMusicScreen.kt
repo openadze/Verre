@@ -1,4 +1,4 @@
-﻿package io.ymusic.ui
+package io.ymusic.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -106,19 +106,24 @@ fun YtMusicScreen(
     onOpen: ((YtFeedItem) -> Unit)? = null,
     onDeeplink: ((link: String, title: String?) -> Unit)? = null,
     hideTabRow: Boolean = false,
+    selectedTab: YtMusicTab? = null,
+    onSelectTab: ((YtMusicTab) -> Unit)? = null,
 ) {
     val tabs = remember(graph) { YtMusicTab.entries.filter { !graph.guest || it != YtMusicTab.Library } }
-    var tab by rememberSaveable {
+    var localTab by rememberSaveable {
         val saved = graph.settings.flow(AppSettings.lastYtMusicTab).value
         mutableStateOf(tabs.firstOrNull { it.key == saved } ?: YtMusicTab.Home)
     }
-    LaunchedEffect(tab) { graph.settings.put(AppSettings.lastYtMusicTab, tab.key) }
-    // The bottom tab bar (Listen Now / Browse / Radio) selects the tab through the same setting.
-    val requestedTab by graph.settings.flow(AppSettings.lastYtMusicTab).collectAsStateWithLifecycle()
-    LaunchedEffect(requestedTab) { tabs.firstOrNull { it.key == requestedTab }?.let { if (it != tab) tab = it } }
-    DisposableEffect(tabs) {
+    if (selectedTab == null) {
+        LaunchedEffect(localTab) { graph.settings.put(AppSettings.lastYtMusicTab, localTab.key) }
+    }
+    val tab = selectedTab ?: localTab
+    val selectTab: (YtMusicTab) -> Unit = { next ->
+        if (selectedTab != null) onSelectTab?.invoke(next) else localTab = next
+    }
+    DisposableEffect(tabs, selectedTab) {
         val remove = GlobalShortcutActions.pushTabHandler { i ->
-            tabs.getOrNull(i - 1)?.let { tab = it; true } ?: false
+            tabs.getOrNull(i - 1)?.let { selectTab(it); true } ?: false
         }
         onDispose { remove() }
     }
@@ -126,23 +131,19 @@ fun YtMusicScreen(
     // Discover / Library.
     var tabDrag by remember { mutableFloatStateOf(0f) }
     val openDrawer = LocalOpenNavDrawer.current
+    var recent by remember { mutableStateOf<List<YtFeedItem>>(emptyList()) }
+    LaunchedEffect(graph.playHistory, graph.guest) {
+        val history = graph.playHistory?.takeUnless { graph.guest } ?: return@LaunchedEffect
+        history.changes.onStart { emit(Unit) }.collect { recent = history.youtubeRecent(20) }
+    }
     Column(Modifier.fillMaxSize()) {
-        // The tab row is pinned under the app bar and elevates with it (one continuous surface),
-        // exactly like Library's — the shell app bar drops its own bottom shadow for this section.
         if (!hideTabRow) {
             ElevatedBarColumn {
-                YtMusicTabRow(tabs, tab, tabDrag) { tab = it }
+                YtMusicTabRow(tabs, tab, tabDrag, selectTab)
                 HorizontalDivider(color = DesignColors.Divider)
             }
         }
-        SwipeTabSwitcher(
-            tab,
-            tabs,
-            onSelect = { tab = it },
-            onDragProgress = { tabDrag = it },
-            leadingEdgeReserve = NavDrawerEdgeReserve,
-            onLeadingEdgeSwipe = openDrawer,
-        ) { current ->
+        val tabBody: @Composable (YtMusicTab) -> Unit = { current ->
             if (current == YtMusicTab.Library && !signedIn) {
                 LoginPreface(onLogin)
             } else {
@@ -186,6 +187,7 @@ fun YtMusicScreen(
                             },
                         ),
                         listState = session.listState,
+                        recent = if (current == YtMusicTab.Home) recent else emptyList(),
                     )
                 } else {
                     FeedList(
@@ -203,6 +205,20 @@ fun YtMusicScreen(
                         onDeeplink = onDeeplink,
                     )
                 }
+            }
+        }
+        if (hideTabRow) {
+            tabBody(tab)
+        } else {
+            SwipeTabSwitcher(
+                tab,
+                tabs,
+                onSelect = selectTab,
+                onDragProgress = { tabDrag = it },
+                leadingEdgeReserve = NavDrawerEdgeReserve,
+                onLeadingEdgeSwipe = openDrawer,
+            ) { current ->
+                tabBody(current)
             }
         }
     }
