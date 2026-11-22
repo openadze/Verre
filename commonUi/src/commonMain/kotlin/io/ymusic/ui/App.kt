@@ -1279,6 +1279,7 @@ private fun AppRoot(
                                                     onLogin = openLogin,
                                                     onOpen = openItem,
                                                     onDeeplink = openDeeplink,
+                                                    hideTabRow = platformUsesTouch && !railWindow,
                                                 )
                                                 AppSection.Library -> LibraryScreen(graph, coordinator)
                                                 AppSection.PlayAgain -> PlayAgainScreen(graph, coordinator)
@@ -1296,14 +1297,47 @@ private fun AppRoot(
                                         }
                                     }
                                 }
+                                // Apple Music's bottom tab bar replaces the drawer's main sections on phones.
+                                val appleBar = !railWindow && platformUsesTouch && !desktopLayoutHole
+                                val ytTabKey by graph.settings.flow(AppSettings.lastYtMusicTab).collectAsStateWithLifecycle()
+                                val searchOpen = section == AppSection.YtMusic && layers.any { it is AppLayer.Search }
+                                val appleSelected = when {
+                                    section == AppSection.Library -> AppleTab.Library
+                                    searchOpen -> AppleTab.Search
+                                    ytTabKey == YtMusicTab.Explore.key -> AppleTab.Browse
+                                    ytTabKey == YtMusicTab.Charts.key -> AppleTab.Radio
+                                    else -> AppleTab.ListenNow
+                                }
+                                val onAppleTab: (AppleTab) -> Unit = { tab ->
+                                    graph.pip.nowPlayingOpen.value = false
+                                    while (layers.isNotEmpty()) popLayer()
+                                    fun yt(key: String) {
+                                        graph.settings.put(AppSettings.lastYtMusicTab, key)
+                                        onSection(AppSection.YtMusic)
+                                    }
+                                    when (tab) {
+                                        AppleTab.ListenNow -> yt(YtMusicTab.Home.key)
+                                        AppleTab.Browse -> yt(YtMusicTab.Explore.key)
+                                        AppleTab.Radio -> yt(YtMusicTab.Charts.key)
+                                        AppleTab.Library -> onSection(AppSection.Library)
+                                        AppleTab.Search -> {
+                                            onSection(AppSection.YtMusic)
+                                            val stack = sectionLayers.getOrPut(AppSection.YtMusic) { mutableStateListOf() }
+                                            if (stack.none { it is AppLayer.Search }) stack.add(AppLayer.Search(SearchSession.music(graph, scope)))
+                                        }
+                                    }
+                                }
                                 val mini: @Composable (Modifier) -> Unit = { mod ->
                                     DisposableEffect(Unit) { onDispose { miniHeightPx = 0 } }
-                                    MiniPlayer(
-                                        coordinator,
-                                        surface = if (needsSurface && !nowPlayingOpen) graph.playerSurface else null,
-                                        onExpand = { graph.pip.nowPlayingOpen.value = true },
-                                        modifier = mod.onSizeChanged { miniHeightPx = it.height },
-                                    )
+                                    Column(mod.onSizeChanged { miniHeightPx = it.height }) {
+                                        MiniPlayer(
+                                            coordinator,
+                                            surface = if (needsSurface && !nowPlayingOpen) graph.playerSurface else null,
+                                            onExpand = { graph.pip.nowPlayingOpen.value = true },
+                                            modifier = Modifier.fillMaxWidth(),
+                                        )
+                                        if (appleBar) AppleTabBar(appleSelected, onAppleTab)
+                                    }
                                 }
                                 if (desktopLayoutHole) {
                                     Column(Modifier.fillMaxSize()) {
@@ -1314,7 +1348,7 @@ private fun AppRoot(
                                         if (!railWindow) mini(Modifier.fillMaxWidth())
                                     }
                                 } else {
-                                    val miniVisible = !railWindow && coordinator.player.queue.collectAsStateWithLifecycle().value.currentItem != null
+                                    val miniVisible = !railWindow && (appleBar || coordinator.player.queue.collectAsStateWithLifecycle().value.currentItem != null)
                                     val miniInset = if (miniVisible) with(LocalDensity.current) { miniHeightPx.toDp() } else 0.dp
                                     // A screen reader takes a row painted over by the bar as visible, focusing it without
                                     // scrolling and skipping its ⋮; with one on, the content ends above the bar instead.

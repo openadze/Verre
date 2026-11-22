@@ -102,6 +102,7 @@ fun YtMusicScreen(
     onLogin: () -> Unit = {},
     onOpen: ((YtFeedItem) -> Unit)? = null,
     onDeeplink: ((link: String, title: String?) -> Unit)? = null,
+    hideTabRow: Boolean = false,
 ) {
     val tabs = remember(graph) { YtMusicTab.entries.filter { !graph.guest || it != YtMusicTab.Library } }
     var tab by rememberSaveable {
@@ -109,6 +110,9 @@ fun YtMusicScreen(
         mutableStateOf(tabs.firstOrNull { it.key == saved } ?: YtMusicTab.Home)
     }
     LaunchedEffect(tab) { graph.settings.put(AppSettings.lastYtMusicTab, tab.key) }
+    // The bottom tab bar (Listen Now / Browse / Radio) selects the tab through the same setting.
+    val requestedTab by graph.settings.flow(AppSettings.lastYtMusicTab).collectAsStateWithLifecycle()
+    LaunchedEffect(requestedTab) { tabs.firstOrNull { it.key == requestedTab }?.let { if (it != tab) tab = it } }
     DisposableEffect(tabs) {
         val remove = GlobalShortcutActions.pushTabHandler { i ->
             tabs.getOrNull(i - 1)?.let { tab = it; true } ?: false
@@ -122,9 +126,11 @@ fun YtMusicScreen(
     Column(Modifier.fillMaxSize()) {
         // The tab row is pinned under the app bar and elevates with it (one continuous surface),
         // exactly like Library's — the shell app bar drops its own bottom shadow for this section.
-        ElevatedBarColumn {
-            YtMusicTabRow(tabs, tab, tabDrag) { tab = it }
-            HorizontalDivider(color = DesignColors.Divider)
+        if (!hideTabRow) {
+            ElevatedBarColumn {
+                YtMusicTabRow(tabs, tab, tabDrag) { tab = it }
+                HorizontalDivider(color = DesignColors.Divider)
+            }
         }
         SwipeTabSwitcher(
             tab,

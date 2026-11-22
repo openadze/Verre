@@ -30,17 +30,18 @@
 
 ## Status
 
-| Step | What                                         | State                                                        |
-| ---- | -------------------------------------------- | ------------------------------------------------------------ |
-| 0    | Fork and rebrand                             | done, not compiled on a device                               |
-| 1    | `:lyrics` core (parsers, selector, timeline) | done, 13 unit tests                                          |
-| 2    | Providers, cache, offline lyrics             | done (LRCLIB, file cache, download hook), 31 tests in `:lyrics` |
-| 3    | Lyrics screen                                | done (word-by-word, instrumental dots, in Now Playing)       |
-| 4    | Liquid Glass                                 | done app-wide (icon buttons, chips, cards, search, rail, mini-player, Now Playing); not compiled on a device |
-| 5    | Theme and design                             | cover gradient on every Now Playing (video, queue, lyrics); indexed cover art in lists next |
-| 6    | Polish                                       |                                                              |
+| Step | What                                         | State                          |
+| ---- | -------------------------------------------- | ------------------------------ |
+| 0    | Fork and rebrand                             | done, not compiled on a device |
+| 1    | `:lyrics` core (parsers, selector, timeline) | done, tests                    |
+| 2    | Providers, cache, LRCLIB `lyricsfile` words  | done, not run against LRCLIB   |
+| 3    | Lyrics screen (word fill, estimated words)   | done, not compiled             |
+| 4    | Liquid Glass                                 | partial (Glass.kt)             |
+| 5    | Apple Music player, mini player, tab bar     | first pass, not compiled       |
+| 6    | YouTube removed, YT Music only               | done, not compiled             |
+| 7    | Listen Now / Browse / Library redesign       | next                           |
 
-Details: [`docs/verre/PROGRESS.md`](docs/verre/PROGRESS.md) and [`docs/verre/PLAN.md`](docs/verre/PLAN.md).
+Details: [`PROGRESS.md`](PROGRESS.md) and [`PLAN.md`](PLAN.md).
 
 ## Debug APK from GitHub (no PC needed)
 

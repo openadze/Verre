@@ -304,6 +304,10 @@ fun MiniPlayer(
     val progress by coordinator.player.progress.collectAsStateWithLifecycle()
     val queue by coordinator.player.queue.collectAsStateWithLifecycle()
     val item = queue.currentItem ?: return
+    if (platformUsesTouch && !desktopLayoutHole) {
+        AppleMiniPlayer(coordinator, item, status, onExpand, modifier)
+        return
+    }
 
     val density = LocalDensity.current
     var colH by remember { mutableIntStateOf(0) }
@@ -479,6 +483,8 @@ fun NowPlayingScreen(
             val wide = maxWidth > maxHeight
             when {
                 fullscreen -> FullscreenVideo(graph, coordinator, onExit = { fullscreen = false })
+                // Phones and narrow windows get the Apple Music player: cover, lyrics and queue on one screen.
+                !wide && platformUsesTouch && !desktopLayoutHole -> AppleNowPlaying(graph, coordinator, onClose, lyricsAvailable)
                 lyricsOpen && toggleLyrics != null -> LyricsNowPlaying(graph, coordinator, onClose, onToggleLyrics = toggleLyrics)
                 wide && maxWidth >= SideBySideMinWidth -> LandscapeNowPlaying(
                     graph,
@@ -631,7 +637,7 @@ private fun currentDetails(video: PlayableItem.YtMedia?, status: PlaybackStatus)
 /** The current item's artist line. A YouTube video's opens its channel — from the queue item, or
  *  once the player response names it. */
 @Composable
-private fun ArtistLine(current: PlayableItem?, status: PlaybackStatus, style: TextStyle, modifier: Modifier) {
+internal fun ArtistLine(current: PlayableItem?, status: PlaybackStatus, style: TextStyle, modifier: Modifier) {
     val text = artistText(current, status) ?: return
     val video = current as? PlayableItem.YtMedia
     val url = video?.channelUrl ?: currentDetails(video, status)?.channelUrl
@@ -942,7 +948,7 @@ private suspend fun FocusRequester.focusListItem(listState: LazyListState, index
  * lands around the middle. List indices must equal queue indices.
  */
 @Composable
-private fun FollowCurrentQueueItem(listState: LazyListState, currentIndex: Int) {
+internal fun FollowCurrentQueueItem(listState: LazyListState, currentIndex: Int) {
     var lastUserScroll by remember { mutableStateOf<TimeSource.Monotonic.ValueTimeMark?>(null) }
     var following by remember { mutableStateOf(false) }
     LaunchedEffect(listState) {
@@ -976,7 +982,7 @@ private fun FollowCurrentQueueItem(listState: LazyListState, currentIndex: Int) 
  * null while any part of that row is on screen.
  */
 @Composable
-private fun rememberLocateCurrent(listState: LazyListState, currentIndex: Int, indexOffset: Int): (() -> Unit)? {
+internal fun rememberLocateCurrent(listState: LazyListState, currentIndex: Int, indexOffset: Int): (() -> Unit)? {
     val target = indexOffset + currentIndex
     val onScreen by remember(listState, target) {
         derivedStateOf { currentIndex < 0 || listState.layoutInfo.visibleItemsInfo.any { it.index == target } }
@@ -1972,7 +1978,7 @@ private fun MoreMenuDivider() {
 /** The ⋮ menu, grouped: this video + queue · sound · player. Captions live on the video CC control;
  *  audio-only is a quality-chip option, not a toggle here. */
 @Composable
-private fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
+internal fun PlayerMoreMenu(coordinator: PlaybackCoordinator) {
     val player = coordinator.player
     val audioTracks by player.audioTracks.collectAsStateWithLifecycle()
     var open by remember { mutableStateOf(false) }
@@ -2101,7 +2107,7 @@ private fun lyricsSearchUrl(item: PlayableItem): String {
 
 /** 3dp track, orange fill, 13dp orange thumb; the m:ss / h:mm:ss labels underneath. */
 @Composable
-private fun SeekBar(player: io.ymusic.player.Player, progress: Progress) {
+internal fun SeekBar(player: io.ymusic.player.Player, progress: Progress) {
     var scrubMs by remember { mutableStateOf<Long?>(null) }
     val labelProgress = scrubMs?.let { progress.copy(positionMs = it) } ?: progress
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 2.dp)) {
@@ -2302,18 +2308,18 @@ private fun TransportButtons(
 
 /** "Up next" · "n / total" · [right:] repeat · shuffle. */
 /** The playlist's length while its queue is still loading, else the queue's own size. */
-private val QueueState.displayTotal: Int
+internal val QueueState.displayTotal: Int
     get() = more?.totalCount?.coerceAtLeast(items.size) ?: items.size
 
 @Composable
-private fun QueueMoreSettle(focus: LoadMoreFocus, queue: QueueState) {
+internal fun QueueMoreSettle(focus: LoadMoreFocus, queue: QueueState) {
     val more = queue.more
     focus.Settle(more?.loading == true, queue.items.size, controlShown = more != null && (more.error != null || more.hasMore))
 }
 
 /** The end of a growing queue: Load more, its progress, a failure with Retry, or the list's end. */
 @Composable
-private fun QueueMoreRow(player: Player, more: QueueMore, count: Int, focus: LoadMoreFocus) {
+internal fun QueueMoreRow(player: Player, more: QueueMore, count: Int, focus: LoadMoreFocus) {
     val loadMore = {
         focus.start(count)
         player.loadMore()
@@ -2361,7 +2367,7 @@ private fun QueueMoreRow(player: Player, more: QueueMore, count: Int, focus: Loa
 }
 
 @Composable
-private fun QueueHeader(
+internal fun QueueHeader(
     coordinator: PlaybackCoordinator,
     currentIndex: Int,
     total: Int,
@@ -2423,7 +2429,7 @@ internal fun LoopMode.cycled(): LoopMode = when (this) {
 }
 
 @Composable
-private fun QueueRow(
+internal fun QueueRow(
     coordinator: PlaybackCoordinator,
     index: Int,
     item: io.ymusic.player.PlayableItem,
