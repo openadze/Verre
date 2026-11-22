@@ -1318,7 +1318,7 @@ private fun AppRoot(
                                     graph.pip.nowPlayingOpen.value = false
                                     while (layers.isNotEmpty()) popLayer()
                                     fun yt(key: String) {
-                                        graph.settings.put(AppSettings.lastYtMusicTab, key)
+                                        scope.launch { graph.settings.put(AppSettings.lastYtMusicTab, key) }
                                         onSection(AppSection.YtMusic)
                                     }
                                     when (tab) {

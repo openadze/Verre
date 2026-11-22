@@ -383,7 +383,7 @@ private fun ShelfRow(section: YtSection, coordinator: PlaybackCoordinator, onOpe
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(section.items) { item ->
-            AppleTile(item) { appleItemClick(item, section, coordinator, onOpen) }
+            AppleTile(item, onClick = appleItemClick(item, section, coordinator, onOpen))
         }
     }
 }

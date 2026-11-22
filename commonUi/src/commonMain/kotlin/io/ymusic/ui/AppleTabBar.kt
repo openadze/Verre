@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.ymusic.ui.resources.Res
+import io.ymusic.ui.resources.cd_search
 import io.ymusic.ui.resources.section_library
 import io.ymusic.ui.resources.tab_browse
 import io.ymusic.ui.resources.tab_listen_now

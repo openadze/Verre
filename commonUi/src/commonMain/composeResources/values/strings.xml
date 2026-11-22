@@ -858,6 +858,7 @@
     <string name="cd_lyrics">Lyrics</string>
     <string name="lyrics_not_found">No lyrics for this song</string>
     <string name="cd_vocal_level">Vocal volume</string>
+    <string name="cd_search">Search</string>
     <string name="tab_listen_now">Listen Now</string>
     <string name="tab_browse">Browse</string>
     <string name="tab_radio">Radio</string>
