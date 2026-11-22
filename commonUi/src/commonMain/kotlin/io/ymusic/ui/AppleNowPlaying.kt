@@ -1,4 +1,4 @@
-﻿package io.ymusic.ui
+package io.ymusic.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
@@ -212,7 +212,7 @@ private fun ArtistPill(current: PlayableItem?, status: io.ymusic.player.Playback
 
 /** The star and the "more" circle on the right of the title, glass chips like Apple's. */
 @Composable
-private fun TrackButtons(coordinator: PlaybackCoordinator) {
+private fun TrackButtons(graph: AppGraph, coordinator: PlaybackCoordinator, current: PlayableItem?) {
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
         current?.videoId?.takeIf { !graph.guest }?.let { LikeStar(graph, it) }
         CircleChip { PlayerMoreMenu(coordinator) }
