@@ -7,12 +7,12 @@ package io.ymusic.lyrics
  */
 object YrcParser {
     private val lineHeaderRegex = Regex("""^\[(\d+),(\d+)\]""")
-    private val wordRegex = Regex("""\((\d+),(\d+),\d+\)([^()\[\]]*)""")
+    private val wordTagRegex = Regex("""\((\d+),(\d+),\d+\)""")
 
     fun looksLikeYrc(text: String): Boolean =
         text.lineSequence().any { line ->
             val t = line.trim()
-            lineHeaderRegex.containsMatchIn(t) && wordRegex.containsMatchIn(t)
+            lineHeaderRegex.containsMatchIn(t) && wordTagRegex.containsMatchIn(t)
         }
 
     fun parse(text: String, source: String = ""): LyricsDoc {
@@ -25,12 +25,16 @@ object YrcParser {
             val lineDur = header.groupValues[2].toLongOrNull() ?: 0L
             val body = trimmed.substring(header.range.last + 1)
 
-            val parts = ArrayList<LyricPart>()
+            val matches = wordTagRegex.findAll(body).toList()
+            val parts = ArrayList<LyricPart>(matches.size)
             val lineText = StringBuilder()
-            for (m in wordRegex.findAll(body)) {
+            for (i in matches.indices) {
+                val m = matches[i]
                 val wStart = m.groupValues[1].toLongOrNull() ?: continue
                 val wDur = m.groupValues[2].toLongOrNull() ?: 0L
-                val wText = m.groupValues[3]
+                val textStart = m.range.last + 1
+                val textEnd = if (i + 1 < matches.size) matches[i + 1].range.first else body.length
+                val wText = body.substring(textStart, textEnd)
                 if (wText.isEmpty()) continue
                 lineText.append(wText)
                 parts.add(LyricPart(startMs = wStart, durationMs = wDur.coerceAtLeast(0L), text = wText))

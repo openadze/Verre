@@ -136,8 +136,10 @@ internal fun VerreReplaySheet(
                                 modifier = Modifier.width(22.dp),
                                 textAlign = TextAlign.Center,
                             )
-                            ThumbImage(item.thumbs, RoundedCornerShape(6.dp), Modifier.size(44.dp)) {
-                                ThumbPlaceholder(VerreIcons.MusicNote, 20.dp)
+                            Box(Modifier.size(44.dp).clip(RoundedCornerShape(6.dp)), contentAlignment = Alignment.Center) {
+                                ThumbImage(item.thumbs, RoundedCornerShape(6.dp)) {
+                                    ThumbPlaceholder(VerreIcons.MusicNote, 20.dp)
+                                }
                             }
                             Column(Modifier.weight(1f)) {
                                 Text(

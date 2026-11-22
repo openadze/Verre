@@ -382,7 +382,7 @@ private fun LyricsFace(graph: AppGraph, coordinator: PlaybackCoordinator, curren
     val status by player.status.collectAsStateWithLifecycle()
     val lyrics = rememberLyricsState(graph, current)
     val clock = rememberLyricsClock(progress, status.showsPause())
-    var quoteTarget by remember { mutableStateOf<Pair<LyricsDoc, Int>?>(null) }
+    var quoteTarget by remember(current) { mutableStateOf<Pair<LyricsDoc, Int>?>(null) }
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
             !available -> Text(stringResource(Res.string.lyrics_not_found), style = TextStyle(fontSize = 16.sp, color = AmWhite60), textAlign = TextAlign.Center)
