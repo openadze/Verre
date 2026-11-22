@@ -1,4 +1,4 @@
-package io.ymusic.ui.playhistory
+﻿package io.ymusic.ui.playhistory
 
 import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
@@ -177,11 +177,14 @@ class PlayHistoryStore(
         _changes.tryEmit(Unit)
     }
 
-    suspend fun youtubeTopChart(limit: Int = retain): List<YtFeedItem> = withContext(io) {
-        val ids = queryIds(
-            "SELECT video_id FROM yt_play_history ORDER BY watch_time DESC, tracked_at DESC LIMIT ?",
-            limit,
-        )
+    suspend fun youtubeTopChart(limit: Int = retain): List<YtFeedItem> =
+        youtubeItems("SELECT video_id FROM yt_play_history ORDER BY watch_time DESC, tracked_at DESC LIMIT ?", limit)
+
+    suspend fun youtubeRecent(limit: Int = retain): List<YtFeedItem> =
+        youtubeItems("SELECT video_id FROM yt_play_history ORDER BY tracked_at DESC LIMIT ?", limit)
+
+    private suspend fun youtubeItems(idsSql: String, limit: Int): List<YtFeedItem> = withContext(io) {
+        val ids = queryIds(idsSql, limit)
         if (ids.isEmpty()) return@withContext emptyList()
         val placeholders = ids.joinToString(",") { "?" }
         val byId = driver.executeQuery(
