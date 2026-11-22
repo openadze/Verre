@@ -5,7 +5,7 @@
     <string name="notification_pause">暂停</string>
     <string name="notification_next">下一首</string>
     <string name="notification_close">关闭</string>
-    <string name="notifications_required">YMusic 通过后台服务播放音乐，该服务必须显示播放通知。请允许通知以继续。</string>
+    <string name="notifications_required">Verre 通过后台服务播放音乐，该服务必须显示播放通知。请允许通知以继续。</string>
     <string name="notifications_allow">允许通知</string>
     <string name="download_notification_channel">下载</string>
     <string name="notification_downloads_running">正在下载…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">播放器 · 方形</string>
     <string name="widget_description">正在播放，附带播放控件</string>
     <string name="widget_nothing_playing">未在播放</string>
-    <string name="widget_open_to_start">打开 YMusic 开始收听</string>
+    <string name="widget_open_to_start">打开 Verre 开始收听</string>
 </resources>

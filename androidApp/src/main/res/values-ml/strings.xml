@@ -5,7 +5,7 @@
     <string name="notification_pause">താൽക്കാലികമായി നിർത്തുക</string>
     <string name="notification_next">അടുത്തത്</string>
     <string name="notification_close">അടയ്ക്കുക</string>
-    <string name="notifications_required">YMusic ഒരു പശ്ചാത്തല സേവനത്തിൽ നിന്നാണ് സംഗീതം പ്ലേ ചെയ്യുന്നത്, അതിന് ഒരു പ്ലേബാക്ക് അറിയിപ്പ് കാണിക്കേണ്ടതുണ്ട്. തുടരാൻ അറിയിപ്പുകൾ അനുവദിക്കുക.</string>
+    <string name="notifications_required">Verre ഒരു പശ്ചാത്തല സേവനത്തിൽ നിന്നാണ് സംഗീതം പ്ലേ ചെയ്യുന്നത്, അതിന് ഒരു പ്ലേബാക്ക് അറിയിപ്പ് കാണിക്കേണ്ടതുണ്ട്. തുടരാൻ അറിയിപ്പുകൾ അനുവദിക്കുക.</string>
     <string name="notifications_allow">അറിയിപ്പുകൾ അനുവദിക്കുക</string>
     <string name="download_notification_channel">ഡൗൺലോഡുകൾ</string>
     <string name="notification_downloads_running">ഡൗൺലോഡ് ചെയ്യുന്നു…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">പ്ലേയർ · ചതുരം</string>
     <string name="widget_description">ഇപ്പോൾ പ്ലേ ചെയ്യുന്നത്, പ്ലേബാക്ക് നിയന്ത്രണങ്ങളോടെ</string>
     <string name="widget_nothing_playing">ഒന്നും പ്ലേ ചെയ്യുന്നില്ല</string>
-    <string name="widget_open_to_start">കേട്ടുതുടങ്ങാൻ YMusic തുറക്കുക</string>
+    <string name="widget_open_to_start">കേട്ടുതുടങ്ങാൻ Verre തുറക്കുക</string>
 </resources>

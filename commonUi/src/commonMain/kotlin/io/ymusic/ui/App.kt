@@ -218,7 +218,7 @@ private val ResumableSections = setOf(AppSection.Discover, AppSection.Library, A
 @Composable
 fun rememberStartSection(graph: AppGraph): androidx.compose.runtime.MutableState<AppSection> = rememberSaveable {
     val saved = graph.settings.flow(AppSettings.lastSection).value
-    mutableStateOf(ResumableSections.firstOrNull { it.key == saved } ?: AppSection.Discover)
+    mutableStateOf(ResumableSections.firstOrNull { it.key == saved } ?: AppSection.YtMusic)
 }
 
 /** [sectionState] hoisted for tests and for shells that deep-link from platform surfaces (a

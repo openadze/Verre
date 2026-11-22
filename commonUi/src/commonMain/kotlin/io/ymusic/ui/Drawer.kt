@@ -187,7 +187,7 @@ internal fun DrawerLinks(onCheckUpdate: (() -> Unit)?, updateWaiting: Boolean, w
                 }
             }
         }
-        HeaderLink("ymusic.io") { uriHandler.openUri(websiteUrl) }
+        HeaderLink("GitHub") { uriHandler.openUri(websiteUrl) }
     }
 }
 

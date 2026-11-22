@@ -5,7 +5,7 @@
     <string name="notification_pause">Դադար</string>
     <string name="notification_next">Հաջորդը</string>
     <string name="notification_close">Փակել</string>
-    <string name="notifications_required">YMusic-ը երաժշտությունը նվագարկում է ֆոնային ծառայությունից, որը պետք է ցուցադրի նվագարկման ծանուցում։ Շարունակելու համար թույլատրեք ծանուցումները։</string>
+    <string name="notifications_required">Verre-ը երաժշտությունը նվագարկում է ֆոնային ծառայությունից, որը պետք է ցուցադրի նվագարկման ծանուցում։ Շարունակելու համար թույլատրեք ծանուցումները։</string>
     <string name="notifications_allow">Թույլատրել ծանուցումները</string>
     <string name="download_notification_channel">Ներբեռնումներ</string>
     <string name="notification_downloads_running">Ներբեռնվում է…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Նվագարկիչ · Քառակուսի</string>
     <string name="widget_description">Հիմա նվագվողը՝ նվագարկման կառավարներով</string>
     <string name="widget_nothing_playing">Ոչինչ չի նվագվում</string>
-    <string name="widget_open_to_start">Բացեք YMusic-ը՝ լսելը սկսելու համար</string>
+    <string name="widget_open_to_start">Բացեք Verre-ը՝ լսելը սկսելու համար</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="notification_pause">Pausatu</string>
     <string name="notification_next">Hurrengoa</string>
     <string name="notification_close">Itxi</string>
-    <string name="notifications_required">YMusic-ek atzeko planoko zerbitzu batetik erreproduzitzen du musika, eta zerbitzu horrek erreprodukzio-jakinarazpen bat erakutsi behar du. Jarraitzeko, baimendu jakinarazpenak.</string>
+    <string name="notifications_required">Verre-ek atzeko planoko zerbitzu batetik erreproduzitzen du musika, eta zerbitzu horrek erreprodukzio-jakinarazpen bat erakutsi behar du. Jarraitzeko, baimendu jakinarazpenak.</string>
     <string name="notifications_allow">Baimendu jakinarazpenak</string>
     <string name="download_notification_channel">Deskargak</string>
     <string name="notification_downloads_running">Deskargatzen…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Erreproduzigailua · Karratua</string>
     <string name="widget_description">Orain erreproduzitzen, kontrolekin</string>
     <string name="widget_nothing_playing">Ez da ezer erreproduzitzen ari</string>
-    <string name="widget_open_to_start">Ireki YMusic entzuten hasteko</string>
+    <string name="widget_open_to_start">Ireki Verre entzuten hasteko</string>
 </resources>

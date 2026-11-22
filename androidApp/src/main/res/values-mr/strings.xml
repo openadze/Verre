@@ -5,7 +5,7 @@
     <string name="notification_pause">थांबवा</string>
     <string name="notification_next">पुढील</string>
     <string name="notification_close">बंद करा</string>
-    <string name="notifications_required">YMusic पार्श्वभूमी सेवेतून संगीत वाजवते, जिला प्लेबॅक सूचना दाखवावी लागते. पुढे सुरू ठेवण्यासाठी सूचनांना परवानगी द्या.</string>
+    <string name="notifications_required">Verre पार्श्वभूमी सेवेतून संगीत वाजवते, जिला प्लेबॅक सूचना दाखवावी लागते. पुढे सुरू ठेवण्यासाठी सूचनांना परवानगी द्या.</string>
     <string name="notifications_allow">सूचनांना परवानगी द्या</string>
     <string name="download_notification_channel">डाउनलोड</string>
     <string name="notification_downloads_running">डाउनलोड होत आहे…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">प्लेअर · चौरस</string>
     <string name="widget_description">सध्या वाजत असलेले, प्लेबॅक नियंत्रणांसह</string>
     <string name="widget_nothing_playing">काहीही वाजत नाही</string>
-    <string name="widget_open_to_start">ऐकणे सुरू करण्यासाठी YMusic उघडा</string>
+    <string name="widget_open_to_start">ऐकणे सुरू करण्यासाठी Verre उघडा</string>
 </resources>

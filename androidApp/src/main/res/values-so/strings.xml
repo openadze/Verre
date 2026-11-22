@@ -5,7 +5,7 @@
     <string name="notification_pause">Hakad</string>
     <string name="notification_next">Ka xiga</string>
     <string name="notification_close">Xidh</string>
-    <string name="notifications_required">YMusic waxay muusigga ka daartaa adeeg gadaal ka socda oo ay tahay inuu muujiyo ogeysiis daarid. Oggolow ogeysiisyada si aad u sii wadato.</string>
+    <string name="notifications_required">Verre waxay muusigga ka daartaa adeeg gadaal ka socda oo ay tahay inuu muujiyo ogeysiis daarid. Oggolow ogeysiisyada si aad u sii wadato.</string>
     <string name="notifications_allow">Oggolow ogeysiisyada</string>
     <string name="download_notification_channel">Dajinta</string>
     <string name="notification_downloads_running">Waa la dajinayaa…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Daare · Labajibbaaran</string>
     <string name="widget_description">Waxa hadda socda oo leh xakamaynta daarridda</string>
     <string name="widget_nothing_playing">Waxba ma socdaan</string>
-    <string name="widget_open_to_start">Fur YMusic si aad u bilowdo dhegaysiga</string>
+    <string name="widget_open_to_start">Fur Verre si aad u bilowdo dhegaysiga</string>
 </resources>

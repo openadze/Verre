@@ -5,7 +5,7 @@
     <string name="notification_pause">Пауза</string>
     <string name="notification_next">Следваща</string>
     <string name="notification_close">Затвори</string>
-    <string name="notifications_required">YMusic пуска музика от фонова услуга, която трябва да показва известие за възпроизвеждане. Разрешете известията, за да продължите.</string>
+    <string name="notifications_required">Verre пуска музика от фонова услуга, която трябва да показва известие за възпроизвеждане. Разрешете известията, за да продължите.</string>
     <string name="notifications_allow">Разреши известията</string>
     <string name="download_notification_channel">Изтегляния</string>
     <string name="notification_downloads_running">Изтегляне…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Плейър · Квадратен</string>
     <string name="widget_description">Сега звучи, с бутони за управление</string>
     <string name="widget_nothing_playing">Нищо не звучи</string>
-    <string name="widget_open_to_start">Отворете YMusic, за да започнете да слушате</string>
+    <string name="widget_open_to_start">Отворете Verre, за да започнете да слушате</string>
 </resources>

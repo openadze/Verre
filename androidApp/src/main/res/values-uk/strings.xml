@@ -5,7 +5,7 @@
     <string name="notification_pause">Пауза</string>
     <string name="notification_next">Наступний</string>
     <string name="notification_close">Закрити</string>
-    <string name="notifications_required">YMusic відтворює музику у фоновій службі, яка має показувати сповіщення про відтворення. Дозвольте сповіщення, щоб продовжити.</string>
+    <string name="notifications_required">Verre відтворює музику у фоновій службі, яка має показувати сповіщення про відтворення. Дозвольте сповіщення, щоб продовжити.</string>
     <string name="notifications_allow">Дозволити сповіщення</string>
     <string name="download_notification_channel">Завантаження</string>
     <string name="notification_downloads_running">Завантаження…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Плеєр · Квадратний</string>
     <string name="widget_description">Відтворення з елементами керування.</string>
     <string name="widget_nothing_playing">Нічого не грає</string>
-    <string name="widget_open_to_start">Відкрийте YMusic, щоб слухати</string>
+    <string name="widget_open_to_start">Відкрийте Verre, щоб слухати</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="notification_pause">Duraklat</string>
     <string name="notification_next">Sonraki</string>
     <string name="notification_close">Kapat</string>
-    <string name="notifications_required">YMusic, müziği oynatma bildirimi göstermesi gereken bir arka plan hizmetinden çalar. Devam etmek için bildirimlere izin verin.</string>
+    <string name="notifications_required">Verre, müziği oynatma bildirimi göstermesi gereken bir arka plan hizmetinden çalar. Devam etmek için bildirimlere izin verin.</string>
     <string name="notifications_allow">Bildirimlere izin ver</string>
     <string name="download_notification_channel">İndirmeler</string>
     <string name="notification_downloads_running">İndiriliyor…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Oynatıcı · Kare</string>
     <string name="widget_description">Oynatma kontrolleriyle şimdi çalan</string>
     <string name="widget_nothing_playing">Hiçbir şey çalmıyor</string>
-    <string name="widget_open_to_start">Dinlemeye başlamak için YMusic\'i açın</string>
+    <string name="widget_open_to_start">Dinlemeye başlamak için Verre\'i açın</string>
 </resources>

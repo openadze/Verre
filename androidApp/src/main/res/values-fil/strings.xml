@@ -5,7 +5,7 @@
     <string name="notification_pause">I-pause</string>
     <string name="notification_next">Susunod</string>
     <string name="notification_close">Isara</string>
-    <string name="notifications_required">Nagpe-play ang YMusic ng musika mula sa isang background service na kailangang magpakita ng notification ng playback. Payagan ang mga notification para magpatuloy.</string>
+    <string name="notifications_required">Nagpe-play ang Verre ng musika mula sa isang background service na kailangang magpakita ng notification ng playback. Payagan ang mga notification para magpatuloy.</string>
     <string name="notifications_allow">Payagan ang mga notification</string>
     <string name="download_notification_channel">Mga download</string>
     <string name="notification_downloads_running">Nagda-download…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Player · Parisukat</string>
     <string name="widget_description">Tumutugtog ngayon, may mga kontrol sa playback</string>
     <string name="widget_nothing_playing">Walang tumutugtog</string>
-    <string name="widget_open_to_start">Buksan ang YMusic para magsimulang makinig</string>
+    <string name="widget_open_to_start">Buksan ang Verre para magsimulang makinig</string>
 </resources>

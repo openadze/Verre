@@ -5,7 +5,7 @@
     <string name="notification_pause">Sitisha</string>
     <string name="notification_next">Inayofuata</string>
     <string name="notification_close">Funga</string>
-    <string name="notifications_required">YMusic hucheza muziki kupitia huduma ya chinichini ambayo lazima ionyeshe arifa ya uchezaji. Ruhusu arifa ili kuendelea.</string>
+    <string name="notifications_required">Verre hucheza muziki kupitia huduma ya chinichini ambayo lazima ionyeshe arifa ya uchezaji. Ruhusu arifa ili kuendelea.</string>
     <string name="notifications_allow">Ruhusu arifa</string>
     <string name="download_notification_channel">Vipakuliwa</string>
     <string name="notification_downloads_running">Inapakua…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Kicheza · Mraba</string>
     <string name="widget_description">Inayocheza sasa pamoja na vidhibiti vya uchezaji</string>
     <string name="widget_nothing_playing">Hakuna kinachocheza</string>
-    <string name="widget_open_to_start">Fungua YMusic ili uanze kusikiliza</string>
+    <string name="widget_open_to_start">Fungua Verre ili uanze kusikiliza</string>
 </resources>

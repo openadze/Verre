@@ -5,7 +5,7 @@
     <string name="notification_pause">หยุดชั่วคราว</string>
     <string name="notification_next">ถัดไป</string>
     <string name="notification_close">ปิด</string>
-    <string name="notifications_required">YMusic เล่นเพลงจากบริการเบื้องหลังซึ่งต้องแสดงการแจ้งเตือนการเล่น อนุญาตการแจ้งเตือนเพื่อดำเนินการต่อ</string>
+    <string name="notifications_required">Verre เล่นเพลงจากบริการเบื้องหลังซึ่งต้องแสดงการแจ้งเตือนการเล่น อนุญาตการแจ้งเตือนเพื่อดำเนินการต่อ</string>
     <string name="notifications_allow">อนุญาตการแจ้งเตือน</string>
     <string name="download_notification_channel">การดาวน์โหลด</string>
     <string name="notification_downloads_running">กำลังดาวน์โหลด…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">เพลเยอร์ · สี่เหลี่ยมจัตุรัส</string>
     <string name="widget_description">เพลงที่กำลังเล่นพร้อมปุ่มควบคุม</string>
     <string name="widget_nothing_playing">ไม่มีเพลงที่กำลังเล่น</string>
-    <string name="widget_open_to_start">เปิด YMusic เพื่อเริ่มฟัง</string>
+    <string name="widget_open_to_start">เปิด Verre เพื่อเริ่มฟัง</string>
 </resources>

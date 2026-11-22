@@ -5,7 +5,7 @@
     <string name="notification_pause">Pozastavit</string>
     <string name="notification_next">Další</string>
     <string name="notification_close">Zavřít</string>
-    <string name="notifications_required">YMusic přehrává hudbu ze služby na pozadí, která musí zobrazovat oznámení o přehrávání. Pokračujte povolením oznámení.</string>
+    <string name="notifications_required">Verre přehrává hudbu ze služby na pozadí, která musí zobrazovat oznámení o přehrávání. Pokračujte povolením oznámení.</string>
     <string name="notifications_allow">Povolit oznámení</string>
     <string name="download_notification_channel">Stahování</string>
     <string name="notification_downloads_running">Stahování…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Přehrávač · Čtvercový</string>
     <string name="widget_description">Právě hraje, s ovládáním přehrávání</string>
     <string name="widget_nothing_playing">Nic nehraje</string>
-    <string name="widget_open_to_start">Otevřete YMusic a začněte poslouchat</string>
+    <string name="widget_open_to_start">Otevřete Verre a začněte poslouchat</string>
 </resources>

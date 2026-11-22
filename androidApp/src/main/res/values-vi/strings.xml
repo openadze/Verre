@@ -6,7 +6,7 @@
     <string name="notification_pause">Tạm dừng</string>
     <string name="notification_next">Bài tiếp theo</string>
     <string name="notification_close">Đóng</string>
-    <string name="notifications_required">YMusic phát nhạc bằng một dịch vụ chạy nền, dịch vụ này bắt buộc phải hiển thị thông báo phát nhạc. Hãy cho phép thông báo để tiếp tục.</string>
+    <string name="notifications_required">Verre phát nhạc bằng một dịch vụ chạy nền, dịch vụ này bắt buộc phải hiển thị thông báo phát nhạc. Hãy cho phép thông báo để tiếp tục.</string>
     <string name="notifications_allow">Cho phép thông báo</string>
     <string name="download_notification_channel">Tải xuống</string>
     <string name="notification_downloads_running">Đang tải…</string>
@@ -32,5 +32,5 @@
     <string name="widget_square_name">Trình phát · Vuông</string>
     <string name="widget_description">Bài đang phát và nút điều khiển</string>
     <string name="widget_nothing_playing">Không có gì đang phát</string>
-    <string name="widget_open_to_start">Mở YMusic để bắt đầu nghe</string>
+    <string name="widget_open_to_start">Mở Verre để bắt đầu nghe</string>
 </resources>

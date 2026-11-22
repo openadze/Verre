@@ -6,7 +6,7 @@
     <string name="notification_pause">إيقاف مؤقت</string>
     <string name="notification_next">التالي</string>
     <string name="notification_close">إغلاق</string>
-    <string name="notifications_required">يشغّل YMusic الموسيقى من خدمة تعمل في الخلفية ويجب أن تعرض إشعار التشغيل. اسمح بالإشعارات للمتابعة.</string>
+    <string name="notifications_required">يشغّل Verre الموسيقى من خدمة تعمل في الخلفية ويجب أن تعرض إشعار التشغيل. اسمح بالإشعارات للمتابعة.</string>
     <string name="notifications_allow">السماح بالإشعارات</string>
     <string name="download_notification_channel">التنزيلات</string>
     <string name="notification_downloads_running">جارٍ التنزيل…</string>
@@ -32,5 +32,5 @@
     <string name="widget_square_name">المشغّل · مربّع</string>
     <string name="widget_description">ما يُشغَّل الآن مع أزرار التحكم</string>
     <string name="widget_nothing_playing">لا شيء قيد التشغيل</string>
-    <string name="widget_open_to_start">افتح YMusic لبدء الاستماع</string>
+    <string name="widget_open_to_start">افتح Verre لبدء الاستماع</string>
 </resources>

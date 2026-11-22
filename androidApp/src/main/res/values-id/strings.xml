@@ -5,7 +5,7 @@
     <string name="notification_pause">Jeda</string>
     <string name="notification_next">Berikutnya</string>
     <string name="notification_close">Tutup</string>
-    <string name="notifications_required">YMusic memutar musik dari layanan latar belakang yang harus menampilkan notifikasi pemutaran. Izinkan notifikasi untuk melanjutkan.</string>
+    <string name="notifications_required">Verre memutar musik dari layanan latar belakang yang harus menampilkan notifikasi pemutaran. Izinkan notifikasi untuk melanjutkan.</string>
     <string name="notifications_allow">Izinkan notifikasi</string>
     <string name="download_notification_channel">Unduhan</string>
     <string name="notification_downloads_running">Mengunduh…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Pemutar · Persegi</string>
     <string name="widget_description">Sedang diputar dengan kontrol pemutaran</string>
     <string name="widget_nothing_playing">Tidak ada yang diputar</string>
-    <string name="widget_open_to_start">Buka YMusic untuk mulai mendengarkan</string>
+    <string name="widget_open_to_start">Buka Verre untuk mulai mendengarkan</string>
 </resources>

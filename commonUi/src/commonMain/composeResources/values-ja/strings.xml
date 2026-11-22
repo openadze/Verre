@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">再生中の動画に毎秒のフレーム数を重ねて表示します。一時停止中や画面を離れると計測は停止します。</string>
     <string name="settings_licenses">オープンソースライセンス</string>
     <string name="settings_terms">利用規約とプライバシー</string>
-    <string name="settings_licenses_intro">YMusic は GNU GPL v3.0 のもとで公開されているオープンソースです。以下のコンポーネントを含みます：</string>
+    <string name="settings_licenses_intro">Verre は GNU GPL v3.0 のもとで公開されているオープンソースです。以下のコンポーネントを含みます：</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">不具合やご要望を GitHub またはメールでお知らせください。ログを確認して返信できるよう、下の匿名情報を添えてください。</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">公開。バグやアイデアに最適 — 他のユーザーもフォローや追記ができます。</string>
     <string name="feedback_email_title">%1$s にメール</string>
     <string name="feedback_email_hint">非公開。アカウントや個人的なご質問に最適です。</string>
-    <string name="feedback_email_subject">YMusic へのフィードバック</string>
+    <string name="feedback_email_subject">Verre へのフィードバック</string>
     <string name="feedback_prefilled_note">どちらも情報が入力済みの状態で開きます。入っていない場合は貼り付けてください — この情報がないとサポートできません。</string>
     <string name="feedback_reports_off_title">匿名レポートがオフです</string>
-    <string name="feedback_reports_off_message">問題を調べるには、このアプリのログが必要です。「続行」をタップすると、YMusic が匿名レポートを再びオンにしてログを送信します。</string>
+    <string name="feedback_reports_off_message">問題を調べるには、このアプリのログが必要です。「続行」をタップすると、Verre が匿名レポートを再びオンにしてログを送信します。</string>
     <string name="feedback_reports_off_note">名前・メールアドレス・アカウントは送信されません。レポートは設定からいつでも再びオフにできます。</string>
     <string name="feedback_continue">続行</string>
     <string name="feedback_sentry_link">または Sentry で送信</string>
@@ -334,7 +334,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube でサインイン</string>
-    <string name="signin_preface_subtitle">YMusic で YouTube のすべての機能を利用できます</string>
+    <string name="signin_preface_subtitle">Verre で YouTube のすべての機能を利用できます</string>
     <string name="signin_enables">サインインすると次のことが可能になります：</string>
     <string name="signin_feature_home">あなたに合わせた YouTube ホームフィード</string>
     <string name="signin_feature_subscriptions">登録チャンネルのフィード</string>
@@ -347,8 +347,8 @@
     <string name="signin_screen_title">サインイン</string>
     <string name="signin_loading">サインインを読み込み中…</string>
     <string name="signin_unavailable">このデバイスではまだサインインできません</string>
-    <string name="signin_qr_title">YMusic アプリでスキャン</string>
-    <string name="signin_qr_hint">スマートフォンで YMusic → 設定 → デバイスをリンク → カメラを起動 を開き、このコードをスキャンしてください。</string>
+    <string name="signin_qr_title">Verre アプリでスキャン</string>
+    <string name="signin_qr_hint">スマートフォンで Verre → 設定 → デバイスをリンク → カメラを起動 を開き、このコードをスキャンしてください。</string>
     <string name="signin_qr_waiting">スマートフォンを待っています…</string>
     <string name="signin_qr_sas_hint">スマートフォンにも同じコードが表示されます。一致する場合のみ送信してください。</string>
     <string name="signin_or_paste">またはブラウザから Cookie を貼り付け</string>
@@ -374,11 +374,11 @@
     <string name="signin_paste_no_cookie_title">このリクエストには Cookie がありません</string>
     <string name="signin_paste_no_cookie_body">別のリクエスト（できれば Fetch/XHR）から Copy as cURL でコピーしてください。例：\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">OK</string>
-    <string name="cd_device_link_qr">YMusic アプリでスキャンする QR コード</string>
+    <string name="cd_device_link_qr">Verre アプリでスキャンする QR コード</string>
     <string name="settings_link_devices">デバイスをリンク</string>
     <string name="settings_link_devices_hint">パソコンの QR コードをスキャンしてサインイン</string>
     <string name="device_link_title">デバイスをリンク</string>
-    <string name="device_link_intro">パソコンの YMusic に表示された QR コードをスキャンしてください。このスマートフォンはサインイン済みである必要があります。</string>
+    <string name="device_link_intro">パソコンの Verre に表示された QR コードをスキャンしてください。このスマートフォンはサインイン済みである必要があります。</string>
     <string name="device_link_open_camera">カメラを起動</string>
     <string name="device_link_scan_hint">パソコンの QR コードにカメラを向けてください</string>
     <string name="device_link_sas_hint">このコードがパソコンの表示と一致する必要があります。一致しない場合は「キャンセル」をタップしてください。</string>
@@ -540,8 +540,8 @@
     <string name="folder_picker_use_folder">このフォルダを使用</string>
     <string name="folder_picker_empty">フォルダがありません</string>
     <string name="folder_picker_storage_denied">フォルダを選択するには、設定で音楽ファイルへのアクセスを許可してください。</string>
-    <string name="folder_picker_companion_message">この端末にはフォルダ選択機能がありません。フォルダを選ぶには、このリンクから YMusic 用の小さな補助アプリ YMusic Files をダウンロードしてインストールし、もう一度お試しください。</string>
-    <string name="folder_picker_companion_update">このバージョンの YMusic で使うには、YMusic Files を更新する必要があります。このリンクから最新版をダウンロードしてインストールし、もう一度お試しください。</string>
+    <string name="folder_picker_companion_message">この端末にはフォルダ選択機能がありません。フォルダを選ぶには、このリンクから Verre 用の小さな補助アプリ YMusic Files をダウンロードしてインストールし、もう一度お試しください。</string>
+    <string name="folder_picker_companion_update">このバージョンの Verre で使うには、YMusic Files を更新する必要があります。このリンクから最新版をダウンロードしてインストールし、もう一度お試しください。</string>
     <string name="folder_picker_companion_open">リンクを開く</string>
     <string name="folder_picker_missing">このデバイスにはフォルダ選択機能がないため、フォルダを選択できません。</string>
     <string name="error_supervised_account">この Google アカウントは保護者による管理の対象のため、ここでは YouTube を使用できません。ログアウトするか、別のアカウントに切り替えてください。</string>
@@ -590,7 +590,7 @@
     <string name="video_details_delete_message">コメントとそのすべての返信を完全に削除しますか？</string>
     <string name="video_details_deleted">コメントを削除しました</string>
     <string name="cookie_protect_title">サインイン情報をパスワードで保護しますか？</string>
-    <string name="cookie_protect_body">サインイン情報はこのパソコンに保存されていて、ほかに実行しているアプリからも読み取れます。パスワードを設定してロックすると、YMusic は起動するたびにパスワードを求めます。</string>
+    <string name="cookie_protect_body">サインイン情報はこのパソコンに保存されていて、ほかに実行しているアプリからも読み取れます。パスワードを設定してロックすると、Verre は起動するたびにパスワードを求めます。</string>
     <string name="cookie_password">パスワード</string>
     <string name="cookie_protect_confirm">パスワードを再入力</string>
     <string name="cookie_protect_mismatch">パスワードが一致しません。</string>
@@ -606,7 +606,7 @@
     <string name="cookie_unlock_sign_out">サインアウト</string>
     <string name="cookie_unlock_sign_out_hint">保存されているこのサインイン情報を削除します。</string>
     <string name="cookie_unlock_sign_out_title">サインアウトしますか？</string>
-    <string name="cookie_unlock_sign_out_body">保存されているサインイン情報をこのパソコンから削除します。もう一度サインインするには、YMusic アプリで QR コードをスキャンしてください。</string>
+    <string name="cookie_unlock_sign_out_body">保存されているサインイン情報をこのパソコンから削除します。もう一度サインインするには、Verre アプリで QR コードをスキャンしてください。</string>
     <string name="menu_details_comments">詳細とコメント</string>
     <string name="menu_search_lyrics">歌詞を検索</string>
     <string name="menu_speed_pitch">速度とピッチ</string>
@@ -618,7 +618,7 @@
     <string name="cd_move_to_top">一番上へ移動</string>
     <string name="dialog_undo">元に戻す</string>
     <string name="dialog_save">保存</string>
-    <string name="upgraded_message">YMusic を %1$s にアップデートしました</string>
+    <string name="upgraded_message">Verre を %1$s にアップデートしました</string>
     <string name="upgraded_view_changelog">変更履歴を見る</string>
     <string name="menu_go_to_artist">アーティストへ移動</string>
     <string name="menu_go_to_album">アルバムへ移動</string>
@@ -657,9 +657,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">Windows によって YMusic の一部がブロックされました。</string>
+    <string name="native_blocked">Windows によって Verre の一部がブロックされました。</string>
     <string name="media_engine_unavailable">ここでは音楽や動画を再生できませんが、閲覧や検索は引き続き利用できます。</string>
-    <string name="native_blocked_help">職場や学校の PC では、管理者に YMusic の許可を依頼してください。個人の PC では、Windows セキュリティのスマート アプリ コントロールを確認してください。</string>
+    <string name="native_blocked_help">職場や学校の PC では、管理者に Verre の許可を依頼してください。個人の PC では、Windows セキュリティのスマート アプリ コントロールを確認してください。</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">再読み込み中</string>
     <string name="a11y_loading">読み込み中</string>
@@ -683,5 +683,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">これまでにダウンロードしたデータは削除されます。</string>
     <string name="downloads_cancel_selected_keep">キャンセルしない</string>
-    <string name="data_dir_unusable">YMusic はデータフォルダ（%1$s）を開けません。書き込み可能なフォルダであることを確認してから、YMusic をもう一度開いてください。(%2$s)</string>
+    <string name="data_dir_unusable">Verre はデータフォルダ（%1$s）を開けません。書き込み可能なフォルダであることを確認してから、Verre をもう一度開いてください。(%2$s)</string>
 </resources>

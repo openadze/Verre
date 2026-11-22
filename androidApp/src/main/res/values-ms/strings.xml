@@ -5,7 +5,7 @@
     <string name="notification_pause">Jeda</string>
     <string name="notification_next">Seterusnya</string>
     <string name="notification_close">Tutup</string>
-    <string name="notifications_required">YMusic memainkan muzik daripada perkhidmatan latar belakang yang mesti memaparkan pemberitahuan main balik. Benarkan pemberitahuan untuk meneruskan.</string>
+    <string name="notifications_required">Verre memainkan muzik daripada perkhidmatan latar belakang yang mesti memaparkan pemberitahuan main balik. Benarkan pemberitahuan untuk meneruskan.</string>
     <string name="notifications_allow">Benarkan pemberitahuan</string>
     <string name="download_notification_channel">Muat turun</string>
     <string name="notification_downloads_running">Memuat turun…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Pemain · Segi empat</string>
     <string name="widget_description">Sedang dimainkan, dengan kawalan main balik</string>
     <string name="widget_nothing_playing">Tiada apa-apa yang dimainkan</string>
-    <string name="widget_open_to_start">Buka YMusic untuk mula mendengar</string>
+    <string name="widget_open_to_start">Buka Verre untuk mula mendengar</string>
 </resources>

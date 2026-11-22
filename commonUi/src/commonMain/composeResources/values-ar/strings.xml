@@ -298,7 +298,7 @@
     <string name="playback_unavailable">هذا الفيديو غير متاح</string>
     <string name="playback_retry_later">يتعذّر تشغيل هذا الفيديو الآن. حاول مرة أخرى لاحقًا</string>
     <string name="playback_file_missing">لم يعد هذا الملف موجودًا على جهازك</string>
-    <string name="playback_folder_access_lost">فقد YMusic إذن الوصول إلى مجلد هذا الملف. أضف المجلد مرة أخرى لتشغيله</string>
+    <string name="playback_folder_access_lost">فقد Verre إذن الوصول إلى مجلد هذا الملف. أضف المجلد مرة أخرى لتشغيله</string>
     <string name="playback_add_folder_again">إضافة مجلد</string>
     <string name="playback_video_unsupported">لا يستطيع جهازك تشغيل تنسيق الفيديو هذا. اختر جودة أخرى.</string>
     <string name="playback_botguard_failed">فشل تجاوز Botguard</string>
@@ -326,7 +326,7 @@
     <string name="settings_versions_app">التطبيق v%1$s/%2$s</string>
     <string name="settings_versions_engine">EngineJs %1$s</string>
     <string name="settings_versions_player">PlayerJs %1$s</string>
-    <string name="settings_licenses_intro">‏YMusic مفتوح المصدر بموجب رخصة GNU GPL v3.0، ويتضمن المكوّنات التالية:</string>
+    <string name="settings_licenses_intro">‏Verre مفتوح المصدر بموجب رخصة GNU GPL v3.0، ويتضمن المكوّنات التالية:</string>
     <string name="feedback_intro">أخبرنا بما حدث من خطأ أو بما تودّ رؤيته، عبر GitHub أو البريد الإلكتروني. أرفق معلوماتك المجهولة أدناه حتى نجد سجلاتك ونرد عليك.</string>
     <string name="feedback_info_title">معلومات مجهولة الهوية</string>
     <string name="feedback_copy">نسخ</string>
@@ -340,10 +340,10 @@
     <string name="feedback_github_hint">عام. الأفضل للأخطاء والأفكار — يمكن للآخرين متابعتها والإضافة إليها.</string>
     <string name="feedback_email_title">مراسلة %1$s</string>
     <string name="feedback_email_hint">خاص. الأفضل لأسئلة الحساب أو الأسئلة الشخصية.</string>
-    <string name="feedback_email_subject">ملاحظات YMusic</string>
+    <string name="feedback_email_subject">ملاحظات Verre</string>
     <string name="feedback_prefilled_note">كلاهما يُفتح والمعلومات مُعبّأة مسبقًا. إن لم تكن موجودة، الصقها — لا يمكننا المساعدة بدونها.</string>
     <string name="feedback_reports_off_title">التقارير المجهولة الهوية متوقفة</string>
-    <string name="feedback_reports_off_message">لفحص مشكلتك نحتاج إلى سجلات هذا التطبيق. انقر على متابعة وسيعيد YMusic تشغيل التقارير المجهولة الهوية ويرسل السجلات.</string>
+    <string name="feedback_reports_off_message">لفحص مشكلتك نحتاج إلى سجلات هذا التطبيق. انقر على متابعة وسيعيد Verre تشغيل التقارير المجهولة الهوية ويرسل السجلات.</string>
     <string name="feedback_reports_off_note">لا يُرسل أي اسم أو بريد إلكتروني أو حساب. يمكنك إيقاف التقارير مجددًا من الإعدادات.</string>
     <string name="feedback_continue">متابعة</string>
     <string name="feedback_sentry_link">أو عبر Sentry</string>
@@ -395,7 +395,7 @@
     <string name="cd_drag_to_reorder">اسحب لإعادة الترتيب</string>
     <string name="cd_send">إرسال</string>
     <string name="cd_vote">تصويت</string>
-    <string name="cd_open_app">فتح YMusic</string>
+    <string name="cd_open_app">فتح Verre</string>
     <string name="cd_stop_dismiss">إيقاف وإغلاق</string>
     <string name="mini_player_nothing_playing">لا شيء قيد التشغيل</string>
     <string name="folder_picker_title">اختر مجلد موسيقى</string>
@@ -430,7 +430,7 @@
     <string name="settings_system_audio_fx">استخدام مؤثرات الصوت في النظام</string>
     <string name="settings_system_audio_fx_hint">اسمح لتطبيقات المعادل على جهازك بتشكيل الصوت. يوقف المعادل المدمج في التطبيق.</string>
     <string name="signin_preface_title">سجّل الدخول باستخدام YouTube</string>
-    <string name="signin_preface_subtitle">واحصل على جميع ميزات YouTube داخل YMusic</string>
+    <string name="signin_preface_subtitle">واحصل على جميع ميزات YouTube داخل Verre</string>
     <string name="signin_enables">يتيح لك تسجيل الدخول:</string>
     <string name="signin_feature_home">صفحة رئيسية مخصّصة لك على YouTube</string>
     <string name="signin_feature_subscriptions">موجز الاشتراكات</string>
@@ -443,8 +443,8 @@
     <string name="signin_screen_title">تسجيل الدخول</string>
     <string name="signin_loading">جارٍ تحميل تسجيل الدخول…</string>
     <string name="signin_unavailable">تسجيل الدخول غير متاح على هذا الجهاز بعد</string>
-    <string name="signin_qr_title">امسح بتطبيق YMusic</string>
-    <string name="signin_qr_hint">على هاتفك، افتح YMusic ← الإعدادات ← ربط الأجهزة ← فتح الكاميرا، ثم امسح هذا الرمز.</string>
+    <string name="signin_qr_title">امسح بتطبيق Verre</string>
+    <string name="signin_qr_hint">على هاتفك، افتح Verre ← الإعدادات ← ربط الأجهزة ← فتح الكاميرا، ثم امسح هذا الرمز.</string>
     <string name="signin_qr_waiting">بانتظار الهاتف…</string>
     <string name="signin_qr_sas_hint">سيظهر هاتفك الرمز نفسه. أرسل فقط إذا تطابقا.</string>
     <string name="signin_or_paste">أو الصق ملفات تعريف الارتباط من المتصفح</string>
@@ -471,11 +471,11 @@
     <string name="signin_paste_no_cookie_title">هذا الطلب بلا ملفات تعريف ارتباط</string>
     <string name="signin_paste_no_cookie_body">انسخ Copy as cURL من طلب آخر، ويفضّل Fetch/XHR، مثلاً:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">حسنًا</string>
-    <string name="cd_device_link_qr">رمز QR للمسح بتطبيق YMusic</string>
+    <string name="cd_device_link_qr">رمز QR للمسح بتطبيق Verre</string>
     <string name="settings_link_devices">ربط الأجهزة</string>
     <string name="settings_link_devices_hint">سجّل الدخول على الحاسوب بمسح رمز QR الخاص به</string>
     <string name="device_link_title">ربط الأجهزة</string>
-    <string name="device_link_intro">امسح رمز QR المعروض في YMusic على حاسوبك. يجب أن يكون هذا الهاتف مسجّل الدخول مسبقاً.</string>
+    <string name="device_link_intro">امسح رمز QR المعروض في Verre على حاسوبك. يجب أن يكون هذا الهاتف مسجّل الدخول مسبقاً.</string>
     <string name="device_link_open_camera">فتح الكاميرا</string>
     <string name="device_link_scan_hint">وجّه الكاميرا نحو رمز QR على الحاسوب</string>
     <string name="device_link_sas_hint">يجب أن يطابق هذا الرمز الرمز على الحاسوب. إن لم يطابق، ألغِ.</string>
@@ -526,8 +526,8 @@
     <string name="update_version">الإصدار %1$s</string>
     <string name="update_download">تنزيل</string>
     <string name="update_install_now">التثبيت الآن</string>
-    <string name="update_install_permission">يحتاج Android إلى إذنك قبل أن يتمكن YMusic من تثبيت التحديثات. امنح الإذن، أو نزّل الإصدار الجديد من المتصفح بدلًا من ذلك.</string>
-    <string name="update_install_permission_allow">يحتاج Android إلى إذنك قبل أن يتمكن YMusic من تثبيت التحديثات.</string>
+    <string name="update_install_permission">يحتاج Android إلى إذنك قبل أن يتمكن Verre من تثبيت التحديثات. امنح الإذن، أو نزّل الإصدار الجديد من المتصفح بدلًا من ذلك.</string>
+    <string name="update_install_permission_allow">يحتاج Android إلى إذنك قبل أن يتمكن Verre من تثبيت التحديثات.</string>
     <string name="update_allow_install">السماح</string>
     <string name="update_download_in_browser">التنزيل من المتصفح</string>
     <string name="update_ask_later">ذكّرني لاحقًا</string>
@@ -538,7 +538,7 @@
     <string name="update_manual_hint">هذه النسخة لا يمكنها تحديث نفسها (%1$s). نزّل الإصدار الجديد يدويًا.</string>
     <string name="update_blocked_not_installed">التطبيق لا يعمل من نسخة مثبّتة</string>
     <string name="update_blocked_mac_swap">إصدار macOS هذا لا يمكنه استبدال التطبيق في مكانه</string>
-    <string name="update_blocked_folder_read_only">المجلد الذي يحتوي على YMusic غير قابل للكتابة</string>
+    <string name="update_blocked_folder_read_only">المجلد الذي يحتوي على Verre غير قابل للكتابة</string>
     <string name="update_blocked_not_deb">لم تُثبَّت هذه النسخة من حزمة ‎.deb</string>
     <string name="update_blocked_no_pkexec">pkexec أو apt-get غير موجود</string>
     <string name="update_failed">فشل التحديث: %1$s</string>
@@ -648,8 +648,8 @@
     <string name="folder_picker_use_folder">استخدام هذا المجلد</string>
     <string name="folder_picker_empty">لا توجد مجلدات هنا</string>
     <string name="folder_picker_storage_denied">اسمح بالوصول إلى ملفات الموسيقى من الإعدادات لاختيار مجلد.</string>
-    <string name="folder_picker_companion_message">لا يتوفر في هذا الجهاز أداة لاختيار المجلدات. لاختيار المجلدات، نزّل YMusic Files، وهو تطبيق مساعد صغير لـ YMusic، من هذا الرابط وثبّته، ثم حاول مرة أخرى.</string>
-    <string name="folder_picker_companion_update">يحتاج YMusic Files إلى تحديث ليعمل مع هذا الإصدار من YMusic. نزّل أحدث إصدار من هذا الرابط وثبّته، ثم حاول مرة أخرى.</string>
+    <string name="folder_picker_companion_message">لا يتوفر في هذا الجهاز أداة لاختيار المجلدات. لاختيار المجلدات، نزّل YMusic Files، وهو تطبيق مساعد صغير لـ Verre، من هذا الرابط وثبّته، ثم حاول مرة أخرى.</string>
+    <string name="folder_picker_companion_update">يحتاج YMusic Files إلى تحديث ليعمل مع هذا الإصدار من Verre. نزّل أحدث إصدار من هذا الرابط وثبّته، ثم حاول مرة أخرى.</string>
     <string name="folder_picker_companion_open">فتح الرابط</string>
     <string name="folder_picker_missing">لا يحتوي هذا الجهاز على أداة لاختيار المجلدات، لذا لا يمكن اختيار مجلد.</string>
     <string name="error_supervised_account">حساب Google هذا خاضع للإشراف، لذا لا يمكن استخدام YouTube هنا. سجّل الخروج أو بدّل إلى حساب آخر.</string>
@@ -700,7 +700,7 @@
     <string name="video_details_delete_message">هل تريد حذف تعليقك وجميع الردود عليه نهائيًا؟</string>
     <string name="video_details_deleted">تم حذف التعليق</string>
     <string name="cookie_protect_title">حماية تسجيل الدخول بكلمة مرور؟</string>
-    <string name="cookie_protect_body">تسجيل الدخول محفوظ على هذا الحاسوب، حيث يمكن للتطبيقات الأخرى التي تشغّلها قراءته. اضبط كلمة مرور لقفله؛ وسيطلبها YMusic عند كل تشغيل.</string>
+    <string name="cookie_protect_body">تسجيل الدخول محفوظ على هذا الحاسوب، حيث يمكن للتطبيقات الأخرى التي تشغّلها قراءته. اضبط كلمة مرور لقفله؛ وسيطلبها Verre عند كل تشغيل.</string>
     <string name="cookie_password">كلمة المرور</string>
     <string name="cookie_protect_confirm">تأكيد كلمة المرور</string>
     <string name="cookie_protect_mismatch">كلمتا المرور غير متطابقتين.</string>
@@ -716,8 +716,8 @@
     <string name="cookie_unlock_sign_out">تسجيل الخروج</string>
     <string name="cookie_unlock_sign_out_hint">يزيل تسجيل الدخول المحفوظ هذا.</string>
     <string name="cookie_unlock_sign_out_title">تسجيل الخروج؟</string>
-    <string name="cookie_unlock_sign_out_body">سيؤدي هذا إلى إزالة تسجيل الدخول المحفوظ من هذا الحاسوب. لتسجيل الدخول مجددًا، امسح رمز QR باستخدام تطبيق YMusic.</string>
-    <string name="link_unsupported">لا يمكن لـ YMusic فتح هذا الرابط</string>
+    <string name="cookie_unlock_sign_out_body">سيؤدي هذا إلى إزالة تسجيل الدخول المحفوظ من هذا الحاسوب. لتسجيل الدخول مجددًا، امسح رمز QR باستخدام تطبيق Verre.</string>
+    <string name="link_unsupported">لا يمكن لـ Verre فتح هذا الرابط</string>
     <string name="link_open_failed">تعذّر فتح: %1$s</string>
     <string name="link_queued_next">سيتم تشغيله تاليًا</string>
     <string name="link_queued_last">تمت الإضافة إلى نهاية قائمة الانتظار</string>
@@ -775,8 +775,8 @@
         <item quantity="other">تمت استعادة %1$d قائمة تشغيل</item>
     </plurals>
     <string name="playlist_restore_failed_title">تتعذر الاستعادة</string>
-    <string name="error_playlist_backup_invalid">هذا الملف ليس نسخة احتياطية لقوائم تشغيل YMusic.</string>
-    <string name="error_playlist_backup_newer">أُنشئت هذه النسخة الاحتياطية بإصدار أحدث من YMusic. حدّث التطبيق لاستعادتها.</string>
+    <string name="error_playlist_backup_invalid">هذا الملف ليس نسخة احتياطية لقوائم تشغيل Verre.</string>
+    <string name="error_playlist_backup_newer">أُنشئت هذه النسخة الاحتياطية بإصدار أحدث من Verre. حدّث التطبيق لاستعادتها.</string>
     <plurals name="n_playlists">
         <item quantity="zero">%1$d قائمة تشغيل</item>
         <item quantity="one">قائمة تشغيل واحدة</item>
@@ -795,7 +795,7 @@
     <string name="cd_move_to_top">نقل إلى الأعلى</string>
     <string name="dialog_undo">تراجع</string>
     <string name="dialog_save">حفظ</string>
-    <string name="upgraded_message">تم تحديث YMusic إلى %1$s</string>
+    <string name="upgraded_message">تم تحديث Verre إلى %1$s</string>
     <string name="upgraded_view_changelog">عرض سجل التغييرات</string>
     <string name="menu_go_to_artist">الذهاب إلى الفنان</string>
     <string name="menu_go_to_album">الذهاب إلى الألبوم</string>
@@ -834,9 +834,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">حظر Windows جزءًا من YMusic.</string>
+    <string name="native_blocked">حظر Windows جزءًا من Verre.</string>
     <string name="media_engine_unavailable">لا يمكن تشغيل الموسيقى والفيديوهات هنا، لكن يمكنك مواصلة التصفح والبحث.</string>
-    <string name="native_blocked_help">على جهاز العمل أو المدرسة، اطلب من المسؤول السماح بتشغيل YMusic. على جهازك الشخصي، تحقق من Smart App Control في أمان Windows.</string>
+    <string name="native_blocked_help">على جهاز العمل أو المدرسة، اطلب من المسؤول السماح بتشغيل Verre. على جهازك الشخصي، تحقق من Smart App Control في أمان Windows.</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">جارٍ التحديث</string>
     <string name="a11y_loading">جارٍ التحميل</string>
@@ -880,5 +880,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">سيُحذف ما تم تنزيله حتى الآن.</string>
     <string name="downloads_cancel_selected_keep">إبقاء</string>
-    <string name="data_dir_unusable">لا يمكن لـ YMusic فتح مجلد البيانات الخاص به، %1$s. تأكد من أنه مجلد يمكنك الكتابة فيه، ثم افتح YMusic مرة أخرى. (%2$s)</string>
+    <string name="data_dir_unusable">لا يمكن لـ Verre فتح مجلد البيانات الخاص به، %1$s. تأكد من أنه مجلد يمكنك الكتابة فيه، ثم افتح Verre مرة أخرى. (%2$s)</string>
 </resources>

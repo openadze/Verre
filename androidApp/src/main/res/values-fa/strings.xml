@@ -5,7 +5,7 @@
     <string name="notification_pause">توقف موقت</string>
     <string name="notification_next">بعدی</string>
     <string name="notification_close">بستن</string>
-    <string name="notifications_required">YMusic موسیقی را از یک سرویس پس‌زمینه پخش می‌کند که باید اعلان پخش نشان دهد. برای ادامه، اجازهٔ اعلان‌ها را بدهید.</string>
+    <string name="notifications_required">Verre موسیقی را از یک سرویس پس‌زمینه پخش می‌کند که باید اعلان پخش نشان دهد. برای ادامه، اجازهٔ اعلان‌ها را بدهید.</string>
     <string name="notifications_allow">اجازه دادن به اعلان‌ها</string>
     <string name="download_notification_channel">دانلودها</string>
     <string name="notification_downloads_running">در حال دانلود…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">پخش‌کننده · مربعی</string>
     <string name="widget_description">در حال پخش، با کنترل‌های پخش</string>
     <string name="widget_nothing_playing">چیزی پخش نمی‌شود</string>
-    <string name="widget_open_to_start">برای شروع شنیدن، YMusic را باز کنید</string>
+    <string name="widget_open_to_start">برای شروع شنیدن، Verre را باز کنید</string>
 </resources>

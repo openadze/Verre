@@ -5,7 +5,7 @@
     <string name="notification_pause">Fasilə</string>
     <string name="notification_next">Növbəti</string>
     <string name="notification_close">Bağla</string>
-    <string name="notifications_required">YMusic musiqini oxutma bildirişi göstərməli olan fon xidmətindən oxudur. Davam etmək üçün bildirişlərə icazə verin.</string>
+    <string name="notifications_required">Verre musiqini oxutma bildirişi göstərməli olan fon xidmətindən oxudur. Davam etmək üçün bildirişlərə icazə verin.</string>
     <string name="notifications_allow">Bildirişlərə icazə ver</string>
     <string name="download_notification_channel">Yükləmələr</string>
     <string name="notification_downloads_running">Yüklənir…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Pleyer · Kvadrat</string>
     <string name="widget_description">İndi oxunur, idarəetmə düymələri ilə</string>
     <string name="widget_nothing_playing">Heç nə oxunmur</string>
-    <string name="widget_open_to_start">Dinləməyə başlamaq üçün YMusic-i açın</string>
+    <string name="widget_open_to_start">Dinləməyə başlamaq üçün Verre-i açın</string>
 </resources>

@@ -272,7 +272,7 @@
     <string name="settings_show_fps_hint">Wyświetla liczbę klatek na sekundę na filmie w Teraz odtwarzane. Pomiar zatrzymuje się po pauzie lub opuszczeniu ekranu.</string>
     <string name="settings_licenses">Licencje open source</string>
     <string name="settings_terms">Warunki i prywatność</string>
-    <string name="settings_licenses_intro">YMusic jest oprogramowaniem open source na licencji GNU GPL v3.0. Zawiera następujące komponenty:</string>
+    <string name="settings_licenses_intro">Verre jest oprogramowaniem open source na licencji GNU GPL v3.0. Zawiera następujące komponenty:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Napisz nam, co poszło nie tak lub co chcesz zobaczyć, na GitHubie lub e-mailem. Dołącz swoje anonimowe dane poniżej, abyśmy mogli znaleźć Twoje logi i odpowiedzieć.</string>
@@ -288,10 +288,10 @@
     <string name="feedback_github_hint">Publiczne. Najlepsze do błędów i pomysłów — inni mogą je śledzić i uzupełniać.</string>
     <string name="feedback_email_title">Napisz na %1$s</string>
     <string name="feedback_email_hint">Prywatne. Najlepsze do pytań o konto lub spraw osobistych.</string>
-    <string name="feedback_email_subject">Opinia o YMusic</string>
+    <string name="feedback_email_subject">Opinia o Verre</string>
     <string name="feedback_prefilled_note">Oba otwierają się z już uzupełnionymi informacjami. Jeśli ich brakuje, wklej je — bez nich nie możemy pomóc.</string>
     <string name="feedback_reports_off_title">Anonimowe raporty są wyłączone</string>
-    <string name="feedback_reports_off_message">Aby zbadać problem, potrzebujemy logów tej aplikacji. Kliknij Kontynuuj, a YMusic ponownie włączy anonimowe raporty i wyśle logi.</string>
+    <string name="feedback_reports_off_message">Aby zbadać problem, potrzebujemy logów tej aplikacji. Kliknij Kontynuuj, a Verre ponownie włączy anonimowe raporty i wyśle logi.</string>
     <string name="feedback_reports_off_note">Nie jest wysyłane imię, e-mail ani konto. Raporty możesz ponownie wyłączyć w Ustawieniach.</string>
     <string name="feedback_continue">Kontynuuj</string>
     <string name="feedback_sentry_link">lub przez Sentry</string>
@@ -349,7 +349,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Zaloguj się przez YouTube</string>
-    <string name="signin_preface_subtitle">i korzystaj ze wszystkich funkcji YouTube w YMusic</string>
+    <string name="signin_preface_subtitle">i korzystaj ze wszystkich funkcji YouTube w Verre</string>
     <string name="signin_enables">Logowanie umożliwia:</string>
     <string name="signin_feature_home">Spersonalizowana strona główna YouTube</string>
     <string name="signin_feature_subscriptions">Kanał subskrypcji</string>
@@ -362,8 +362,8 @@
     <string name="signin_screen_title">Logowanie</string>
     <string name="signin_loading">Wczytywanie logowania…</string>
     <string name="signin_unavailable">Logowanie nie jest jeszcze dostępne na tym urządzeniu</string>
-    <string name="signin_qr_title">Zeskanuj aplikacją YMusic</string>
-    <string name="signin_qr_hint">Na telefonie otwórz YMusic → Ustawienia → Połącz urządzenia → Otwórz aparat, a potem zeskanuj ten kod.</string>
+    <string name="signin_qr_title">Zeskanuj aplikacją Verre</string>
+    <string name="signin_qr_hint">Na telefonie otwórz Verre → Ustawienia → Połącz urządzenia → Otwórz aparat, a potem zeskanuj ten kod.</string>
     <string name="signin_qr_waiting">Czekam na telefon…</string>
     <string name="signin_qr_sas_hint">Telefon pokaże ten sam kod. Wyślij tylko, jeśli kody są zgodne.</string>
     <string name="signin_or_paste">Lub wklej pliki cookie z przeglądarki</string>
@@ -389,11 +389,11 @@
     <string name="signin_paste_no_cookie_title">To żądanie nie zawiera plików cookie</string>
     <string name="signin_paste_no_cookie_body">Skopiuj jako cURL inne żądanie, najlepiej Fetch/XHR, na przykład:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Rozumiem</string>
-    <string name="cd_device_link_qr">Kod QR do zeskanowania aplikacją YMusic</string>
+    <string name="cd_device_link_qr">Kod QR do zeskanowania aplikacją Verre</string>
     <string name="settings_link_devices">Połącz urządzenia</string>
     <string name="settings_link_devices_hint">Zaloguj się na komputerze, skanując jego kod QR</string>
     <string name="device_link_title">Połącz urządzenia</string>
-    <string name="device_link_intro">Zeskanuj kod QR wyświetlony w YMusic na komputerze. Ten telefon musi być już zalogowany.</string>
+    <string name="device_link_intro">Zeskanuj kod QR wyświetlony w Verre na komputerze. Ten telefon musi być już zalogowany.</string>
     <string name="device_link_open_camera">Otwórz aparat</string>
     <string name="device_link_scan_hint">Skieruj aparat na kod QR komputera</string>
     <string name="device_link_sas_hint">Ten kod musi być zgodny z kodem na komputerze. Jeśli nie jest, dotknij Anuluj.</string>
@@ -567,8 +567,8 @@
     <string name="folder_picker_use_folder">Użyj tego folderu</string>
     <string name="folder_picker_empty">Brak folderów</string>
     <string name="folder_picker_storage_denied">Aby wybrać folder, zezwól w ustawieniach na dostęp do plików muzycznych.</string>
-    <string name="folder_picker_companion_message">To urządzenie nie ma narzędzia do wybierania folderów. Aby wybierać foldery, pobierz z tego linku i zainstaluj YMusic Files – małą aplikację pomocniczą dla YMusic – a potem spróbuj ponownie.</string>
-    <string name="folder_picker_companion_update">YMusic Files wymaga aktualizacji, aby działać z tą wersją YMusic. Pobierz z tego linku i zainstaluj najnowszą wersję, a potem spróbuj ponownie.</string>
+    <string name="folder_picker_companion_message">To urządzenie nie ma narzędzia do wybierania folderów. Aby wybierać foldery, pobierz z tego linku i zainstaluj YMusic Files – małą aplikację pomocniczą dla Verre – a potem spróbuj ponownie.</string>
+    <string name="folder_picker_companion_update">YMusic Files wymaga aktualizacji, aby działać z tą wersją Verre. Pobierz z tego linku i zainstaluj najnowszą wersję, a potem spróbuj ponownie.</string>
     <string name="folder_picker_companion_open">Otwórz link</string>
     <string name="folder_picker_missing">To urządzenie nie ma narzędzia do wyboru folderu, więc nie można wybrać folderu.</string>
     <string name="error_supervised_account">To konto Google jest nadzorowane, więc nie można tu korzystać z YouTube. Wyloguj się lub przełącz na inne konto.</string>
@@ -617,7 +617,7 @@
     <string name="video_details_delete_message">Trwale usunąć komentarz i wszystkie odpowiedzi na niego?</string>
     <string name="video_details_deleted">Usunięto komentarz</string>
     <string name="cookie_protect_title">Zabezpieczyć logowanie hasłem?</string>
-    <string name="cookie_protect_body">Twoje logowanie jest zapisane na tym komputerze, gdzie mogą je odczytać inne uruchamiane przez Ciebie aplikacje. Ustaw hasło, aby je zablokować; YMusic poprosi o nie przy każdym uruchomieniu.</string>
+    <string name="cookie_protect_body">Twoje logowanie jest zapisane na tym komputerze, gdzie mogą je odczytać inne uruchamiane przez Ciebie aplikacje. Ustaw hasło, aby je zablokować; Verre poprosi o nie przy każdym uruchomieniu.</string>
     <string name="cookie_password">Hasło</string>
     <string name="cookie_protect_confirm">Potwierdź hasło</string>
     <string name="cookie_protect_mismatch">Hasła nie są zgodne.</string>
@@ -633,7 +633,7 @@
     <string name="cookie_unlock_sign_out">Wyloguj się</string>
     <string name="cookie_unlock_sign_out_hint">Usuwa to zapisane logowanie.</string>
     <string name="cookie_unlock_sign_out_title">Wylogować się?</string>
-    <string name="cookie_unlock_sign_out_body">Spowoduje to usunięcie zapisanego logowania z tego komputera. Aby zalogować się ponownie, zeskanuj kod QR aplikacją YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">Spowoduje to usunięcie zapisanego logowania z tego komputera. Aby zalogować się ponownie, zeskanuj kod QR aplikacją Verre.</string>
     <string name="menu_details_comments">Szczegóły i komentarze</string>
     <string name="menu_search_lyrics">Szukaj tekstu piosenki</string>
     <string name="menu_speed_pitch">Prędkość i wysokość</string>
@@ -645,7 +645,7 @@
     <string name="cd_move_to_top">Przenieś na górę</string>
     <string name="dialog_undo">Cofnij</string>
     <string name="dialog_save">Zapisz</string>
-    <string name="upgraded_message">YMusic zaktualizowano do %1$s</string>
+    <string name="upgraded_message">Verre zaktualizowano do %1$s</string>
     <string name="upgraded_view_changelog">Zobacz listę zmian</string>
     <string name="menu_go_to_artist">Idź do wykonawcy</string>
     <string name="menu_go_to_album">Idź do albumu</string>
@@ -684,9 +684,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">System Windows zablokował część aplikacji YMusic.</string>
+    <string name="native_blocked">System Windows zablokował część aplikacji Verre.</string>
     <string name="media_engine_unavailable">Muzyki i filmów nie można tu odtwarzać, ale nadal możesz przeglądać i wyszukiwać.</string>
-    <string name="native_blocked_help">Na komputerze służbowym lub szkolnym poproś administratora o zezwolenie na YMusic. Na własnym komputerze sprawdź Smart App Control w Zabezpieczeniach Windows.</string>
+    <string name="native_blocked_help">Na komputerze służbowym lub szkolnym poproś administratora o zezwolenie na Verre. Na własnym komputerze sprawdź Smart App Control w Zabezpieczeniach Windows.</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">Odświeżanie</string>
     <string name="a11y_loading">Ładowanie</string>
@@ -722,5 +722,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">Dotąd pobrane dane zostaną usunięte.</string>
     <string name="downloads_cancel_selected_keep">Zachowaj</string>
-    <string name="data_dir_unusable">YMusic nie może otworzyć swojego folderu danych, %1$s. Upewnij się, że to folder, w którym możesz zapisywać, a następnie ponownie otwórz YMusic. (%2$s)</string>
+    <string name="data_dir_unusable">Verre nie może otworzyć swojego folderu danych, %1$s. Upewnij się, że to folder, w którym możesz zapisywać, a następnie ponownie otwórz Verre. (%2$s)</string>
 </resources>

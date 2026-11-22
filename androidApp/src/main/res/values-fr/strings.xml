@@ -5,7 +5,7 @@
     <string name="notification_pause">Pause</string>
     <string name="notification_next">Suivant</string>
     <string name="notification_close">Fermer</string>
-    <string name="notifications_required">YMusic lit la musique depuis un service en arrière-plan qui doit afficher une notification de lecture. Autorisez les notifications pour continuer.</string>
+    <string name="notifications_required">Verre lit la musique depuis un service en arrière-plan qui doit afficher une notification de lecture. Autorisez les notifications pour continuer.</string>
     <string name="notifications_allow">Autoriser les notifications</string>
     <string name="download_notification_channel">Téléchargements</string>
     <string name="notification_downloads_running">Téléchargement…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Lecteur · Carré</string>
     <string name="widget_description">En cours de lecture, avec les commandes de lecture</string>
     <string name="widget_nothing_playing">Aucune lecture en cours</string>
-    <string name="widget_open_to_start">Ouvrez YMusic pour commencer l\'écoute</string>
+    <string name="widget_open_to_start">Ouvrez Verre pour commencer l\'écoute</string>
 </resources>

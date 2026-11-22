@@ -170,7 +170,7 @@ class AndroidAppUpdates(
      *  partial download stays for the next attempt to resume. */
     fun pruneDownloads() {
         downloadDir.listFiles().orEmpty().forEach { file ->
-            val versionCode = file.name.removePrefix("YMusic-").substringBefore('.').substringBefore('-').toIntOrNull()
+            val versionCode = file.name.removePrefix("Verre-").substringBefore('.').substringBefore('-').toIntOrNull()
             if (versionCode == null || versionCode <= currentVersionCode) file.delete()
         }
     }

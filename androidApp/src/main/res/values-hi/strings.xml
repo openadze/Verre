@@ -5,7 +5,7 @@
     <string name="notification_pause">रोकें</string>
     <string name="notification_next">अगला</string>
     <string name="notification_close">बंद करें</string>
-    <string name="notifications_required">YMusic बैकग्राउंड सेवा से संगीत चलाता है, जिसके लिए प्लेबैक सूचना दिखाना ज़रूरी है। जारी रखने के लिए सूचनाओं की अनुमति दें।</string>
+    <string name="notifications_required">Verre बैकग्राउंड सेवा से संगीत चलाता है, जिसके लिए प्लेबैक सूचना दिखाना ज़रूरी है। जारी रखने के लिए सूचनाओं की अनुमति दें।</string>
     <string name="notifications_allow">सूचनाओं की अनुमति दें</string>
     <string name="download_notification_channel">डाउनलोड</string>
     <string name="notification_downloads_running">डाउनलोड हो रहा है…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">प्लेयर · चौकोर</string>
     <string name="widget_description">अभी चल रहा है, प्लेबैक कंट्रोल के साथ</string>
     <string name="widget_nothing_playing">कुछ नहीं चल रहा</string>
-    <string name="widget_open_to_start">सुनना शुरू करने के लिए YMusic खोलें</string>
+    <string name="widget_open_to_start">सुनना शुरू करने के लिए Verre खोलें</string>
 </resources>

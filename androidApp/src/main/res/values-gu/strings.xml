@@ -5,7 +5,7 @@
     <string name="notification_pause">થોભાવો</string>
     <string name="notification_next">આગળનું</string>
     <string name="notification_close">બંધ કરો</string>
-    <string name="notifications_required">YMusic બૅકગ્રાઉન્ડ સેવામાંથી સંગીત વગાડે છે, જેને પ્લેબૅક સૂચના બતાવવી જરૂરી છે. ચાલુ રાખવા માટે સૂચનાઓને મંજૂરી આપો.</string>
+    <string name="notifications_required">Verre બૅકગ્રાઉન્ડ સેવામાંથી સંગીત વગાડે છે, જેને પ્લેબૅક સૂચના બતાવવી જરૂરી છે. ચાલુ રાખવા માટે સૂચનાઓને મંજૂરી આપો.</string>
     <string name="notifications_allow">સૂચનાઓને મંજૂરી આપો</string>
     <string name="download_notification_channel">ડાઉનલોડ</string>
     <string name="notification_downloads_running">ડાઉનલોડ થઈ રહ્યું છે…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">પ્લેયર · ચોરસ</string>
     <string name="widget_description">હમણાં ચાલી રહ્યું છે, પ્લેબૅક નિયંત્રણો સાથે</string>
     <string name="widget_nothing_playing">કંઈ ચાલી રહ્યું નથી</string>
-    <string name="widget_open_to_start">સાંભળવાનું શરૂ કરવા YMusic ખોલો</string>
+    <string name="widget_open_to_start">સાંભળવાનું શરૂ કરવા Verre ખોલો</string>
 </resources>

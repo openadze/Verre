@@ -5,7 +5,7 @@
     <string name="notification_pause">Pauză</string>
     <string name="notification_next">Următorul</string>
     <string name="notification_close">Închide</string>
-    <string name="notifications_required">YMusic redă muzică dintr-un serviciu de fundal care trebuie să afișeze o notificare de redare. Permite notificările pentru a continua.</string>
+    <string name="notifications_required">Verre redă muzică dintr-un serviciu de fundal care trebuie să afișeze o notificare de redare. Permite notificările pentru a continua.</string>
     <string name="notifications_allow">Permite notificările</string>
     <string name="download_notification_channel">Descărcări</string>
     <string name="notification_downloads_running">Se descarcă…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Player · Pătrat</string>
     <string name="widget_description">Redare în curs, cu comenzi de redare</string>
     <string name="widget_nothing_playing">Nu se redă nimic</string>
-    <string name="widget_open_to_start">Deschide YMusic ca să începi să asculți</string>
+    <string name="widget_open_to_start">Deschide Verre ca să începi să asculți</string>
 </resources>

@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Tampilkan jumlah gambar per detik di atas video yang sedang diputar. Pengukuran berhenti saat dijeda atau saat Anda meninggalkan layar tersebut.</string>
     <string name="settings_licenses">Lisensi open source</string>
     <string name="settings_terms">Ketentuan &amp; privasi</string>
-    <string name="settings_licenses_intro">YMusic adalah open source di bawah GNU GPL v3.0. Aplikasi ini menyertakan komponen berikut:</string>
+    <string name="settings_licenses_intro">Verre adalah open source di bawah GNU GPL v3.0. Aplikasi ini menyertakan komponen berikut:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Beri tahu kami apa yang bermasalah atau apa yang ingin kamu lihat, di GitHub atau lewat email. Sertakan info anonim di bawah agar kami bisa menemukan log-mu dan membalas.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Publik. Paling cocok untuk bug dan ide — orang lain bisa mengikuti dan menambahkan.</string>
     <string name="feedback_email_title">Email ke %1$s</string>
     <string name="feedback_email_hint">Pribadi. Paling cocok untuk pertanyaan akun atau pribadi.</string>
-    <string name="feedback_email_subject">Masukan YMusic</string>
+    <string name="feedback_email_subject">Masukan Verre</string>
     <string name="feedback_prefilled_note">Keduanya terbuka dengan info yang sudah terisi. Jika tidak ada, tempelkan — tanpanya kami tidak bisa membantu.</string>
     <string name="feedback_reports_off_title">Laporan anonim nonaktif</string>
-    <string name="feedback_reports_off_message">Untuk memeriksa masalah Anda, kami membutuhkan log aplikasi ini. Ketuk Lanjutkan dan YMusic akan mengaktifkan kembali laporan anonim dan mengirim log.</string>
+    <string name="feedback_reports_off_message">Untuk memeriksa masalah Anda, kami membutuhkan log aplikasi ini. Ketuk Lanjutkan dan Verre akan mengaktifkan kembali laporan anonim dan mengirim log.</string>
     <string name="feedback_reports_off_note">Tidak ada nama, email, atau akun yang dikirim. Anda bisa menonaktifkan laporan lagi di Setelan.</string>
     <string name="feedback_continue">Lanjutkan</string>
     <string name="feedback_sentry_link">atau lewat Sentry</string>
@@ -334,7 +334,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Masuk dengan YouTube</string>
-    <string name="signin_preface_subtitle">dan dapatkan semua fitur YouTube di YMusic</string>
+    <string name="signin_preface_subtitle">dan dapatkan semua fitur YouTube di Verre</string>
     <string name="signin_enables">Dengan masuk, Anda bisa:</string>
     <string name="signin_feature_home">Feed beranda YouTube yang dipersonalisasi</string>
     <string name="signin_feature_subscriptions">Feed langganan</string>
@@ -347,8 +347,8 @@
     <string name="signin_screen_title">Masuk</string>
     <string name="signin_loading">Memuat halaman masuk…</string>
     <string name="signin_unavailable">Fitur masuk belum tersedia di perangkat ini</string>
-    <string name="signin_qr_title">Pindai dengan aplikasi YMusic</string>
-    <string name="signin_qr_hint">Di ponsel Anda, buka YMusic → Setelan → Tautkan perangkat → Buka kamera, lalu pindai kode ini.</string>
+    <string name="signin_qr_title">Pindai dengan aplikasi Verre</string>
+    <string name="signin_qr_hint">Di ponsel Anda, buka Verre → Setelan → Tautkan perangkat → Buka kamera, lalu pindai kode ini.</string>
     <string name="signin_qr_waiting">Menunggu ponsel…</string>
     <string name="signin_qr_sas_hint">Ponsel Anda akan menampilkan kode yang sama. Kirim hanya jika keduanya cocok.</string>
     <string name="signin_or_paste">Atau tempel cookie dari browser</string>
@@ -374,11 +374,11 @@
     <string name="signin_paste_no_cookie_title">Permintaan itu tidak memiliki cookie</string>
     <string name="signin_paste_no_cookie_body">Gunakan Copy as cURL dari permintaan lain, sebaiknya Fetch/XHR, misalnya:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Mengerti</string>
-    <string name="cd_device_link_qr">Kode QR untuk dipindai dengan aplikasi YMusic</string>
+    <string name="cd_device_link_qr">Kode QR untuk dipindai dengan aplikasi Verre</string>
     <string name="settings_link_devices">Tautkan perangkat</string>
     <string name="settings_link_devices_hint">Masuk di komputer dengan memindai kode QR-nya</string>
     <string name="device_link_title">Tautkan perangkat</string>
-    <string name="device_link_intro">Pindai kode QR yang ditampilkan YMusic di komputer Anda. Ponsel ini harus sudah masuk.</string>
+    <string name="device_link_intro">Pindai kode QR yang ditampilkan Verre di komputer Anda. Ponsel ini harus sudah masuk.</string>
     <string name="device_link_open_camera">Buka kamera</string>
     <string name="device_link_scan_hint">Arahkan kamera ke kode QR di komputer</string>
     <string name="device_link_sas_hint">Kode ini harus sama dengan di komputer. Jika tidak, ketuk Batal.</string>
@@ -540,8 +540,8 @@
     <string name="folder_picker_use_folder">Gunakan folder ini</string>
     <string name="folder_picker_empty">Tidak ada folder di sini</string>
     <string name="folder_picker_storage_denied">Izinkan akses ke file musik Anda di setelan untuk memilih folder.</string>
-    <string name="folder_picker_companion_message">Perangkat ini tidak memiliki pemilih folder. Untuk memilih folder, download dan instal YMusic Files, aplikasi bantuan kecil untuk YMusic, dari link ini, lalu coba lagi.</string>
-    <string name="folder_picker_companion_update">YMusic Files perlu diupdate agar berfungsi dengan versi YMusic ini. Download dan instal versi terbaru dari link ini, lalu coba lagi.</string>
+    <string name="folder_picker_companion_message">Perangkat ini tidak memiliki pemilih folder. Untuk memilih folder, download dan instal YMusic Files, aplikasi bantuan kecil untuk Verre, dari link ini, lalu coba lagi.</string>
+    <string name="folder_picker_companion_update">YMusic Files perlu diupdate agar berfungsi dengan versi Verre ini. Download dan instal versi terbaru dari link ini, lalu coba lagi.</string>
     <string name="folder_picker_companion_open">Buka link</string>
     <string name="folder_picker_missing">Perangkat ini tidak memiliki pemilih folder, jadi folder tidak dapat dipilih.</string>
     <string name="error_supervised_account">Akun Google ini diawasi, jadi YouTube tidak dapat digunakan di sini. Logout atau beralih ke akun lain.</string>
@@ -590,7 +590,7 @@
     <string name="video_details_delete_message">Hapus komentar Anda beserta semua balasannya secara permanen?</string>
     <string name="video_details_deleted">Komentar dihapus</string>
     <string name="cookie_protect_title">Lindungi info masuk Anda dengan sandi?</string>
-    <string name="cookie_protect_body">Info masuk Anda disimpan di komputer ini, tempat aplikasi lain yang Anda jalankan dapat membacanya. Setel sandi untuk menguncinya; YMusic akan memintanya setiap kali dimulai.</string>
+    <string name="cookie_protect_body">Info masuk Anda disimpan di komputer ini, tempat aplikasi lain yang Anda jalankan dapat membacanya. Setel sandi untuk menguncinya; Verre akan memintanya setiap kali dimulai.</string>
     <string name="cookie_password">Sandi</string>
     <string name="cookie_protect_confirm">Konfirmasi sandi</string>
     <string name="cookie_protect_mismatch">Sandi tidak cocok.</string>
@@ -606,7 +606,7 @@
     <string name="cookie_unlock_sign_out">Keluar</string>
     <string name="cookie_unlock_sign_out_hint">Menghapus info masuk tersimpan ini.</string>
     <string name="cookie_unlock_sign_out_title">Keluar?</string>
-    <string name="cookie_unlock_sign_out_body">Tindakan ini menghapus info masuk tersimpan dari komputer ini. Untuk masuk lagi, pindai kode QR dengan aplikasi YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">Tindakan ini menghapus info masuk tersimpan dari komputer ini. Untuk masuk lagi, pindai kode QR dengan aplikasi Verre.</string>
     <string name="menu_details_comments">Detail dan komentar</string>
     <string name="menu_search_lyrics">Cari lirik</string>
     <string name="menu_speed_pitch">Kecepatan dan nada</string>
@@ -618,7 +618,7 @@
     <string name="cd_move_to_top">Pindahkan ke atas</string>
     <string name="dialog_undo">Urungkan</string>
     <string name="dialog_save">Simpan</string>
-    <string name="upgraded_message">YMusic diperbarui ke %1$s</string>
+    <string name="upgraded_message">Verre diperbarui ke %1$s</string>
     <string name="upgraded_view_changelog">Lihat catatan perubahan</string>
     <string name="menu_go_to_artist">Buka artis</string>
     <string name="menu_go_to_album">Buka album</string>
@@ -657,9 +657,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">Windows memblokir sebagian YMusic.</string>
+    <string name="native_blocked">Windows memblokir sebagian Verre.</string>
     <string name="media_engine_unavailable">Musik dan video tidak dapat diputar di sini, tetapi Anda tetap dapat menjelajah dan mencari.</string>
-    <string name="native_blocked_help">Di PC kantor atau sekolah, minta administrator untuk mengizinkan YMusic. Di PC Anda sendiri, periksa Smart App Control di Keamanan Windows.</string>
+    <string name="native_blocked_help">Di PC kantor atau sekolah, minta administrator untuk mengizinkan Verre. Di PC Anda sendiri, periksa Smart App Control di Keamanan Windows.</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">Memuat ulang</string>
     <string name="a11y_loading">Memuat</string>
@@ -683,5 +683,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">Bagian yang sudah diunduh akan dihapus.</string>
     <string name="downloads_cancel_selected_keep">Pertahankan</string>
-    <string name="data_dir_unusable">YMusic tidak dapat membuka folder datanya, %1$s. Pastikan itu folder yang dapat Anda tulisi, lalu buka YMusic lagi. (%2$s)</string>
+    <string name="data_dir_unusable">Verre tidak dapat membuka folder datanya, %1$s. Pastikan itu folder yang dapat Anda tulisi, lalu buka Verre lagi. (%2$s)</string>
 </resources>

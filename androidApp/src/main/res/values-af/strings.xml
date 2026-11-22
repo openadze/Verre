@@ -5,7 +5,7 @@
     <string name="notification_pause">Pouseer</string>
     <string name="notification_next">Volgende</string>
     <string name="notification_close">Maak toe</string>
-    <string name="notifications_required">YMusic speel musiek vanaf \'n agtergronddiens wat \'n terugspeelkennisgewing moet wys. Laat kennisgewings toe om voort te gaan.</string>
+    <string name="notifications_required">Verre speel musiek vanaf \'n agtergronddiens wat \'n terugspeelkennisgewing moet wys. Laat kennisgewings toe om voort te gaan.</string>
     <string name="notifications_allow">Laat kennisgewings toe</string>
     <string name="download_notification_channel">Aflaaie</string>
     <string name="notification_downloads_running">Laai tans af…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Speler · Vierkant</string>
     <string name="widget_description">Speel tans, met terugspeelkontroles</string>
     <string name="widget_nothing_playing">Niks speel nie</string>
-    <string name="widget_open_to_start">Maak YMusic oop om te begin luister</string>
+    <string name="widget_open_to_start">Maak Verre oop om te begin luister</string>
 </resources>

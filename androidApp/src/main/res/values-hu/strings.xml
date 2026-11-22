@@ -5,7 +5,7 @@
     <string name="notification_pause">Szünet</string>
     <string name="notification_next">Következő</string>
     <string name="notification_close">Bezárás</string>
-    <string name="notifications_required">A YMusic egy háttérszolgáltatásból játssza le a zenét, amelynek lejátszási értesítést kell megjelenítenie. A folytatáshoz engedélyezze az értesítéseket.</string>
+    <string name="notifications_required">A Verre egy háttérszolgáltatásból játssza le a zenét, amelynek lejátszási értesítést kell megjelenítenie. A folytatáshoz engedélyezze az értesítéseket.</string>
     <string name="notifications_allow">Értesítések engedélyezése</string>
     <string name="download_notification_channel">Letöltések</string>
     <string name="notification_downloads_running">Letöltés…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Lejátszó · Négyzet</string>
     <string name="widget_description">Most szól, lejátszásvezérlőkkel</string>
     <string name="widget_nothing_playing">Nincs lejátszás</string>
-    <string name="widget_open_to_start">Nyissa meg a YMusicot a hallgatáshoz</string>
+    <string name="widget_open_to_start">Nyissa meg a Verreot a hallgatáshoz</string>
 </resources>

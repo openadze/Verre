@@ -5,7 +5,7 @@
     <string name="notification_pause">Pauziraj</string>
     <string name="notification_next">Sljedeće</string>
     <string name="notification_close">Zatvori</string>
-    <string name="notifications_required">YMusic reproducira glazbu iz pozadinske usluge koja mora prikazivati obavijest o reprodukciji. Dopustite obavijesti za nastavak.</string>
+    <string name="notifications_required">Verre reproducira glazbu iz pozadinske usluge koja mora prikazivati obavijest o reprodukciji. Dopustite obavijesti za nastavak.</string>
     <string name="notifications_allow">Dopusti obavijesti</string>
     <string name="download_notification_channel">Preuzimanja</string>
     <string name="notification_downloads_running">Preuzimanje…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Player · Kvadratni</string>
     <string name="widget_description">Upravo svira, s kontrolama reprodukcije</string>
     <string name="widget_nothing_playing">Ništa ne svira</string>
-    <string name="widget_open_to_start">Otvorite YMusic i počnite slušati</string>
+    <string name="widget_open_to_start">Otvorite Verre i počnite slušati</string>
 </resources>

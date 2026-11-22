@@ -5,7 +5,7 @@
     <string name="notification_pause">Pauzeren</string>
     <string name="notification_next">Volgende</string>
     <string name="notification_close">Sluiten</string>
-    <string name="notifications_required">YMusic speelt muziek af via een achtergronddienst die een afspeelmelding moet tonen. Sta meldingen toe om door te gaan.</string>
+    <string name="notifications_required">Verre speelt muziek af via een achtergronddienst die een afspeelmelding moet tonen. Sta meldingen toe om door te gaan.</string>
     <string name="notifications_allow">Meldingen toestaan</string>
     <string name="download_notification_channel">Downloads</string>
     <string name="notification_downloads_running">Downloaden…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Speler · Vierkant</string>
     <string name="widget_description">Wat er nu speelt, met afspeelknoppen</string>
     <string name="widget_nothing_playing">Er wordt niets afgespeeld</string>
-    <string name="widget_open_to_start">Open YMusic om te beginnen met luisteren</string>
+    <string name="widget_open_to_start">Open Verre om te beginnen met luisteren</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="notification_pause">Pausa</string>
     <string name="notification_next">Següent</string>
     <string name="notification_close">Tanca</string>
-    <string name="notifications_required">YMusic reprodueix música des d\'un servei en segon pla que ha de mostrar una notificació de reproducció. Permet les notificacions per continuar.</string>
+    <string name="notifications_required">Verre reprodueix música des d\'un servei en segon pla que ha de mostrar una notificació de reproducció. Permet les notificacions per continuar.</string>
     <string name="notifications_allow">Permet les notificacions</string>
     <string name="download_notification_channel">Descàrregues</string>
     <string name="notification_downloads_running">S\'està descarregant…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Reproductor · Quadrat</string>
     <string name="widget_description">Reproducció actual amb controls</string>
     <string name="widget_nothing_playing">No s\'està reproduint res</string>
-    <string name="widget_open_to_start">Obre YMusic per començar a escoltar</string>
+    <string name="widget_open_to_start">Obre Verre per començar a escoltar</string>
 </resources>

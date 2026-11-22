@@ -5,7 +5,7 @@
     <string name="notification_pause">Παύση</string>
     <string name="notification_next">Επόμενο</string>
     <string name="notification_close">Κλείσιμο</string>
-    <string name="notifications_required">Το YMusic αναπαράγει μουσική από μια υπηρεσία παρασκηνίου που πρέπει να εμφανίζει ειδοποίηση αναπαραγωγής. Επιτρέψτε τις ειδοποιήσεις για να συνεχίσετε.</string>
+    <string name="notifications_required">Το Verre αναπαράγει μουσική από μια υπηρεσία παρασκηνίου που πρέπει να εμφανίζει ειδοποίηση αναπαραγωγής. Επιτρέψτε τις ειδοποιήσεις για να συνεχίσετε.</string>
     <string name="notifications_allow">Επιτρέψτε τις ειδοποιήσεις</string>
     <string name="download_notification_channel">Λήψεις</string>
     <string name="notification_downloads_running">Λήψη…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Αναπαραγωγή · Τετράγωνη</string>
     <string name="widget_description">Παίζει τώρα, με χειριστήρια αναπαραγωγής</string>
     <string name="widget_nothing_playing">Δεν παίζει τίποτα</string>
-    <string name="widget_open_to_start">Ανοίξτε το YMusic για να αρχίσετε να ακούτε</string>
+    <string name="widget_open_to_start">Ανοίξτε το Verre για να αρχίσετε να ακούτε</string>
 </resources>

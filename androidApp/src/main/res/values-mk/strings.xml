@@ -5,7 +5,7 @@
     <string name="notification_pause">Пауза</string>
     <string name="notification_next">Следна</string>
     <string name="notification_close">Затвори</string>
-    <string name="notifications_required">YMusic пушта музика од позадинска услуга што мора да прикажува известување за репродукција. Дозволете известувања за да продолжите.</string>
+    <string name="notifications_required">Verre пушта музика од позадинска услуга што мора да прикажува известување за репродукција. Дозволете известувања за да продолжите.</string>
     <string name="notifications_allow">Дозволи известувања</string>
     <string name="download_notification_channel">Преземања</string>
     <string name="notification_downloads_running">Се презема…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Плеер · Квадратен</string>
     <string name="widget_description">Тоа што се пушта сега, со контроли за репродукција</string>
     <string name="widget_nothing_playing">Ништо не се пушта</string>
-    <string name="widget_open_to_start">Отворете YMusic за да почнете со слушање</string>
+    <string name="widget_open_to_start">Отворете Verre за да почнете со слушање</string>
 </resources>

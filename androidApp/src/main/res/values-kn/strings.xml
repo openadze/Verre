@@ -5,7 +5,7 @@
     <string name="notification_pause">ವಿರಾಮ</string>
     <string name="notification_next">ಮುಂದಿನದು</string>
     <string name="notification_close">ಮುಚ್ಚಿ</string>
-    <string name="notifications_required">YMusic ಹಿನ್ನೆಲೆ ಸೇವೆಯಿಂದ ಸಂಗೀತವನ್ನು ಪ್ಲೇ ಮಾಡುತ್ತದೆ, ಅದು ಪ್ಲೇಬ್ಯಾಕ್ ಅಧಿಸೂಚನೆಯನ್ನು ತೋರಿಸಬೇಕು. ಮುಂದುವರಿಯಲು ಅಧಿಸೂಚನೆಗಳನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="notifications_required">Verre ಹಿನ್ನೆಲೆ ಸೇವೆಯಿಂದ ಸಂಗೀತವನ್ನು ಪ್ಲೇ ಮಾಡುತ್ತದೆ, ಅದು ಪ್ಲೇಬ್ಯಾಕ್ ಅಧಿಸೂಚನೆಯನ್ನು ತೋರಿಸಬೇಕು. ಮುಂದುವರಿಯಲು ಅಧಿಸೂಚನೆಗಳನ್ನು ಅನುಮತಿಸಿ.</string>
     <string name="notifications_allow">ಅಧಿಸೂಚನೆಗಳನ್ನು ಅನುಮತಿಸಿ</string>
     <string name="download_notification_channel">ಡೌನ್‌ಲೋಡ್‌ಗಳು</string>
     <string name="notification_downloads_running">ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">ಪ್ಲೇಯರ್ · ಚೌಕ</string>
     <string name="widget_description">ಪ್ಲೇಬ್ಯಾಕ್ ನಿಯಂತ್ರಣಗಳೊಂದಿಗೆ ಈಗ ಪ್ಲೇ ಆಗುತ್ತಿರುವುದು</string>
     <string name="widget_nothing_playing">ಏನೂ ಪ್ಲೇ ಆಗುತ್ತಿಲ್ಲ</string>
-    <string name="widget_open_to_start">ಕೇಳಲು ಪ್ರಾರಂಭಿಸಲು YMusic ತೆರೆಯಿರಿ</string>
+    <string name="widget_open_to_start">ಕೇಳಲು ಪ್ರಾರಂಭಿಸಲು Verre ತೆರೆಯಿರಿ</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="notification_pause">Pausar</string>
     <string name="notification_next">Próxima</string>
     <string name="notification_close">Fechar</string>
-    <string name="notifications_required">O YMusic toca música por um serviço em segundo plano que precisa exibir uma notificação de reprodução. Permita as notificações para continuar.</string>
+    <string name="notifications_required">O Verre toca música por um serviço em segundo plano que precisa exibir uma notificação de reprodução. Permita as notificações para continuar.</string>
     <string name="notifications_allow">Permitir notificações</string>
     <string name="download_notification_channel">Downloads</string>
     <string name="notification_downloads_running">Baixando…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Player · Quadrado</string>
     <string name="widget_description">Tocando agora, com controles de reprodução</string>
     <string name="widget_nothing_playing">Nada tocando</string>
-    <string name="widget_open_to_start">Abra o YMusic para começar a ouvir</string>
+    <string name="widget_open_to_start">Abra o Verre para começar a ouvir</string>
 </resources>

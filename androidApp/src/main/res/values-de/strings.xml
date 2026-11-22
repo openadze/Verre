@@ -5,7 +5,7 @@
     <string name="notification_pause">Pause</string>
     <string name="notification_next">Weiter</string>
     <string name="notification_close">Schließen</string>
-    <string name="notifications_required">YMusic spielt Musik über einen Hintergrunddienst ab, der eine Wiedergabebenachrichtigung anzeigen muss. Erlaube Benachrichtigungen, um fortzufahren.</string>
+    <string name="notifications_required">Verre spielt Musik über einen Hintergrunddienst ab, der eine Wiedergabebenachrichtigung anzeigen muss. Erlaube Benachrichtigungen, um fortzufahren.</string>
     <string name="notifications_allow">Benachrichtigungen erlauben</string>
     <string name="download_notification_channel">Downloads</string>
     <string name="notification_downloads_running">Wird heruntergeladen…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">Player · Quadratisch</string>
     <string name="widget_description">Aktuelle Wiedergabe mit Steuerung</string>
     <string name="widget_nothing_playing">Keine Wiedergabe</string>
-    <string name="widget_open_to_start">Öffne YMusic, um loszuhören</string>
+    <string name="widget_open_to_start">Öffne Verre, um loszuhören</string>
 </resources>

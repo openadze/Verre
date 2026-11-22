@@ -38,7 +38,7 @@ sentry {
 val appVersionName = appVersionName()
 
 // Outputs read YMusic-<versionName>-<abi>-release.apk.
-base { archivesName.set("YMusic-$appVersionName") }
+base { archivesName.set("Verre-$appVersionName") }
 
 // The ABIs every native the app needs — quickjs, mse, ffmpeg — is built for. A device on any other
 // ABI could install an APK carrying only some of them and crash at the first engine call.
@@ -53,7 +53,7 @@ android {
     ndkVersion = "28.2.13676358"
 
     defaultConfig {
-        applicationId = "io.ymusic.android"
+        applicationId = "app.verre.music"
         minSdk = Versions.minSdk
         targetSdk = Versions.targetSdk
         versionCode = appVersionCode()

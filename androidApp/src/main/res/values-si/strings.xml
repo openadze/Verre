@@ -5,7 +5,7 @@
     <string name="notification_pause">විරාම කරන්න</string>
     <string name="notification_next">ඊළඟ</string>
     <string name="notification_close">වසන්න</string>
-    <string name="notifications_required">YMusic සංගීතය වාදනය කරන්නේ වාදන දැනුම්දීමක් පෙන්විය යුතු පසුබිම් සේවාවකිනි. ඉදිරියට යාමට දැනුම්දීම්වලට ඉඩ දෙන්න.</string>
+    <string name="notifications_required">Verre සංගීතය වාදනය කරන්නේ වාදන දැනුම්දීමක් පෙන්විය යුතු පසුබිම් සේවාවකිනි. ඉදිරියට යාමට දැනුම්දීම්වලට ඉඩ දෙන්න.</string>
     <string name="notifications_allow">දැනුම්දීම්වලට ඉඩ දෙන්න</string>
     <string name="download_notification_channel">බාගැනීම්</string>
     <string name="notification_downloads_running">බාගනිමින්…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">ප්ලේයර් · සමචතුරස්‍ර</string>
     <string name="widget_description">වාදන පාලන සමඟ දැන් වාදනය වන දේ</string>
     <string name="widget_nothing_playing">කිසිවක් වාදනය නොවේ</string>
-    <string name="widget_open_to_start">සවන් දීම ආරම්භ කිරීමට YMusic විවෘත කරන්න</string>
+    <string name="widget_open_to_start">සවන් දීම ආරම්භ කිරීමට Verre විවෘත කරන්න</string>
 </resources>

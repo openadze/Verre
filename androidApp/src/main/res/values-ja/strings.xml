@@ -5,7 +5,7 @@
     <string name="notification_pause">一時停止</string>
     <string name="notification_next">次へ</string>
     <string name="notification_close">閉じる</string>
-    <string name="notifications_required">YMusic はバックグラウンドサービスで音楽を再生するため、再生通知の表示が必要です。続行するには通知を許可してください。</string>
+    <string name="notifications_required">Verre はバックグラウンドサービスで音楽を再生するため、再生通知の表示が必要です。続行するには通知を許可してください。</string>
     <string name="notifications_allow">通知を許可</string>
     <string name="download_notification_channel">ダウンロード</string>
     <string name="notification_downloads_running">ダウンロード中…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">プレーヤー · 正方形</string>
     <string name="widget_description">再生中の曲と再生コントロール</string>
     <string name="widget_nothing_playing">再生していません</string>
-    <string name="widget_open_to_start">YMusic を開いて再生を始めましょう</string>
+    <string name="widget_open_to_start">Verre を開いて再生を始めましょう</string>
 </resources>

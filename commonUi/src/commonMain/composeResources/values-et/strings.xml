@@ -262,7 +262,7 @@
     <string name="settings_show_fps_hint">Kuva kaadrisagedus vaate Praegu mängib video peal. Mõõtmine peatub pausi ajal või kui sellelt ekraanilt lahkud.</string>
     <string name="settings_licenses">Avatud lähtekoodi litsentsid</string>
     <string name="settings_terms">Tingimused ja privaatsus</string>
-    <string name="settings_licenses_intro">YMusic on avatud lähtekoodiga litsentsi GNU GPL v3.0 alusel. See sisaldab järgmisi komponente:</string>
+    <string name="settings_licenses_intro">Verre on avatud lähtekoodiga litsentsi GNU GPL v3.0 alusel. See sisaldab järgmisi komponente:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Kirjuta meile, mis läks valesti või mida sooviksid näha, GitHubis või e-postiga. Lisa allolev anonüümne teave, et leiaksime sinu logid ja saaksime vastata.</string>
@@ -278,10 +278,10 @@
     <string name="feedback_github_hint">Avalik. Sobib kõige paremini vigade ja ideede jaoks — teised saavad seda jälgida ja täiendada.</string>
     <string name="feedback_email_title">Kirjuta aadressile %1$s</string>
     <string name="feedback_email_hint">Privaatne. Sobib kõige paremini konto- või isiklike küsimuste jaoks.</string>
-    <string name="feedback_email_subject">YMusicu tagasiside</string>
+    <string name="feedback_email_subject">Verreu tagasiside</string>
     <string name="feedback_prefilled_note">Mõlemad avanevad juba täidetud teabega. Kui see puudub, kleepige see — ilma selleta me aidata ei saa.</string>
     <string name="feedback_reports_off_title">Anonüümsed aruanded on välja lülitatud</string>
-    <string name="feedback_reports_off_message">Teie probleemi uurimiseks vajame selle rakenduse logisid. Puudutage Jätka ja YMusic lülitab anonüümsed aruanded uuesti sisse ning saadab logid.</string>
+    <string name="feedback_reports_off_message">Teie probleemi uurimiseks vajame selle rakenduse logisid. Puudutage Jätka ja Verre lülitab anonüümsed aruanded uuesti sisse ning saadab logid.</string>
     <string name="feedback_reports_off_note">Nime, e-posti ega kontot ei saadeta. Aruanded saate sätetes uuesti välja lülitada.</string>
     <string name="feedback_continue">Jätka</string>
     <string name="feedback_sentry_link">või Sentry kaudu</string>
@@ -339,7 +339,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Logi sisse YouTube'iga</string>
-    <string name="signin_preface_subtitle">ja saa kõik YouTube'i funktsioonid YMusicus</string>
+    <string name="signin_preface_subtitle">ja saa kõik YouTube'i funktsioonid Verreus</string>
     <string name="signin_enables">Sisselogimine võimaldab:</string>
     <string name="signin_feature_home">Isikupärastatud YouTube'i avalehe voog</string>
     <string name="signin_feature_subscriptions">Tellimuste voog</string>
@@ -352,8 +352,8 @@
     <string name="signin_screen_title">Sisselogimine</string>
     <string name="signin_loading">Sisselogimise laadimine…</string>
     <string name="signin_unavailable">Sisselogimine pole selles seadmes veel saadaval</string>
-    <string name="signin_qr_title">Skanni YMusicu rakendusega</string>
-    <string name="signin_qr_hint">Ava telefonis YMusic → Sätted → Seo seadmed → Ava kaamera ja skanni see kood.</string>
+    <string name="signin_qr_title">Skanni Verreu rakendusega</string>
+    <string name="signin_qr_hint">Ava telefonis Verre → Sätted → Seo seadmed → Ava kaamera ja skanni see kood.</string>
     <string name="signin_qr_waiting">Telefoni ootamine…</string>
     <string name="signin_qr_sas_hint">Telefon näitab sama koodi. Saada ainult siis, kui need ühtivad.</string>
     <string name="signin_or_paste">Või kleebi küpsised brauserist</string>
@@ -379,11 +379,11 @@
     <string name="signin_paste_no_cookie_title">Sellel päringul pole küpsiseid</string>
     <string name="signin_paste_no_cookie_body">Kasuta Copy as cURL mõnel teisel päringul, eelistatavalt Fetch/XHR, näiteks:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Selge</string>
-    <string name="cd_device_link_qr">QR-kood YMusicu rakendusega skannimiseks</string>
+    <string name="cd_device_link_qr">QR-kood Verreu rakendusega skannimiseks</string>
     <string name="settings_link_devices">Seo seadmed</string>
     <string name="settings_link_devices_hint">Logi arvutis sisse, skannides selle QR-koodi</string>
     <string name="device_link_title">Seo seadmed</string>
-    <string name="device_link_intro">Skanni QR-kood, mida YMusic arvutis näitab. See telefon peab olema juba sisse logitud.</string>
+    <string name="device_link_intro">Skanni QR-kood, mida Verre arvutis näitab. See telefon peab olema juba sisse logitud.</string>
     <string name="device_link_open_camera">Ava kaamera</string>
     <string name="device_link_scan_hint">Suuna kaamera arvuti QR-koodile</string>
     <string name="device_link_sas_hint">See kood peab ühtima arvutis olevaga. Kui ei ühti, puuduta Tühista.</string>
@@ -549,8 +549,8 @@
     <string name="folder_picker_use_folder">Kasuta seda kausta</string>
     <string name="folder_picker_empty">Siin pole kaustu</string>
     <string name="folder_picker_storage_denied">Kausta valimiseks luba seadetes juurdepääs oma muusikafailidele.</string>
-    <string name="folder_picker_companion_message">Sellel seadmel pole kaustavalijat. Kaustade valimiseks laadi sellelt lingilt alla ja installi YMusic Files – väike YMusicu abirakendus – ning proovi uuesti.</string>
-    <string name="folder_picker_companion_update">YMusic Files vajab selle YMusicu versiooniga töötamiseks värskendust. Laadi sellelt lingilt alla ja installi uusim versioon ning proovi uuesti.</string>
+    <string name="folder_picker_companion_message">Sellel seadmel pole kaustavalijat. Kaustade valimiseks laadi sellelt lingilt alla ja installi YMusic Files – väike Verreu abirakendus – ning proovi uuesti.</string>
+    <string name="folder_picker_companion_update">YMusic Files vajab selle Verreu versiooniga töötamiseks värskendust. Laadi sellelt lingilt alla ja installi uusim versioon ning proovi uuesti.</string>
     <string name="folder_picker_companion_open">Ava link</string>
     <string name="folder_picker_missing">Selles seadmes pole kaustavalijat, seega ei saa kausta valida.</string>
     <string name="error_supervised_account">See Google'i konto on järelevalve all, seega ei saa YouTube'i siin kasutada. Logi välja või vaheta teise konto vastu.</string>
@@ -599,7 +599,7 @@
     <string name="video_details_delete_message">Kas kustutada sinu kommentaar ja kõik selle vastused jäädavalt?</string>
     <string name="video_details_deleted">Kommentaar kustutatud</string>
     <string name="cookie_protect_title">Kas kaitsta sisselogimist parooliga?</string>
-    <string name="cookie_protect_body">Sinu sisselogimine on salvestatud selles arvutis, kus teised sinu käivitatud rakendused saavad seda lugeda. Määra lukustamiseks parool; YMusic küsib seda igal käivitamisel.</string>
+    <string name="cookie_protect_body">Sinu sisselogimine on salvestatud selles arvutis, kus teised sinu käivitatud rakendused saavad seda lugeda. Määra lukustamiseks parool; Verre küsib seda igal käivitamisel.</string>
     <string name="cookie_password">Parool</string>
     <string name="cookie_protect_confirm">Kinnita parool</string>
     <string name="cookie_protect_mismatch">Paroolid ei ühti.</string>
@@ -615,7 +615,7 @@
     <string name="cookie_unlock_sign_out">Logi välja</string>
     <string name="cookie_unlock_sign_out_hint">Eemaldab selle salvestatud sisselogimise.</string>
     <string name="cookie_unlock_sign_out_title">Kas logida välja?</string>
-    <string name="cookie_unlock_sign_out_body">See eemaldab salvestatud sisselogimise sellest arvutist. Uuesti sisselogimiseks skanni QR-kood rakendusega YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">See eemaldab salvestatud sisselogimise sellest arvutist. Uuesti sisselogimiseks skanni QR-kood rakendusega Verre.</string>
     <string name="menu_details_comments">Üksikasjad ja kommentaarid</string>
     <string name="menu_search_lyrics">Otsi laulusõnu</string>
     <string name="menu_speed_pitch">Kiirus ja helikõrgus</string>
@@ -627,7 +627,7 @@
     <string name="cd_move_to_top">Liiguta üles</string>
     <string name="dialog_undo">Võta tagasi</string>
     <string name="dialog_save">Salvesta</string>
-    <string name="upgraded_message">YMusic uuendati versioonile %1$s</string>
+    <string name="upgraded_message">Verre uuendati versioonile %1$s</string>
     <string name="upgraded_view_changelog">Vaata muudatusi</string>
     <string name="menu_go_to_artist">Mine artisti juurde</string>
     <string name="menu_go_to_album">Mine albumisse</string>
@@ -666,9 +666,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">Windows blokeeris osa YMusicust.</string>
+    <string name="native_blocked">Windows blokeeris osa Verreust.</string>
     <string name="media_engine_unavailable">Muusikat ja videoid ei saa siin esitada, kuid saate endiselt sirvida ja otsida.</string>
-    <string name="native_blocked_help">Töö- või koolisarvutis paluge administraatoril YMusic lubada. Oma arvutis kontrollige Smart App Controli jaotises Windowsi turve.</string>
+    <string name="native_blocked_help">Töö- või koolisarvutis paluge administraatoril Verre lubada. Oma arvutis kontrollige Smart App Controli jaotises Windowsi turve.</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">Värskendamine</string>
     <string name="a11y_loading">Laadimine</string>
@@ -696,5 +696,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">Seni alla laaditu kustutatakse.</string>
     <string name="downloads_cancel_selected_keep">Jäta alles</string>
-    <string name="data_dir_unusable">YMusic ei saa avada oma andmekausta %1$s. Veendu, et see on kaust, kuhu saad kirjutada, ja ava YMusic uuesti. (%2$s)</string>
+    <string name="data_dir_unusable">Verre ei saa avada oma andmekausta %1$s. Veendu, et see on kaust, kuhu saad kirjutada, ja ava Verre uuesti. (%2$s)</string>
 </resources>

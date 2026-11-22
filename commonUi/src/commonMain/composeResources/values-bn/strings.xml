@@ -262,7 +262,7 @@
     <string name="settings_show_fps_hint">Now Playing ভিডিওর উপর প্রতি সেকেন্ডে ফ্রেম দেখান। বিরতি দিলে বা স্ক্রিন ছেড়ে গেলে মাপা বন্ধ হয়।</string>
     <string name="settings_licenses">ওপেন সোর্স লাইসেন্স</string>
     <string name="settings_terms">শর্তাবলী ও গোপনীয়তা</string>
-    <string name="settings_licenses_intro">YMusic GNU GPL v3.0-এর অধীনে ওপেন সোর্স। এতে এই উপাদানগুলো রয়েছে:</string>
+    <string name="settings_licenses_intro">Verre GNU GPL v3.0-এর অধীনে ওপেন সোর্স। এতে এই উপাদানগুলো রয়েছে:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">কী সমস্যা হয়েছে বা আপনি কী দেখতে চান, তা GitHub-এ বা ইমেলে আমাদের জানান। নিচের বেনামী তথ্য যোগ করুন, যাতে আমরা আপনার লগ খুঁজে উত্তর দিতে পারি।</string>
@@ -278,10 +278,10 @@
     <string name="feedback_github_hint">সর্বজনীন। বাগ ও আইডিয়ার জন্য সেরা — অন্যরা অনুসরণ করতে ও যোগ করতে পারেন।</string>
     <string name="feedback_email_title">%1$s-এ ইমেল করুন</string>
     <string name="feedback_email_hint">ব্যক্তিগত। অ্যাকাউন্ট বা ব্যক্তিগত প্রশ্নের জন্য সেরা।</string>
-    <string name="feedback_email_subject">YMusic মতামত</string>
+    <string name="feedback_email_subject">Verre মতামত</string>
     <string name="feedback_prefilled_note">দুটোই তথ্য আগে থেকে পূরণ করা অবস্থায় খোলে। না থাকলে পেস্ট করুন — এটি ছাড়া আমরা সাহায্য করতে পারি না।</string>
     <string name="feedback_reports_off_title">বেনামী রিপোর্ট বন্ধ আছে</string>
-    <string name="feedback_reports_off_message">আপনার সমস্যা দেখতে আমাদের এই অ্যাপের লগ দরকার। চালিয়ে যান-এ ট্যাপ করুন, YMusic বেনামী রিপোর্ট আবার চালু করে লগ পাঠাবে।</string>
+    <string name="feedback_reports_off_message">আপনার সমস্যা দেখতে আমাদের এই অ্যাপের লগ দরকার। চালিয়ে যান-এ ট্যাপ করুন, Verre বেনামী রিপোর্ট আবার চালু করে লগ পাঠাবে।</string>
     <string name="feedback_reports_off_note">কোনো নাম, ইমেল বা অ্যাকাউন্ট পাঠানো হয় না। সেটিংসে আবার রিপোর্ট বন্ধ করতে পারেন।</string>
     <string name="feedback_continue">চালিয়ে যান</string>
     <string name="feedback_sentry_link">অথবা Sentry-এর মাধ্যমে</string>
@@ -339,7 +339,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube দিয়ে সাইন ইন করুন</string>
-    <string name="signin_preface_subtitle">এবং YMusic-এর ভেতরেই YouTube-এর সব ফিচার পান</string>
+    <string name="signin_preface_subtitle">এবং Verre-এর ভেতরেই YouTube-এর সব ফিচার পান</string>
     <string name="signin_enables">সাইন ইন করলে পাবেন:</string>
     <string name="signin_feature_home">ব্যক্তিগতকৃত YouTube হোম ফিড</string>
     <string name="signin_feature_subscriptions">সাবস্ক্রিপশন ফিড</string>
@@ -352,8 +352,8 @@
     <string name="signin_screen_title">সাইন ইন</string>
     <string name="signin_loading">সাইন ইন লোড হচ্ছে…</string>
     <string name="signin_unavailable">এই ডিভাইসে এখনও সাইন ইন উপলব্ধ নয়</string>
-    <string name="signin_qr_title">YMusic অ্যাপ দিয়ে স্ক্যান করুন</string>
-    <string name="signin_qr_hint">আপনার ফোনে YMusic খুলুন → সেটিংস → ডিভাইস লিঙ্ক করুন → ক্যামেরা খুলুন, তারপর এই কোডটি স্ক্যান করুন।</string>
+    <string name="signin_qr_title">Verre অ্যাপ দিয়ে স্ক্যান করুন</string>
+    <string name="signin_qr_hint">আপনার ফোনে Verre খুলুন → সেটিংস → ডিভাইস লিঙ্ক করুন → ক্যামেরা খুলুন, তারপর এই কোডটি স্ক্যান করুন।</string>
     <string name="signin_qr_waiting">ফোনের জন্য অপেক্ষা করা হচ্ছে…</string>
     <string name="signin_qr_sas_hint">আপনার ফোনে এই একই কোড দেখাবে। মিললে তবেই পাঠান।</string>
     <string name="signin_or_paste">অথবা ব্রাউজার থেকে কুকি পেস্ট করুন</string>
@@ -379,11 +379,11 @@
     <string name="signin_paste_no_cookie_title">ওই রিকোয়েস্টে কোনো কুকি নেই</string>
     <string name="signin_paste_no_cookie_body">অন্য একটি রিকোয়েস্ট থেকে Copy as cURL করুন, বিশেষত Fetch/XHR, যেমন:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">বুঝেছি</string>
-    <string name="cd_device_link_qr">YMusic অ্যাপ দিয়ে স্ক্যান করার QR কোড</string>
+    <string name="cd_device_link_qr">Verre অ্যাপ দিয়ে স্ক্যান করার QR কোড</string>
     <string name="settings_link_devices">ডিভাইস লিঙ্ক করুন</string>
     <string name="settings_link_devices_hint">কম্পিউটারের QR কোড স্ক্যান করে সেখানে সাইন ইন করুন</string>
     <string name="device_link_title">ডিভাইস লিঙ্ক করুন</string>
-    <string name="device_link_intro">আপনার কম্পিউটারে YMusic-এ দেখানো QR কোডটি স্ক্যান করুন। এই ফোনে আগে থেকেই সাইন ইন থাকতে হবে।</string>
+    <string name="device_link_intro">আপনার কম্পিউটারে Verre-এ দেখানো QR কোডটি স্ক্যান করুন। এই ফোনে আগে থেকেই সাইন ইন থাকতে হবে।</string>
     <string name="device_link_open_camera">ক্যামেরা খুলুন</string>
     <string name="device_link_scan_hint">ক্যামেরাটি কম্পিউটারের QR কোডের দিকে ধরুন</string>
     <string name="device_link_sas_hint">এই কোডটি কম্পিউটারের সাথে মিলতে হবে। না মিললে বাতিল-এ ট্যাপ করুন।</string>
@@ -549,8 +549,8 @@
     <string name="folder_picker_use_folder">এই ফোল্ডার ব্যবহার করুন</string>
     <string name="folder_picker_empty">এখানে কোনো ফোল্ডার নেই</string>
     <string name="folder_picker_storage_denied">ফোল্ডার বেছে নিতে সেটিংসে আপনার মিউজিক ফাইলের অ্যাক্সেস দিন।</string>
-    <string name="folder_picker_companion_message">এই ডিভাইসে কোনো ফোল্ডার বাছাইকারী নেই। ফোল্ডার বেছে নিতে এই লিঙ্ক থেকে YMusic-এর ছোট সহায়ক অ্যাপ YMusic Files ডাউনলোড ও ইনস্টল করুন, তারপর আবার চেষ্টা করুন।</string>
-    <string name="folder_picker_companion_update">YMusic-এর এই সংস্করণের সঙ্গে কাজ করতে YMusic Files আপডেট করা দরকার। এই লিঙ্ক থেকে সর্বশেষ সংস্করণ ডাউনলোড ও ইনস্টল করুন, তারপর আবার চেষ্টা করুন।</string>
+    <string name="folder_picker_companion_message">এই ডিভাইসে কোনো ফোল্ডার বাছাইকারী নেই। ফোল্ডার বেছে নিতে এই লিঙ্ক থেকে Verre-এর ছোট সহায়ক অ্যাপ YMusic Files ডাউনলোড ও ইনস্টল করুন, তারপর আবার চেষ্টা করুন।</string>
+    <string name="folder_picker_companion_update">Verre-এর এই সংস্করণের সঙ্গে কাজ করতে YMusic Files আপডেট করা দরকার। এই লিঙ্ক থেকে সর্বশেষ সংস্করণ ডাউনলোড ও ইনস্টল করুন, তারপর আবার চেষ্টা করুন।</string>
     <string name="folder_picker_companion_open">লিঙ্ক খুলুন</string>
     <string name="folder_picker_missing">এই ডিভাইসে কোনো ফোল্ডার পিকার নেই, তাই ফোল্ডার বেছে নেওয়া যাবে না।</string>
     <string name="error_supervised_account">এই Google অ্যাকাউন্টটি তত্ত্বাবধানে আছে, তাই এখানে YouTube ব্যবহার করা যাবে না। সাইন আউট করুন বা অন্য অ্যাকাউন্টে যান।</string>
@@ -599,7 +599,7 @@
     <string name="video_details_delete_message">আপনার মন্তব্য এবং এর সব উত্তর স্থায়ীভাবে মুছবেন?</string>
     <string name="video_details_deleted">মন্তব্য মুছে ফেলা হয়েছে</string>
     <string name="cookie_protect_title">পাসওয়ার্ড দিয়ে আপনার সাইন ইন সুরক্ষিত করবেন?</string>
-    <string name="cookie_protect_body">আপনার সাইন ইন এই কম্পিউটারে সেভ করা আছে, যেখানে আপনার চালানো অন্য অ্যাপ এটি পড়তে পারে। এটি লক করতে একটি পাসওয়ার্ড সেট করুন; YMusic প্রতিবার চালু হওয়ার সময় এটি চাইবে।</string>
+    <string name="cookie_protect_body">আপনার সাইন ইন এই কম্পিউটারে সেভ করা আছে, যেখানে আপনার চালানো অন্য অ্যাপ এটি পড়তে পারে। এটি লক করতে একটি পাসওয়ার্ড সেট করুন; Verre প্রতিবার চালু হওয়ার সময় এটি চাইবে।</string>
     <string name="cookie_password">পাসওয়ার্ড</string>
     <string name="cookie_protect_confirm">পাসওয়ার্ড নিশ্চিত করুন</string>
     <string name="cookie_protect_mismatch">পাসওয়ার্ড দুটি মিলছে না।</string>
@@ -615,7 +615,7 @@
     <string name="cookie_unlock_sign_out">সাইন আউট</string>
     <string name="cookie_unlock_sign_out_hint">সেভ করা এই সাইন ইন সরিয়ে দেয়।</string>
     <string name="cookie_unlock_sign_out_title">সাইন আউট করবেন?</string>
-    <string name="cookie_unlock_sign_out_body">এটি এই কম্পিউটার থেকে সেভ করা সাইন ইন সরিয়ে দেবে। আবার সাইন ইন করতে YMusic অ্যাপ দিয়ে QR কোড স্ক্যান করুন।</string>
+    <string name="cookie_unlock_sign_out_body">এটি এই কম্পিউটার থেকে সেভ করা সাইন ইন সরিয়ে দেবে। আবার সাইন ইন করতে Verre অ্যাপ দিয়ে QR কোড স্ক্যান করুন।</string>
     <string name="menu_details_comments">বিবরণ ও মন্তব্য</string>
     <string name="menu_search_lyrics">গানের কথা খুঁজুন</string>
     <string name="menu_speed_pitch">গতি ও পিচ</string>
@@ -627,7 +627,7 @@
     <string name="cd_move_to_top">শীর্ষে সরান</string>
     <string name="dialog_undo">পূর্বাবস্থায় ফেরান</string>
     <string name="dialog_save">সংরক্ষণ করুন</string>
-    <string name="upgraded_message">YMusic %1$s সংস্করণে আপডেট হয়েছে</string>
+    <string name="upgraded_message">Verre %1$s সংস্করণে আপডেট হয়েছে</string>
     <string name="upgraded_view_changelog">পরিবর্তনের তালিকা দেখুন</string>
     <string name="menu_go_to_artist">শিল্পীতে যান</string>
     <string name="menu_go_to_album">অ্যালবামে যান</string>
@@ -666,9 +666,9 @@
     <string name="download_kbps">%1$d kbps</string>
 
     <!-- Windows refused a native library (desktop) -->
-    <string name="native_blocked">Windows YMusic-এর একটি অংশ ব্লক করেছে।</string>
+    <string name="native_blocked">Windows Verre-এর একটি অংশ ব্লক করেছে।</string>
     <string name="media_engine_unavailable">এখানে গান ও ভিডিও চালানো যাচ্ছে না, তবে আপনি এখনও ব্রাউজ ও সার্চ করতে পারবেন।</string>
-    <string name="native_blocked_help">অফিস বা স্কুলের পিসিতে আপনার অ্যাডমিনিস্ট্রেটরকে YMusic অনুমতি দিতে বলুন। নিজের পিসিতে Windows Security-তে Smart App Control দেখুন।</string>
+    <string name="native_blocked_help">অফিস বা স্কুলের পিসিতে আপনার অ্যাডমিনিস্ট্রেটরকে Verre অনুমতি দিতে বলুন। নিজের পিসিতে Windows Security-তে Smart App Control দেখুন।</string>
     <!-- A feed reloading in place (desktop) -->
     <string name="a11y_refreshing">রিফ্রেশ হচ্ছে</string>
     <string name="a11y_loading">লোড হচ্ছে</string>
@@ -696,5 +696,5 @@
     </plurals>
     <string name="downloads_cancel_selected_message">এখন পর্যন্ত যা ডাউনলোড হয়েছে তা মুছে ফেলা হবে।</string>
     <string name="downloads_cancel_selected_keep">রাখুন</string>
-    <string name="data_dir_unusable">YMusic তার ডেটা ফোল্ডার, %1$s, খুলতে পারছে না। নিশ্চিত করুন যে এটি এমন একটি ফোল্ডার যেখানে আপনি লিখতে পারেন, তারপর আবার YMusic খুলুন। (%2$s)</string>
+    <string name="data_dir_unusable">Verre তার ডেটা ফোল্ডার, %1$s, খুলতে পারছে না। নিশ্চিত করুন যে এটি এমন একটি ফোল্ডার যেখানে আপনি লিখতে পারেন, তারপর আবার Verre খুলুন। (%2$s)</string>
 </resources>

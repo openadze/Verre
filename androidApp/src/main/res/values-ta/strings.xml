@@ -5,7 +5,7 @@
     <string name="notification_pause">இடைநிறுத்து</string>
     <string name="notification_next">அடுத்தது</string>
     <string name="notification_close">மூடு</string>
-    <string name="notifications_required">YMusic பின்னணிச் சேவை மூலம் இசையை இயக்குகிறது, அது இயக்க அறிவிப்பைக் காட்ட வேண்டும். தொடர அறிவிப்புகளை அனுமதிக்கவும்.</string>
+    <string name="notifications_required">Verre பின்னணிச் சேவை மூலம் இசையை இயக்குகிறது, அது இயக்க அறிவிப்பைக் காட்ட வேண்டும். தொடர அறிவிப்புகளை அனுமதிக்கவும்.</string>
     <string name="notifications_allow">அறிவிப்புகளை அனுமதி</string>
     <string name="download_notification_channel">பதிவிறக்கங்கள்</string>
     <string name="notification_downloads_running">பதிவிறக்குகிறது…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">பிளேயர் · சதுரம்</string>
     <string name="widget_description">இயக்கக் கட்டுப்பாடுகளுடன் இப்போது இயங்குவது</string>
     <string name="widget_nothing_playing">எதுவும் இயங்கவில்லை</string>
-    <string name="widget_open_to_start">கேட்கத் தொடங்க YMusic-ஐத் திறக்கவும்</string>
+    <string name="widget_open_to_start">கேட்கத் தொடங்க Verre-ஐத் திறக்கவும்</string>
 </resources>

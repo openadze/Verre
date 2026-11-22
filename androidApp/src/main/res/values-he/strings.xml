@@ -5,7 +5,7 @@
     <string name="notification_pause">השהיה</string>
     <string name="notification_next">הבא</string>
     <string name="notification_close">סגירה</string>
-    <string name="notifications_required">YMusic משמיעה מוזיקה משירות ברקע שחייב להציג התראת השמעה. כדי להמשיך, יש לאשר התראות.</string>
+    <string name="notifications_required">Verre משמיעה מוזיקה משירות ברקע שחייב להציג התראת השמעה. כדי להמשיך, יש לאשר התראות.</string>
     <string name="notifications_allow">אישור התראות</string>
     <string name="download_notification_channel">הורדות</string>
     <string name="notification_downloads_running">מוריד…</string>
@@ -31,5 +31,5 @@
     <string name="widget_square_name">נגן · ריבועי</string>
     <string name="widget_description">מתנגן עכשיו, עם פקדי השמעה</string>
     <string name="widget_nothing_playing">שום דבר לא מתנגן</string>
-    <string name="widget_open_to_start">יש לפתוח את YMusic כדי להתחיל להאזין</string>
+    <string name="widget_open_to_start">יש לפתוח את Verre כדי להתחיל להאזין</string>
 </resources>
