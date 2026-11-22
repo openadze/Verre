@@ -61,6 +61,7 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -304,7 +305,7 @@ private fun RailPanel(
     onEntryFailed: () -> Unit,
 ) {
     val width by animateDpAsState(if (expanded) DesignSpacing.RailExpandedWidth else DesignSpacing.RailCollapsedWidth)
-    Box(Modifier.width(width).fillMaxHeight().clipToBounds().background(background)) {
+    Box(Modifier.width(width).fillMaxHeight().clipToBounds().glassPanel(RectangleShape, fallback = background, base = background)) {
         // Laid out at the final width and clipped by the animated panel: the labels must not reflow on the way.
         Column(
             Modifier.wrapContentWidth(Alignment.Start, unbounded = true).fillMaxHeight()
@@ -572,7 +573,13 @@ private fun RailIconItem(section: AppSection, active: Boolean, focusRequester: F
                 selected = active
                 contentDescription = label
             }
-            .background(if (active) scheme.primaryContainer else Color.Transparent),
+            .then(
+                if (active) {
+                    Modifier.glassPanel(RailItemShape, fallback = scheme.primaryContainer, base = scheme.primaryContainer)
+                } else {
+                    Modifier
+                },
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Icon(section.icon, null, Modifier.size(DesignSpacing.Space24), tint = if (active) scheme.onPrimaryContainer else DesignColors.Ink)

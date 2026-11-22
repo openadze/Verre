@@ -469,7 +469,7 @@ internal fun SearchInputBar(
                 .weight(1f)
                 .height(40.dp)
                 .clip(RoundedCornerShape(999.dp))
-                .background(DesignColors.FieldPill)
+                .glassPanel(RoundedCornerShape(999.dp), fallback = DesignColors.FieldPill, base = DesignColors.FieldPill)
                 // The trailing icon's own 8dp inset is the trailing padding while it shows.
                 .padding(start = 16.dp, end = if (value.text.isEmpty() && inlineMic == null) 16.dp else 0.dp),
             verticalAlignment = Alignment.CenterVertically,

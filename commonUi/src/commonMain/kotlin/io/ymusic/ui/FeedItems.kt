@@ -425,7 +425,14 @@ fun ShowMoreButton(label: String, expanded: Boolean, onClick: () -> Unit, modifi
         Row(
             Modifier
                 .clip(RoundedCornerShape(999.dp))
-                .border(1.dp, DesignColors.OutlineSoft, RoundedCornerShape(999.dp))
+                .glassPanel(RoundedCornerShape(999.dp))
+                .then(
+                    if (LocalGlassBackdrop.current != null) {
+                        Modifier
+                    } else {
+                        Modifier.border(1.dp, DesignColors.OutlineSoft, RoundedCornerShape(999.dp))
+                    },
+                )
                 .then(indication)
                 .chipPadding(),
             horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
@@ -507,8 +514,8 @@ private fun TagPill(label: String, accent: String?, modifier: Modifier, onClick:
             // hard-cut the border's outer half against an aliased edge (the jagged look). Clip last, only
             // so the click ripple stays inside the pill.
             modifier = Modifier
-                .background(DesignColors.SurfaceElevated, shape)
-                .border(1.dp, border, shape)
+                .glassPanel(shape, fallback = DesignColors.SurfaceElevated, base = DesignColors.SurfaceElevated)
+                .then(if (LocalGlassBackdrop.current != null) Modifier else Modifier.border(1.dp, border, shape))
                 .clip(shape)
                 .then(indication)
                 .chipPadding(),

@@ -275,7 +275,7 @@ fun gridMetricsFor(windowWidth: androidx.compose.ui.unit.Dp): GridMetrics {
     )
 }
 
-private fun schemeFor(c: DesignPalette) = with(c) {
+internal fun schemeFor(c: DesignPalette) = with(c) {
     val base = if (isDark) darkColorScheme() else lightColorScheme()
     base.copy(
         primary = Accent,

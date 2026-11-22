@@ -1008,8 +1008,21 @@ fun FeedChip(title: String, selected: Boolean, choice: Boolean = true, loading: 
         Row(
             Modifier
                 .clip(RoundedCornerShape(999.dp))
-                .background(if (selected) DesignColors.Accent else Color.Transparent)
-                .border(1.dp, if (selected) DesignColors.Accent else DesignColors.Outline, RoundedCornerShape(999.dp))
+                // Selected = the solid accent; unselected = glass (its rim replaces the outline) when glass is on.
+                .then(
+                    if (selected) {
+                        Modifier.background(DesignColors.Accent)
+                    } else {
+                        Modifier.glassPanel(RoundedCornerShape(999.dp))
+                    },
+                )
+                .then(
+                    if (!selected && LocalGlassBackdrop.current != null) {
+                        Modifier
+                    } else {
+                        Modifier.border(1.dp, if (selected) DesignColors.Accent else DesignColors.Outline, RoundedCornerShape(999.dp))
+                    },
+                )
                 .then(indication)
                 .chipPadding(),
             verticalAlignment = Alignment.CenterVertically,

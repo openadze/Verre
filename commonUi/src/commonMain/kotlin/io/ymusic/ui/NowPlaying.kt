@@ -149,6 +149,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import io.ymusic.dynamicengine.yt.YtFeedItem
 import io.ymusic.mediastore.model.MediaStoreItem
 import io.ymusic.player.LoopMode
@@ -513,8 +514,33 @@ fun NowPlayingScreen(
                     false
                 },
             ) {
-                if (platformUsesTouch) shell() else FocusCatcher { shell() }
+                val nowItem by coordinator.player.queue.collectAsStateWithLifecycle()
+                CoverLook(graph, nowItem.currentItem?.displayThumbnailUrl, enabled = !desktopLayoutHole && !fullscreen) {
+                    if (platformUsesTouch) shell() else FocusCatcher { shell() }
+                }
             }
+        }
+    }
+}
+
+/**
+ * Now Playing's look (Apple Music's): a gradient taken from the cover as the ground, white ink over it, and Liquid
+ * Glass controls refracting that gradient. The gradient is the glass source and a sibling of the content, never its
+ * parent. Off for the desktop video hole (the window behind the compose tree is the picture) and full screen.
+ */
+@Composable
+private fun CoverLook(graph: AppGraph, coverUrl: String?, enabled: Boolean, content: @Composable () -> Unit) {
+    if (!enabled) {
+        content()
+        return
+    }
+    val palette = rememberCoverPalette(graph, coverUrl)
+    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }.collectAsStateWithLifecycle()
+    val backdrop = rememberLayerBackdrop()
+    Box(Modifier.fillMaxSize()) {
+        CoverGradient(palette, Modifier.fillMaxSize().then(if (glassOn) Modifier.glassSource(backdrop) else Modifier))
+        CompositionLocalProvider(LocalGlassBackdrop provides if (glassOn) backdrop else null) {
+            CoverTheme(content)
         }
     }
 }
@@ -764,7 +790,7 @@ private fun PortraitNowPlaying(
         QueueMoreSettle(queueMoreFocus, queue)
         LazyColumn(
             state = listState,
-            modifier = Modifier.weight(1f).background(DesignColors.Surface).itemList(),
+            modifier = Modifier.weight(1f).surfaceBackground().itemList(),
             overscrollEffect = null,
         ) {
             item {
@@ -799,12 +825,19 @@ private fun PortraitNowPlaying(
                 val headerColor by animateColorAsState(
                     if (pinned) DesignColors.SurfaceElevated else DesignColors.Surface,
                 )
-                Column(
-                    Modifier.fillMaxWidth().then(
-                        if (pinned) Modifier.shadow(headerShadow).background(headerColor)
-                        else Modifier,
-                    ),
-                ) {
+                // Over the cover gradient the pinned header is a glass bar; elsewhere the lifted, shadowed one.
+                val pinnedLook = if (LocalCoverLook.current) {
+                    Modifier.glassSurface(
+                        RectangleShape,
+                        fallback = DesignColors.SurfaceElevated,
+                        tint = currentGlassStyle().tint,
+                        blurRadius = 14.dp,
+                        refract = false,
+                    )
+                } else {
+                    Modifier.shadow(headerShadow).background(headerColor)
+                }
+                Column(Modifier.fillMaxWidth().then(if (pinned) pinnedLook else Modifier)) {
                     QueueHeader(coordinator, queue.currentIndex, queue.displayTotal, queue.shuffle, queue.loopMode, locateCurrent)
                     HorizontalDivider(color = DesignColors.Divider)
                 }
@@ -865,7 +898,7 @@ private fun LandscapeNowPlaying(
             Column(
                 Modifier.width(paneWidth).fillMaxHeight()
                     .windowInsetsPadding(WindowInsets.navigationBars)
-                    .background(DesignColors.Surface),
+                    .surfaceBackground(),
             ) {
                 PlayerTopBar(coordinator, sleepMs, onClose, lyricsOpen = false, onToggleLyrics = onToggleLyrics)
                 val queueListState = rememberLazyListState()
@@ -1578,7 +1611,7 @@ private fun PlayerTopBar(
     Row(
         // Paddings/gaps shave the ActionIcon hit-inset (8dp) so the glyphs keep the bar's metrics.
         Modifier.fillMaxWidth()
-            .background(DesignColors.Surface)
+            .surfaceBackground()
             .padding(horizontal = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -1726,8 +1759,9 @@ internal fun QualityChip(
             label,
             style = TextStyle(fontSize = 11.sp * scale, fontWeight = FontWeight.Bold, color = ink),
             modifier = Modifier
+                .glassPanel(RoundedCornerShape(6.dp))
                 .clip(RoundedCornerShape(6.dp))
-                .border(1.dp, outline, RoundedCornerShape(6.dp))
+                .then(if (LocalGlassBackdrop.current != null) Modifier else Modifier.border(1.dp, outline, RoundedCornerShape(6.dp)))
                 .clickable { open = true }
                 .a11yActionLabel("$qualityDescription, $label")
                 .clearAndSetSemantics { role = Role.DropdownList }
@@ -1865,12 +1899,15 @@ private fun ShareAction(current: PlayableItem?, tint: Color, iconSize: Dp, hitSi
 @Composable
 private fun VideoDetails(coordinator: PlaybackCoordinator, videoId: String, onDismiss: () -> Unit) {
     val openChannel = LocalOpenChannel.current
-    VideoDetailsDialog(
-        coordinator.graph,
-        videoId,
-        onOpenChannel = { url, title -> onDismiss(); openChannel(url, title) },
-        onDismiss = onDismiss,
-    )
+    // A dialog is its own window: it must not inherit the cover ink or glass of the screen that opened it.
+    AppThemeReset {
+        VideoDetailsDialog(
+            coordinator.graph,
+            videoId,
+            onOpenChannel = { url, title -> onDismiss(); openChannel(url, title) },
+            onDismiss = onDismiss,
+        )
+    }
 }
 
 private fun Modifier.menuChoice(selected: Boolean) = semantics {
@@ -2221,8 +2258,17 @@ private fun TransportButtons(
             tint = iconTint,
             onClick = { player.skipPrev() },
         )
+        // Over the cover gradient the play button is a glass disc with a white glyph; elsewhere the solid one.
+        val coverLook = LocalCoverLook.current
         Box(
-            Modifier.size(circle).clip(CircleShape).background(playBackground)
+            Modifier.size(circle).clip(CircleShape)
+                .then(
+                    if (coverLook) {
+                        Modifier.glassSurface(CircleShape, Color(0x40FFFFFF), tint = currentGlassStyle().tint, rim = true)
+                    } else {
+                        Modifier.background(playBackground)
+                    },
+                )
                 .then(LocalOverlayEntryFocus.current?.let { Modifier.focusRequester(it) } ?: Modifier)
                 .clickable(role = Role.Button) { player.togglePlay() }
                 .a11yActionLabel(stringResource(if (playing) Res.string.cd_pause else Res.string.cd_play)),
@@ -2232,7 +2278,7 @@ private fun TransportButtons(
                 if (playing) Icons.Default.Pause else Icons.Default.PlayArrow,
                 null,
                 Modifier.size((26.dp * scale).evenPx()),
-                tint = playForeground,
+                tint = if (coverLook) iconTint else playForeground,
             )
         }
         ActionIcon(
@@ -2591,7 +2637,7 @@ internal fun LyricsNowPlaying(
 
     Column(
         Modifier.fillMaxSize()
-            .background(DesignColors.Surface)
+            .surfaceBackground()
             .windowInsetsPadding(WindowInsets.navigationBars),
     ) {
         PlayerTopBar(coordinator, sleepMs, onClose, lyricsOpen = true, onToggleLyrics = onToggleLyrics)

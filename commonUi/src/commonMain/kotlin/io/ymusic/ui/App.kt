@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -334,6 +335,25 @@ private val AppLayer.log: kmpcommon.log.Logger?
 @Composable
 private fun PictureHidden(graph: AppGraph, hidden: Boolean) {
     SideEffect { graph.pip.pictureHidden.value = hidden }
+}
+
+/** The app's root box with the ambient glass layer behind its content, provided as [LocalGlassBackdrop] to all of it. */
+@Composable
+private fun GlassAmbientHost(
+    graph: AppGraph,
+    enabled: Boolean,
+    modifier: Modifier,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    val glassOn by remember(graph) { graph.settings.flow(GlassSettings.ENABLED) }.collectAsStateWithLifecycle()
+    val ambient = rememberLayerBackdrop()
+    val on = glassOn && enabled
+    CompositionLocalProvider(LocalGlassBackdrop provides if (on) ambient else null) {
+        Box(modifier) {
+            if (on) AmbientLayer(ambient, Modifier.fillMaxSize())
+            content()
+        }
+    }
 }
 
 @Composable
@@ -904,8 +924,12 @@ private fun AppRoot(
         // bar, the rail and the status-bar strip read it. (Content never touches them directly.)
         val scrollHost = remember { ScrollHost() }
         val appBarSlot = remember { AppBarSlot() }
-        Box(
-            Modifier.fillMaxSize()
+        // The ambient glass layer sits behind everything; the whole app refracts it (see Glass.kt). Not with the desktop
+        // hole: there the window behind the compose tree is the video, and an opaque layer would cover it.
+        GlassAmbientHost(
+            graph,
+            enabled = !desktopLayoutHole,
+            modifier = Modifier.fillMaxSize()
                 .then(if (desktopLayoutHole) Modifier else Modifier.background(DesignColors.Surface))
                 // Every screen that shows the drawer's Menu button (nothing pushed) takes the edge swipe.
                 .drawerEdgeGestureExclusion(!usesRail && !drawer.isOpen && !nowPlayingOpen && layers.isEmpty()),

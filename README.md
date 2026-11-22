@@ -36,8 +36,8 @@
 | 1    | `:lyrics` core (parsers, selector, timeline) | done, 13 unit tests                                          |
 | 2    | Providers, cache, offline lyrics             | done (LRCLIB, file cache, download hook), 31 tests in `:lyrics` |
 | 3    | Lyrics screen                                | done (word-by-word, instrumental dots, in Now Playing)       |
-| 4    | Liquid Glass                                 | in progress: `Glass.kt` + mini-player done, rest of the buttons next |
-| 5    | Theme and design                             |                                                              |
+| 4    | Liquid Glass                                 | done app-wide (icon buttons, chips, cards, search, rail, mini-player, Now Playing); not compiled on a device |
+| 5    | Theme and design                             | cover gradient on every Now Playing (video, queue, lyrics); indexed cover art in lists next |
 | 6    | Polish                                       |                                                              |
 
 Details: [`docs/verre/PROGRESS.md`](docs/verre/PROGRESS.md) and [`docs/verre/PLAN.md`](docs/verre/PLAN.md).

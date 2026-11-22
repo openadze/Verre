@@ -13,17 +13,28 @@ The shared Compose Multiplatform app UI (jvm + android; iOS later).
   (video height capped so the list stays usable).
 
 - **Liquid Glass (step 4)** — `Glass.kt`, on Kyant0's Backdrop 2.0.0 (`Libs.Backdrop.core`; 2.0.1+ needs Compose 1.12).
-  `Modifier.glassSurface(shape, fallback, tint, blurRadius, refract)` refracts `LocalGlassBackdrop` (blur + vibrancy +
-  lens) and, when that is `null`, paints `fallback` in the same shape: that is the plain translucent fallback, so call
-  sites never branch. `Modifier.glassSource(layerBackdrop)` marks the content to refract. Rules: provide
-  `LocalGlassBackdrop` only to the overlay subtree, never to the captured content (a surface that refracts a layer it is
-  drawn into recurses); the capture box and the glass surface are siblings (see the mini-player in `App.kt`); `refract`
-  needs a corner-based shape (`RoundedCornerShape`, `CircleShape`), so a plain rectangle passes `refract = false`.
-  Android < 12 loses the blur and < 13 the lens (the library skips those effects). `GlassSettings.ENABLED`
-  (`glass_enabled`, default on) is the kill switch; there is no Settings toggle yet (it needs a string in every locale).
-  Wired so far: the docked mini-player. The desktop-hole layout and the rail never provide a backdrop, so they keep their
-  old fills. Not glass yet: transport/overlay buttons, chips, top bars, lyrics controls (video sits on a native surface
-  that cannot be captured, so glass over the video is out of scope).
+  Glass is on whenever `LocalGlassBackdrop` is non-null; with it null (`GlassSettings.ENABLED` off, `glass_enabled`,
+  default on, no Settings toggle yet) every glass modifier paints its plain `fallback`, so call sites never branch.
+  Three layers, each refracted only by what is NOT inside it (a surface that refracts a layer it is drawn into
+  recurses): the **ambient layer** (`AmbientLayer`, behind the whole app, provided by `GlassAmbientHost` in `App.kt`;
+  what everything inside screens refracts), the **screens layer** (captured in `App.kt`, refracted only by the docked
+  mini-player), and the **cover gradient** (Now Playing). Two looks: `glassSurface(shape, fallback, tint, blurRadius,
+  refract, rim)` is the full refracting surface (blur + vibrancy + lens) for the few primary surfaces; `glassPanel(shape,
+  fallback, base)` is the shader-free veil + rim light, cheap enough for every chip, card and icon in a list. `GlassStyle`
+  (`LocalGlassStyle`) tunes veil and rim per ground (light, dark, cover). `refract` needs a corner-based shape; a dialog
+  or popup is its own window and must go back to the app look (`AppThemeReset`). Android < 12 loses the blur and < 13 the
+  lens (the library skips those effects). Glass today: every `ActionIcon`, filter/show-more/quality chips, settings
+  cards, the search field, the rail (and its active item), the mini-player, and all of Now Playing. Not glass: the
+  drawer sheet, dialogs and sheets (own windows), anything drawn over the video picture (a native surface that cannot be
+  captured), and the desktop video-hole layout (the window behind the compose tree is the picture).
+
+- **Cover look (step 5)** — `CoverPalette.kt`: `coverPaletteFromPixels(argb)` (pure, tested in `CoverPaletteTest`)
+  picks the dominant saturated hue of a cover and returns two colors tuned to sit under white text;
+  `rememberCoverPalette(graph, url)` loads a 64px cover and keeps the last palette while the next loads; `CoverGradient`
+  cross-fades 700 ms. `NowPlayingScreen` wraps portrait, landscape (queue pane) and lyrics in `CoverLook`: the gradient
+  is the glass source and a sibling of the content, and `CoverTheme` swaps in the white-ink palette (`coverDesignPalette`;
+  accent = white), so every composable below recolors itself through `DesignColors`. Screens that paint their own ground
+  use `Modifier.surfaceBackground()`, which skips it under the cover look. Off for full screen and the desktop hole.
 
 - **Navigation shell** — phones use the drawer and the bottom mini-player. Windows at least 750dp wide and 480dp tall
   use `AppRail` (`Rail.kt`) instead: a left rail carrying the same sections and the mini-player, which hosts the shared

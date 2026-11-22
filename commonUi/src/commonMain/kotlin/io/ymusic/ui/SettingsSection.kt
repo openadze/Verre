@@ -36,7 +36,11 @@ internal fun SettingsSection(title: StringResource, content: @Composable ColumnS
             .fillMaxWidth()
             .padding(horizontal = DesignSpacing.SettingsCardInset)
             .clip(RoundedCornerShape(DesignSpacing.SettingsCardCorner))
-            .background(DesignColors.SettingsCard),
+            .glassPanel(
+                RoundedCornerShape(DesignSpacing.SettingsCardCorner),
+                fallback = DesignColors.SettingsCard,
+                base = DesignColors.SettingsCard,
+            ),
         content = content,
     )
 }
